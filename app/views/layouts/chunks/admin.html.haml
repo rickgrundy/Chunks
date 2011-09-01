@@ -1,0 +1,14 @@
+!!!
+%html
+  %head
+    =stylesheet_link_tag "chunks/reset", "chunks/logo", "chunks/admin"
+  
+  %body
+    #header
+      =render :partial => "layouts/chunks/header"
+      
+    #content
+      =yield
+      
+    #footer
+      =render :partial => "layouts/chunks/footer"

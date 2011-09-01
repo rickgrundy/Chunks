@@ -1,5 +1,7 @@
-class Chunks::PagesController < ApplicationController
-  def index
+module Chunks
+  class PagesController < ApplicationController
+    def index
     
+    end
   end
 end

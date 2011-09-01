@@ -1,0 +1,92 @@
+.logo {
+  float: left;
+}
+.logo h1 {
+  width: 0px;
+  height: 0px;
+  overflow: hidden;
+}
+.logo h2 {
+  font-weight: normal;
+  font-family: courier;
+}
+.logo .row {
+  clear: both;
+}
+.logo .pxl {
+  border: outset #609;  
+  background: #507;
+  float: left;
+  margin: 0 1px 1px 0;
+}
+.logo .nil {
+  float: left;
+  margin: 0 1px 1px 0;
+}
+.logo .spc {
+  border: none;
+  float: left;
+}
+
+/* SMALL */
+.logo.small {
+  width: 225px;
+}
+.logo.small h2 {
+  font-size: 13px;
+}
+.logo.small .pxl {
+  border-width: 3px;
+  width: 4px;
+  height: 4px;
+}
+.logo.small .nil {
+  width: 10px;
+  height: 10px;
+}
+.logo.small .spc {
+  width: 5px;
+  height: 10px;
+}
+
+/* MEDIUM */
+.logo.medium {
+  width: 428px;
+}
+.logo.medium h2 {
+  font-size: 25px;
+}
+.logo.medium .pxl {
+  border-width: 5px;
+  width: 10px;
+  height: 10px;
+}
+.logo.medium .nil {
+  width: 20px;
+  height: 20px;
+}
+.logo.medium .spc {
+  width: 10px;
+  height: 20px;
+}
+
+/* LARGE */
+.logo.large {
+  width: 738px;
+}
+.logo.large h2 {
+  font-size: 45px;
+}
+.logo.large .pxl {
+  border-width: 10px;
+  width: 15px;
+  height: 15px;
+}
+.logo.large .nil {
+  width: 35px;
+  height: 35px;
+}
+.logo.large .spc {
+  width: 18px;
+  height: 35px;
+}
