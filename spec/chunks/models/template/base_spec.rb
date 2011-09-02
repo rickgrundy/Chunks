@@ -1,4 +1,4 @@
-require File.expand_path("../../../spec_helper.rb", __FILE__)
+require File.expand_path("../../../../spec_helper.rb", __FILE__)
 
 describe Chunks::Template::Base do
   class Chunks::Template::TemplateWithTitle < Chunks::Template::Base

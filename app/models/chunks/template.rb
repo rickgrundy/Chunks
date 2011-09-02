@@ -1,8 +1,10 @@
 module Chunks::Template
-  mattr_accessor :all
+  def self.all
+    $chunks_templates
+  end
   
   def self.add(*templates)
-    self.all ||= []
-    self.all += templates
+    $chunks_templates ||= []
+    $chunks_templates += templates
   end
 end

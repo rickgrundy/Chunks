@@ -4,6 +4,10 @@ module Chunks::Admin
       @pages = Chunks::Page.paginate(:page => params[:page])
     end
     
+    def edit
+      @page = Chunks::Page.find(params[:id])
+    end
+    
     def new
       @templates = Chunks::Template.all
       @page = Chunks::Page.new

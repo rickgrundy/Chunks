@@ -1,0 +1,1 @@
+../../../../ChunksCMS.com/db/schema.rb

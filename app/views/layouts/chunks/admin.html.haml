@@ -1,6 +1,7 @@
 !!!
 %html
   %head
+    %title=content_for :browser_title
     =stylesheet_link_tag "chunks/reset", "chunks/logo", "chunks/admin"
   
   %body
@@ -8,6 +9,7 @@
       =render :partial => "layouts/chunks/header"
       
     #content
+      %h2=content_for :page_title
       =yield
       
     #footer
