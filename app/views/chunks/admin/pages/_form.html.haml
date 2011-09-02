@@ -5,6 +5,10 @@
       =f.select :template, @templates.map(&:option_for_select)
     -else
       %span.fixed=@page.template.title
+      
+    .field
+      =f.label :public
+      =f.check_box :public
   
   .field
     =f.label :title

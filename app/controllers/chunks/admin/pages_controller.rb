@@ -1,7 +1,7 @@
 module Chunks::Admin
   class PagesController < AdminController
     def index
-      @pages = Chunks::Page.paginate(:page => params[:page])
+      @pages = Chunks::Page.paginate(page: params[:page])
     end
     
     def edit
@@ -14,7 +14,12 @@ module Chunks::Admin
     end
     
     def create
-      @page = Chunks::Page.create!(params[:chunks_page])
+      @page = Chunks::Page.new(params[:chunks_page])
+      if @page.save
+        redirect_to chunks_admin_pages_path
+      else
+        render status: :error, action: "edit"
+      end
     end
   end
 end

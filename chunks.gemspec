@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.homepage    = "http://www.chunkscms.com"
   s.summary     = %q{Content Management on Rails}
   s.description = <<-EOS
-    A thoroughly civilized CMS for Rails apps which deal with user generated content. 
+    A CMS for Rails apps which deal with user generated content. 
     Chunks is a Rails engine providing out-of-the-box management and rendering for pages composed of self-contained chunks of content. 
     Each Chunk is comprised of an edit view, a public view, and a view model which will be updated, validated, and invoked by the ChunksController if server-side interaction is required.
     The Chunks controller quickly delegates all responsibility for logic and page flow to an individual Chunk view model while the framework gets out of the way altogether, allowing for extremely easy extension.
@@ -29,5 +29,6 @@ Gem::Specification.new do |s|
   
   s.add_development_dependency "rails"
   s.add_development_dependency "sqlite3"
-  s.add_development_dependency "rspec"
+  s.add_development_dependency "rspec-rails"
+  s.add_development_dependency "factory_girl"
 end

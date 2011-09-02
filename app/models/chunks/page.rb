@@ -1,7 +1,19 @@
 module Chunks
   class Page < ActiveRecord::Base
+    has_many :chunks
+    validates_presence_of :title, :template
+    
     def template
-      read_attribute(:template).to_class
-    end    
+      template_class = read_attribute(:template)
+      template_class.is_a?(String) ? template_class.to_class : template_class
+    end
+    
+    def containers
+      @containers ||= template.build_containers(self)
+    end
+    
+    def container(key)
+      containers.find { |c| c.key == key }
+    end
   end
 end
