@@ -1,5 +1,5 @@
 module Chunks
-  class Page
+  class Page < ActiveRecord::Base
 
   end
 end

@@ -1,8 +1,15 @@
 body {
-  background: #eeeeee;
-  color: #333333;
+  background: #EEE;
+  color: #333;
   font-family: Arial;
   font-size: 0.8em;
+}
+
+a, a:visited {
+  color: #507;
+}
+a:hover {
+  color: #80A;
 }
 
 #header, #content, #footer {
@@ -11,9 +18,30 @@ body {
   margin-right: auto;
   clear: both;
   padding-top: 15px;
+  position: relative;
+}
+
+#header {
+  height: 56px;
+}
+#header a {
+  text-decoration: none;
+}
+#header .nav {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  font-family: courier;
+  font-size: 1.4em;
+  font-weight: bold;
+}
+#header .nav li {
+  margin-left: 2em;
+  float: left;
 }
 
 #footer {
+  font-family: courier;
   text-align: center;
 }
 
@@ -21,3 +49,7 @@ body {
 
 }
 
+.pagination {
+  text-align: center;
+  padding-top: 20px;
+}

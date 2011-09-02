@@ -1,3 +1,6 @@
-=raw(chunks_logo(:small))
-=raw(chunks_logo(:medium))
-=raw(chunks_logo(:large))
+=link_to chunks_admin_home_path do
+  =raw(chunks_logo(:small))
+
+%ul.nav
+  %li{:class => "active"}=link_to "Pages", chunks_admin_pages_path
+  %li=link_to "Users", chunks_admin_pages_path

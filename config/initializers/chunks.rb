@@ -1,0 +1,1 @@
+Chunks::Template.add Chunks::Template::SingleColumn, Chunks::Template::TwoColumn

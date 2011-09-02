@@ -9,6 +9,7 @@
 .logo h2 {
   font-weight: normal;
   font-family: courier;
+  color: #333;
 }
 .logo .row {
   clear: both;
@@ -33,12 +34,12 @@
   width: 225px;
 }
 .logo.small h2 {
-  font-size: 13px;
+  font-size: 14px;
 }
 .logo.small .pxl {
-  border-width: 3px;
-  width: 4px;
-  height: 4px;
+  border-width: 4px;
+  width: 2px;
+  height: 2px;
 }
 .logo.small .nil {
   width: 10px;
@@ -51,10 +52,10 @@
 
 /* MEDIUM */
 .logo.medium {
-  width: 428px;
+  width: 450px;
 }
 .logo.medium h2 {
-  font-size: 25px;
+  font-size: 27px;
 }
 .logo.medium .pxl {
   border-width: 5px;
@@ -65,6 +66,9 @@
   width: 20px;
   height: 20px;
 }
+.logo.medium .pxl, .logo.medium .nil {
+  margin: 1px;
+}
 .logo.medium .spc {
   width: 10px;
   height: 20px;
@@ -72,10 +76,10 @@
 
 /* LARGE */
 .logo.large {
-  width: 738px;
+  width: 800px;
 }
 .logo.large h2 {
-  font-size: 45px;
+  font-size: 48px;
 }
 .logo.large .pxl {
   border-width: 10px;
@@ -85,6 +89,9 @@
 .logo.large .nil {
   width: 35px;
   height: 35px;
+}
+.logo.large .pxl, .logo.large .nil {
+  margin: 2px;
 }
 .logo.large .spc {
   width: 18px;

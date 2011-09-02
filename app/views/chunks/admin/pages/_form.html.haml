@@ -1,0 +1,12 @@
+=form_for @page, :url => admin_resource_path(@page) do |f|
+  .field
+    =f.label :template
+    =f.select :template, @templates.map(&:option_for_select)
+    %h3 Scan load path for implementations of template?
+  
+  .field
+    =f.label :title
+    =f.text_field :title
+    
+  .buttons
+    =f.submit

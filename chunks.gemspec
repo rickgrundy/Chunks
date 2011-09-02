@@ -26,4 +26,7 @@ Gem::Specification.new do |s|
   
   s.add_dependency 'haml'
   s.add_dependency 'will_paginate'
+  
+  s.add_development_dependency "rails"
+  s.add_development_dependency "rspec"
 end
