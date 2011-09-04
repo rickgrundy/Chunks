@@ -8,7 +8,7 @@ module Chunks::ChunksHelper
   PIXEL_CLASS = {0 => "nil", 1 => "pxl", 2 => "spc"}
   
   def chunks_logo(size)
-    <<-LOGO
+    raw <<-LOGO
       <div class="logo #{size}">
         <h1>Chunks</h1>
         #{logo_rows}

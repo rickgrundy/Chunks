@@ -9,8 +9,8 @@ module Chunks::Admin
     end
     
     def new
-      @templates = Chunks::Template.all
-      @page = Chunks::Page.new
+      @available_templates = Chunks::Template.all
+      @page = Chunks::Page.new(template: params[:template])
     end
     
     def create

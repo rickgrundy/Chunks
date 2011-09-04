@@ -1,14 +1,17 @@
 =form_for @page, :url => admin_resource_path(@page) do |f|
+  =validation_errors(@page)
+  
   .field
     =f.label :template
-    -if @page.new_record?
-      =f.select :template, @templates.map(&:option_for_select)
+    -if @page.template.nil?
+      =f.select :template, @available_templates.map(&:option_for_select)
     -else
       %span.fixed=@page.template.title
+      =f.hidden_field :template
       
-    .field
-      =f.label :public
-      =f.check_box :public
+  .field
+    =f.label :public
+    =f.check_box :public
   
   .field
     =f.label :title

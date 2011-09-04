@@ -4,7 +4,13 @@ describe Chunks::Admin::PagesController do
   describe "creating a new page" do
     it "lists all available templates" do
       get :new
-      assigns(:templates).should == Chunks::Template.all
+      assigns(:available_templates).should == Chunks::Template.all
+      assigns(:page).template.should be_nil
+    end
+    
+    it "allows a template to be specified" do
+      get :new, :template => Chunks::Template::SingleColumn
+      assigns(:page).template.should == Chunks::Template::SingleColumn
     end
     
     it "creates a page successfully" do

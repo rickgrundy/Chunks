@@ -23,7 +23,7 @@ describe Chunks::Template::Base do
     Chunks::Template::WithTitle.option_for_select.should == ["An Exciting Title!", Chunks::Template::WithTitle]
   end
   
-  it "allows provides containers to pages which use the template" do
+  it "provides containers to pages which use the template" do
     page = Factory(:page, template: "Chunks::Template::TwoContainers")
     page.should have(2).containers
     
