@@ -1,0 +1,3 @@
+-@page.containers.each do |container|
+  %h3=container.title
+  =render partial: "available_chunks", locals: {container: container}

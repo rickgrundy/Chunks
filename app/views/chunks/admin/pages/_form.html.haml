@@ -1,13 +1,13 @@
-=form_for @page, :url => admin_resource_path(@page) do |f|
+=form_for @page, url: admin_resource_path(@page) do |f|
   =validation_errors(@page)
   
   .field
     =f.label :template
-    -if @page.template.nil?
-      =f.select :template, @available_templates.map(&:option_for_select)
-    -else
+    -if @page.template
       %span.fixed=@page.template.title
       =f.hidden_field :template
+    -else
+      =f.select :template, @available_templates.map(&:option_for_select)
       
   .field
     =f.label :public
@@ -16,6 +16,9 @@
   .field
     =f.label :title
     =f.text_field :title
+    
+  -if @page.template
+    =render partial: "containers"
     
   .buttons
     =f.submit

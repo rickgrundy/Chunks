@@ -7,7 +7,7 @@ describe "Chunks Core Extensions" do
     end
     
     it "returns a modulised class" do
-      "Chunks::Template::Base".to_class.should == Chunks::Template::Base
+      "Chunks::BuiltIn::Html".to_class.should == Chunks::BuiltIn::Html
     end
   end
 end

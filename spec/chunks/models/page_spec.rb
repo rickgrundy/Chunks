@@ -3,8 +3,8 @@ require File.expand_path("../../../spec_helper.rb", __FILE__)
 describe Chunks::Page do
   it "exposes template as a class" do        
     Chunks::Page.new.template.should == nil
-    Chunks::Page.new(template: Chunks::Template::SingleColumn).template.should == Chunks::Template::SingleColumn
-    Chunks::Page.new(template: "Chunks::Template::SingleColumn").template.should == Chunks::Template::SingleColumn
+    Chunks::Page.new(template: Chunks::BuiltIn::Template::SingleColumn).template.should == Chunks::BuiltIn::Template::SingleColumn
+    Chunks::Page.new(template: "Chunks::BuiltIn::Template::SingleColumn").template.should == Chunks::BuiltIn::Template::SingleColumn
   end
   
   describe "validation" do

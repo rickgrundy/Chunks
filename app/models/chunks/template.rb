@@ -1,10 +1,26 @@
-module Chunks::Template
-  def self.all
-    $chunks_templates
-  end
+module Chunks
+  class Template  
+    def self.container(key, title, *available_chunks)
+      available_chunks = *available_chunks.first if available_chunks.first.is_a?(Array)
+      @container_builders ||= []
+      @container_builders << lambda { Chunks::Container.new(key, title, available_chunks) }
+    end
   
-  def self.add(*templates)
-    $chunks_templates ||= []
-    $chunks_templates += templates
+    def self.build_containers(page)
+      @container_builders.map do |builder|
+        container = builder.call
+        container.chunks = page.chunks.select { |c| c.container_key == container.key }
+        container
+      end
+    end
+  
+    def self.title(title=nil)
+      @title = title unless title.nil?
+      @title || self.name.demodulize.titleize
+    end
+  
+    def self.option_for_select
+      [self.title, self]
+    end
   end
 end
