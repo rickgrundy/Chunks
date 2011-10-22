@@ -26,12 +26,12 @@ describe Chunks::Template do
     page = Factory(:page, template: "Chunks::Template::TwoContainers")
     page.should have(2).containers
     
-    page.containers[0].key.should == :first
-    page.containers[0].title.should == "Container 1"
-    page.containers[0].available_chunks.should == [Chunks::BuiltIn::Html, Chunks::BuiltIn::Text]
+    page.containers.first.key.should == :first
+    page.containers.first.title.should == "Container 1"
+    page.containers.first.available_chunks.should == [Chunks::BuiltIn::Html, Chunks::BuiltIn::Text]
     
-    page.containers[1].key.should == :second
-    page.containers[1].title.should == "Container 2"
-    page.containers[1].available_chunks.should == [Chunks::BuiltIn::Text, Chunks::BuiltIn::Html]
+    page.containers.second.key.should == :second
+    page.containers.second.title.should == "Container 2"
+    page.containers.second.available_chunks.should == [Chunks::BuiltIn::Text, Chunks::BuiltIn::Html]
   end
 end

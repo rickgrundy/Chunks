@@ -1,3 +1,3 @@
 RailsApp::Application.routes.draw do
-  chunks!
+  chunks_routes!
 end

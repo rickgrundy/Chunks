@@ -1,7 +1,7 @@
 module ActionDispatch::Routing
   class Mapper
 
-    def chunks!(prefix="chunks")
+    def chunks_routes!(prefix="chunks")
       prefix.gsub!("/", "")
       scope "/#{prefix}", :module => "chunks", :as => "chunks" do
         register_chunks_resources
