@@ -1,4 +1,4 @@
-require File.expand_path("../../../spec_helper.rb", __FILE__)
+require_relative "../../spec_helper.rb"
 
 describe Chunks::Configurator do  
   class MyTemplate1 < Chunks::Template; end
