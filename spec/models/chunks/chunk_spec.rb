@@ -12,4 +12,8 @@ describe Chunks::Chunk do
     Chunks::Chunk::WithTitle.title.should == "An Exciting Title!"
     Chunks::Chunk::WithoutTitle.title.should == "Without Title"
   end
+  
+  it "provides a template name for render partial" do
+    Chunks::Chunk::WithTitle.partial_name.should == "with_title"
+  end
 end

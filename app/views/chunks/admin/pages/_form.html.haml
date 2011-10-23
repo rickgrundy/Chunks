@@ -1,5 +1,5 @@
 #page_edit 
-  =form_for @page do |f|
+  =form_for @page, url: chunks_admin_resource_path(@page) do |f|
     =hidden_field_tag :specified_template, @page.template unless @available_templates
     =validation_errors(@page)
   
@@ -20,7 +20,7 @@
         =f.label :title
         =f.text_field :title
     
-    =render partial: "containers" unless @page.new_record?
+    =render partial: "containers", locals: {f: f} unless @page.new_record?
     
     .buttons
       =f.submit

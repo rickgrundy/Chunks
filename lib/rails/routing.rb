@@ -13,9 +13,8 @@ module ActionDispatch::Routing
 
       namespace :admin do
         root :to => "home#index", :as => "home"
-        resources :pages do
-          post :add_chunk
-        end
+        resources :pages
+        resources :chunks
         resources :users
       end
     end
