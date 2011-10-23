@@ -1,0 +1,61 @@
+$border: #CCC;
+$section: #FAFAFA;
+$button: #618;
+$highlight: #92B;
+$shadow: #777;
+
+@mixin rounded_corners($radius) {
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin shadow($size) {
+  -moz-box-shadow: 0 0 $size 0 $shadow;
+  -webkit-box-shadow: 0 0 $size 0 $shadow;
+  box-shadow: 0 0 $size 0 $shadow;
+}
+
+@mixin chunks_button {
+  @include rounded_corners(3px);
+  @include shadow(5px);
+  border: none;
+  color: #FFF;
+  padding: 5px;
+  background: $button;
+  font-family: courier;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+form {  
+  .section {
+    @include rounded_corners(3px);
+    border: solid 1px $border;
+    padding: 5px 5px 0;
+    margin-bottom: 10px;
+    background: $section;
+  }
+  .field {
+    margin-bottom: 5px;
+    min-height: 1.3em;
+  }  
+  input[type=text] {
+    padding: 3px;
+    border: solid 1px $border;
+  }
+  input[type=submit] {
+    @include chunks_button;
+  }
+  input[type=submit]:active {
+    @include chunks_button;
+    background: $highlight;
+  }
+  label:after {
+    content: ":"
+  }
+  .field.req label:after {
+    content: "*"
+  }
+}

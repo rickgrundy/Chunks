@@ -1,3 +1,10 @@
 -@page.containers.each do |container|
-  %h3=container.title
-  =render partial: "available_chunks", locals: {container: container}
+  .section.container
+    %h3=container.title
+    -container.chunks.each do |chunk|
+      =render partial: "chunk", locals: {chunk: chunk}
+    
+    Add a chunk: 
+    -container.available_chunks.each do |chunk_class|
+      =link_to chunk_class.title, chunks_admin_page_add_chunk_path(@page, chunk_class: chunk_class)
+      |

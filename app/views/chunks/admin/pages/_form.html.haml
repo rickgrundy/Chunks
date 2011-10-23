@@ -1,24 +1,26 @@
-=form_for @page do |f|
-  =hidden_field_tag :specified_template, @page.template unless @available_templates
-  =validation_errors(@page)
+#page_edit 
+  =form_for @page do |f|
+    =hidden_field_tag :specified_template, @page.template unless @available_templates
+    =validation_errors(@page)
   
-  .field
-    =f.label :template
-    -if @available_templates
-      =f.select :template, @available_templates.map(&:option_for_select)
-    -else
-      %span.fixed=@page.template.title
-      =f.hidden_field :template
+    .section
+      .field
+        =f.label :template
+        -if @available_templates
+          =f.select :template, @available_templates.map(&:option_for_select)
+        -else
+          %span.fixed=@page.template.title
+          =f.hidden_field :template
       
-  .field
-    =f.label :public
-    =f.check_box :public
+      .field
+        =f.label :public
+        =f.check_box :public
   
-  .field
-    =f.label :title
-    =f.text_field :title
+      .field.req
+        =f.label :title
+        =f.text_field :title
     
     =render partial: "containers" unless @page.new_record?
     
-  .buttons
-    =f.submit
+    .buttons
+      =f.submit

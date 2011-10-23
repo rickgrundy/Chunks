@@ -1,5 +1,10 @@
 module Chunks
   class Template  
+    def self.title(title=nil)
+      @title = title unless title.nil?
+      @title || self.name.demodulize.titleize
+    end
+    
     def self.container(key, title, *available_chunks)
       available_chunks = *available_chunks.first if available_chunks.first.is_a?(Array)
       @container_builders ||= []
@@ -12,11 +17,6 @@ module Chunks
         container.chunks = page.chunks.select { |c| c.container_key == container.key }
         container
       end
-    end
-  
-    def self.title(title=nil)
-      @title = title unless title.nil?
-      @title || self.name.demodulize.titleize
     end
   
     def self.option_for_select
