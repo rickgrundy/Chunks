@@ -1,0 +1,41 @@
+$spacing: 8px;
+
+$background: #EEE;
+$text: #333;
+$title: #555;
+$link: #618;
+$highlight: #92B;
+$button: $link;
+$border: #CCC;
+$shadow: #777;
+$subtle: $shadow;
+$section: $background;
+$lighter_background: #FAFAFA;
+
+@mixin rounded_corners($radius) {
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin shadow($size) {
+  -moz-box-shadow: 0 0 $size 0 $shadow;
+  -webkit-box-shadow: 0 0 $size 0 $shadow;
+  box-shadow: 0 0 $size 0 $shadow;
+}
+
+@mixin buttonify {
+  @include rounded_corners(3px);
+  color: #FFF;
+  background: $button;
+  border: outset 5px $button*0.9;  
+  font-family: courier;
+  font-size: 1em;
+  cursor: pointer;
+  &:hover {
+    background: $highlight;
+  }
+  &:active {
+    background: $highlight*0.8;
+  }
+}

@@ -1,8 +1,4 @@
-$background: #EEE;
-$text: #333;
-$title: #555;
-$link: #618;
-$highlight: #92B;
+@import "chunks/common";
 
 body {
   background: $background;
@@ -12,9 +8,8 @@ body {
 }
 
 #header, #content, #footer {
-  width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 2%;
+  margin-right: 2%;
   clear: both;
   position: relative;
 }
@@ -40,7 +35,7 @@ body {
 }
 
 #footer {
-  padding-top: 15px;
+  padding: 15px 0;
   font-family: courier;
   text-align: center;
 }
@@ -72,4 +67,10 @@ h2 {
 }
 h3 {
   font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.subtle {
+  color: $subtle;
+  font-size: 0.8em;
 }

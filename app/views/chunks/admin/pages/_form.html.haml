@@ -3,13 +3,14 @@
     =hidden_field_tag :specified_template, @page.template unless @available_templates
     =validation_errors(@page)
   
-    .section
+    .section.main
       .field
         =f.label :template
         -if @available_templates
           =f.select :template, @available_templates.map(&:option_for_select)
         -else
           %span.fixed=@page.template.title
+          %span.subtle (cannot be changed for an existing page)
           =f.hidden_field :template
       
       .field

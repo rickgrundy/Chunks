@@ -1,61 +1,60 @@
-$border: #CCC;
-$section: #FAFAFA;
-$button: #618;
-$highlight: #92B;
-$shadow: #777;
+@import "chunks/common";
 
-@mixin rounded_corners($radius) {
-  -moz-border-radius: $radius;
-  -webkit-border-radius: $radius;
-  border-radius: $radius;
-}
-
-@mixin shadow($size) {
-  -moz-box-shadow: 0 0 $size 0 $shadow;
-  -webkit-box-shadow: 0 0 $size 0 $shadow;
-  box-shadow: 0 0 $size 0 $shadow;
-}
-
-@mixin chunks_button {
-  @include rounded_corners(3px);
-  @include shadow(5px);
-  border: none;
-  color: #FFF;
-  padding: 5px;
-  background: $button;
-  font-family: courier;
-  font-size: 1em;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-form {  
-  .section {
-    @include rounded_corners(3px);
-    border: solid 1px $border;
-    padding: 5px 5px 0;
-    margin-bottom: 10px;
-    background: $section;
-  }
-  .field {
-    margin-bottom: 5px;
-    min-height: 1.3em;
-  }  
-  input[type=text] {
-    padding: 3px;
+form {
+  input[type=text], textarea {
+    padding: $spacing*0.5;
     border: solid 1px $border;
   }
   input[type=submit] {
-    @include chunks_button;
+    @include buttonify;
   }
-  input[type=submit]:active {
-    @include chunks_button;
-    background: $highlight;
+  .fixed {
+    color: $shadow;
+    padding: 3px;
   }
   label:after {
     content: ":"
   }
   .field.req label:after {
     content: "*"
+  }  
+  .field * {
+    vertical-align: middle;
+  }
+  .field {
+    margin-bottom: $spacing*0.5;
+    min-height: 1.3em;
+    label {
+      display: inline-block;
+      width: 10%;
+      text-align: right;
+      padding-right: $spacing*0.5;
+    }
+    input[type=text], select, textarea {
+      width: 88%;
+    }
+  }
+}
+
+.section {
+  @include rounded_corners(3px);
+  border: solid 1px $border;
+  padding: $spacing $spacing 0;
+  margin-bottom: $spacing;
+  background: $section;
+}
+
+.section.main {
+  background: $lighter_background;
+}
+.section.container {
+  margin-top: $spacing*3;
+}
+.section.chunk {
+  background: $lighter_background;
+  padding: $spacing*0.5 0 0;
+  margin-bottom: $spacing*0.5;
+  h4 {
+    margin-left: $spacing;
   }
 }

@@ -1,3 +1,4 @@
-%h4=chunk.class.title
-=f.fields_for :chunks, chunk do |chunks_fields|
-  =render partial: "chunks/admin/chunks/#{chunk.class.partial_name}", locals: {f: chunks_fields}
+.section.chunk
+  %h4=chunk.class.title
+  =f.fields_for :chunks, chunk do |chunks_fields|
+    =render partial: "chunks/admin/chunks/#{chunk.class.partial_name}", locals: {f: chunks_fields}
