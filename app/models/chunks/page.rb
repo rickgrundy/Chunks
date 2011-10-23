@@ -1,6 +1,8 @@
 module Chunks
   class Page < ActiveRecord::Base
     has_many :chunks
+    accepts_nested_attributes_for :chunks
+    
     validates_presence_of :title, :template
     
     def template
