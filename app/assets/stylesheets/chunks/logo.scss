@@ -1,0 +1,110 @@
+$background: #81A;
+$text: #444;
+
+.logo {
+  float: left;
+  h1 {
+    width: 0px;
+    height: 0px;
+    overflow: hidden;
+  }
+  h2 {
+    font-weight: normal;
+    font-family: courier;
+    color: $text;
+  }
+  .r {
+    clear: both;
+  }
+  .p {
+    border: outset $background*0.9;  
+    background: $background;
+    float: left;
+    margin: 0 1px 1px 0;
+  }
+  .x {
+    float: left;
+    margin: 0 1px 1px 0;
+  }
+  .s {
+    border: none;
+    float: left;
+  }
+}
+
+a:hover .logo {
+  .p {
+    background: $background*1.2;
+    border-color: $background*1.1;  
+  }
+  h2 {
+    text-decoration: underline;
+  }
+}
+
+
+.logo.small {
+  width: 225px;
+  h2 {
+    font-size: 14px;
+  }
+  .p {
+    border-width: 4px;
+    width: 2px;
+    height: 2px;
+  }
+  .x {
+    width: 10px;
+    height: 10px;
+  }
+  .s {
+    width: 5px;
+    height: 10px;
+  }
+}
+
+.logo.medium {
+  width: 450px;
+  h2 {
+    font-size: 27px;
+  }
+  .p {
+    border-width: 5px;
+    width: 10px;
+    height: 10px;
+  }
+  .x {
+    width: 20px;
+    height: 20px;
+  }
+  .p, .x {
+    margin: 1px;
+  }
+  .s {
+    width: 10px;
+    height: 20px;
+  }
+}
+
+.logo.large {
+  width: 800px;
+  h2 {
+    font-size: 48px;
+  }
+  .p {
+    border-width: 10px;
+    width: 15px;
+    height: 15px;
+  }
+  .x {
+    width: 35px;
+    height: 35px;
+  }
+  .p, .x {
+    margin: 2px;
+  }
+  .s {
+    width: 18px;
+    height: 35px;
+  }
+}
