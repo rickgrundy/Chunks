@@ -22,6 +22,8 @@ form {
     vertical-align: middle;
   }
   .field {
+    display: inline-block;
+    width: 100%;
     margin-bottom: $spacing*0.5;
     min-height: 1.3em;
     label {
@@ -31,7 +33,21 @@ form {
       padding-right: $spacing*0.5;
     }
     input[type=text], select, textarea {
-      width: 88%;
+      width: 87%;
+    }
+  }
+  .field.half {
+    width: 49%;
+    label {
+      width: 20%;
+    }
+    input[type=text], select, textarea {
+      width: 76%;
+    }
+  }
+  .field.monospaced {
+    textarea {
+      font-family: courier;
     }
   }
 }
@@ -39,22 +55,7 @@ form {
 .section {
   @include rounded_corners(3px);
   border: solid 1px $border;
-  padding: $spacing $spacing 0;
+  padding: $spacing;
   margin-bottom: $spacing;
   background: $section;
-}
-
-.section.main {
-  background: $lighter_background;
-}
-.section.container {
-  margin-top: $spacing*3;
-}
-.section.chunk {
-  background: $lighter_background;
-  padding: $spacing*0.5 0 0;
-  margin-bottom: $spacing*0.5;
-  h4 {
-    margin-left: $spacing;
-  }
 }

@@ -4,7 +4,11 @@
     =validation_errors(@page)
   
     .section.main
-      .field
+      .field.req
+        =f.label :title, "Page title"
+        =f.text_field :title
+        
+      .field.half
         =f.label :template
         -if @available_templates
           =f.select :template, @available_templates.map(&:option_for_select)
@@ -13,13 +17,9 @@
           %span.subtle (cannot be changed for an existing page)
           =f.hidden_field :template
       
-      .field
+      .field.half
         =f.label :public
         =f.check_box :public
-  
-      .field.req
-        =f.label :title
-        =f.text_field :title
     
     =render partial: "containers", locals: {f: f} unless @page.new_record?
     

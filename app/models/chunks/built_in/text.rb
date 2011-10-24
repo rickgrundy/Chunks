@@ -1,5 +1,5 @@
 module Chunks::BuiltIn
   class Text < Chunks::Chunk
-    title "Plain Text"
+    title "Pre-formatted Text"
   end
 end

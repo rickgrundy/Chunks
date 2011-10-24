@@ -25,7 +25,7 @@ $lighter_background: #FAFAFA;
 }
 
 @mixin buttonify {
-  @include rounded_corners(3px);
+  @include rounded_corners(3px);  
   color: #FFF;
   background: $button;
   border: outset 5px $button*0.9;  
