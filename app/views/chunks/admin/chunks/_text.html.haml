@@ -1,7 +1,16 @@
-.field
+.field.half
   =f.label :title
   =f.text_field :title
-
+  
+.field.half
+  =f.label :accordion
+  =f.check_box :accordion
+  
+.field.half
+  =f.label :css_class
+  =f.text_field :css_class
+  
+    
 .field.monospaced
   =f.label :content
   =f.text_area :content, rows: 12

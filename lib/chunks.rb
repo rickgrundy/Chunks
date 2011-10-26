@@ -3,5 +3,5 @@ require 'will_paginate'
 
 require 'chunks/engine'
 require 'chunks/configurator'
-
-require 'rails/routing'
+require 'chunks/routing'
+require 'chunks/extra_attributes'

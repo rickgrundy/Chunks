@@ -39,7 +39,7 @@ form {
   .field.half {
     width: 49%;
     label {
-      width: 20%;
+      width: 20.5%;
     }
     input[type=text], select, textarea {
       width: 76%;
@@ -58,4 +58,21 @@ form {
   padding: $spacing;
   margin-bottom: $spacing;
   background: $section;
+}
+
+.errors {
+  color: $error;
+}
+
+form { 
+  .field_with_errors {
+    display: inline;
+    label {
+      color: $error;
+    }
+    input[type=text], select, textarea {
+      border: $error;
+      @include shadow(5px, $error);
+    }
+  }
 }

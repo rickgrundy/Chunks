@@ -1,5 +1,6 @@
 module Chunks
   class Chunk < ActiveRecord::Base
+    include Chunks::ExtraAttributes
     belongs_to :page
     
     def self.title(title=nil)

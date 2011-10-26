@@ -11,6 +11,7 @@ $shadow: #777;
 $subtle: $shadow;
 $section: $background;
 $lighter_background: #FAFAFA;
+$error: #C33;
 
 @mixin rounded_corners($radius) {
   -moz-border-radius: $radius;
@@ -18,10 +19,10 @@ $lighter_background: #FAFAFA;
   border-radius: $radius;
 }
 
-@mixin shadow($size) {
-  -moz-box-shadow: 0 0 $size 0 $shadow;
-  -webkit-box-shadow: 0 0 $size 0 $shadow;
-  box-shadow: 0 0 $size 0 $shadow;
+@mixin shadow($size, $colour) {
+  -moz-box-shadow: 0 0 $size 0 $colour;
+  -webkit-box-shadow: 0 0 $size 0 $colour;
+  box-shadow: 0 0 $size 0 $colour;
 }
 
 @mixin buttonify {
