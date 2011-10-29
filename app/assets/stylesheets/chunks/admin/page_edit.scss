@@ -1,12 +1,12 @@
 @import "chunks/common";
 
 .section.page {
-  background: $lighter_background;
+  background-color: $lighter_section;
 }
 .section.container {
   margin-top: $spacing*3;
 }
 .section.chunk {
-  background: $lighter_background;
+  background-color: $lighter_section;
   margin-bottom: $spacing/2;
 }

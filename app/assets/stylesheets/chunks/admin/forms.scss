@@ -1,5 +1,18 @@
 @import "chunks/common";
 
+.errors {
+  @include rounded_corners(3px);
+  border: solid 1px $error;
+  padding: $spacing;
+  margin-bottom: $spacing;
+  color: $error;
+  background: $error_background;
+  h4 {
+    color: $error;
+  }
+  @include bulleted_lists
+}
+
 form {
   input[type=text], textarea {
     padding: $spacing*0.5;
@@ -34,6 +47,7 @@ form {
     }
     input[type=text], select, textarea {
       width: 76%;
+      @include rounded_corners(3px);
     }
   }
   .field.editor {
@@ -46,30 +60,6 @@ form {
       font-family: courier;
     }
   }
-}
-
-.section {
-  @include rounded_corners(3px);
-  border: solid 1px $border;
-  padding: $spacing;
-  margin-bottom: $spacing;
-  background: $section;
-}
-
-.errors {
-  @include rounded_corners(3px);
-  border: solid 1px $error;
-  padding: $spacing;
-  margin-bottom: $spacing;
-  color: $error;
-  background: $error*4.9;
-  h4 {
-    color: $error;
-  }
-  @include bulleted_lists
-}
-
-form { 
   .field_with_errors {
     display: inline;
     label {

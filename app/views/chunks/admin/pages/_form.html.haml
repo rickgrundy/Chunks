@@ -1,8 +1,8 @@
 #page_edit 
   =form_for @page, url: chunks_admin_resource_path(@page) do |f|
-    .section.page
-      =validation_errors(@page)
-        
+    =validation_errors(@page)
+    
+    .section.page        
       .field.req
         =f.label :title, "Page title"
         =f.text_field :title

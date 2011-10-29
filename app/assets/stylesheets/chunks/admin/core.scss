@@ -1,7 +1,7 @@
 @import "chunks/common";
 
 body {
-  background: $background;
+  background: $background url("/assets/chunks/admin/background_texture.jpg") repeat;
   color: $text;
   font-family: Arial;
   font-size: 0.8em;
@@ -76,4 +76,12 @@ h4 {
 .subtle {
   color: $subtle;
   font-size: 0.8em;
+}
+
+.section {
+  @include rounded_corners(3px);
+  border: solid 1px $border;
+  padding: $spacing;
+  margin-bottom: $spacing;
+  background-color: $section;
 }
