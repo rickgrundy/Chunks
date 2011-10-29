@@ -16,4 +16,18 @@ describe Chunks::Chunk do
   it "provides a template name for render partial" do
     Chunks::Chunk::WithTitle.partial_name.should == "with_title"
   end
+  
+  it "should act as list within its page and container" do
+    our_page = Factory(:page)
+    someone_elses_page = Factory(:page)    
+    3.times do 
+      Factory(:chunk, page: our_page, container_key: :main)
+      Factory(:chunk, page: our_page, container_key: :other)
+      Factory(:chunk, page: someone_elses_page, container_key: :main)
+    end
+    our_page.reload
+    our_page.container(:main).chunks.first.position.should == 1
+    our_page.container(:main).chunks.second.position.should == 2
+    our_page.container(:main).chunks.third.position.should == 3
+  end
 end

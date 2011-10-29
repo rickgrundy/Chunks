@@ -11,7 +11,7 @@ describe Chunks::ExtraAttributes do
     validates_presence_of :fluffiness
   end
   
-  class LolCat < Chunks::Chunk
+  class LolCat < Animal
     extra_attributes :photo, :caption, :funny
     extra_attributes(:shout) { |val| val.upcase + "!!!" }
   end
