@@ -9,4 +9,19 @@
 .section.chunk {
   background-color: $lighter_section;
   margin-bottom: $spacing/2;
+  .form, .errors {
+    width: 87%;
+  }
+  .controls {
+    float: right;
+    width: 10%;
+    a {
+      @include linkify;
+      display: block;
+      margin-bottom: $spacing/2;
+    }
+    a.delete {
+      @include iconify(delete);
+    }
+  }
 }

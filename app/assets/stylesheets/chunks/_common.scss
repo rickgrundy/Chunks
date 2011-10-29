@@ -11,7 +11,7 @@ $shadow: #777;
 $subtle: $shadow;
 $error: #C33;
 $section: rgba(240,240,240,.3);
-$lighter_section: rgba(255,255,255,.4);;
+$lighter_section: rgba(255,255,255,.4);
 $error_background: rgba(255,90,90,.08);
 
 @mixin rounded_corners($radius) {
@@ -26,11 +26,22 @@ $error_background: rgba(255,90,90,.08);
   box-shadow: 0 0 $size 0 $colour;
 }
 
+@mixin bulleted_lists {
+  ul {
+    padding-left: 1.5em;
+    li {
+      list-style: square;
+      padding: $spacing/2 0;
+    }
+  }
+}
+
 @mixin buttonify {
   @include rounded_corners(3px);  
   color: #FFF;
   background: $button;
   border: outset 5px $button*0.9;  
+  padding: $spacing/2 $spacing;
   font-family: courier;
   font-size: 1em;
   cursor: pointer;
@@ -42,12 +53,25 @@ $error_background: rgba(255,90,90,.08);
   }
 }
 
-@mixin bulleted_lists {
-  ul {
-    padding-left: 1.5em;
-    li {
-      list-style: square;
-      padding: $spacing/2 0;
-    }
+
+@mixin linkify {
+  @include rounded_corners(3px);  
+  border: solid 1px $border;
+  background-color: rgba(255,255,255,.5);
+  padding: $spacing/2;
+  cursor: pointer;
+  text-decoration: none;
+  &:hover {
+    background-color: rgba(102,17,136,.2);;
   }
+  &:active {
+    background-color: rgba(102,17,136,.2);;
+  }
+}
+
+@mixin iconify($icon) {
+  padding-left: $spacing + 15;
+  background-image: url("/assets/chunks/" + $icon + ".png");
+  background-repeat: no-repeat;
+  background-position: $spacing/2 center;
 }

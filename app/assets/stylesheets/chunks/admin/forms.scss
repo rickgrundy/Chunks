@@ -15,7 +15,7 @@
 
 form {
   input[type=text], textarea {
-    padding: $spacing*0.5;
+    padding: $spacing/2;
     border: solid 1px $border;
   }
   input[type=submit] {
@@ -37,16 +37,15 @@ form {
   .field {
     display: inline-block;
     width: 49%;
-    margin-bottom: $spacing*0.5;
-    min-height: 1.3em;
+    margin-bottom: $spacing/2;
     label {
       display: inline-block;
       width: 20.5%;
       text-align: right;
-      padding-right: $spacing*0.5;
+      padding-right: $spacing/2;
     }
     input[type=text], select, textarea {
-      width: 76%;
+      width: 75%;
       @include rounded_corners(3px);
     }
   }
@@ -68,5 +67,8 @@ form {
     input[type=text], select, textarea {
       border-color: $error;
     }
+  }
+  .buttons {
+    text-align: right;
   }
 }

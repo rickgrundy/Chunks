@@ -20,7 +20,9 @@
         =f.label :public
         =f.check_box :public
     
-    =render partial: "containers", locals: {f: f} unless @page.new_record?
+    -unless @page.new_record?
+      -@page.containers.each do |container| 
+        =render partial: "container", locals: {f: f, container: container}
     
     .buttons
       =f.submit

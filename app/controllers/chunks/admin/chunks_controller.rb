@@ -6,5 +6,11 @@ module Chunks::Admin
       @chunk.save(validate: false)
       redirect_to edit_chunks_admin_page_path(page)
     end
+    
+    def destroy
+      chunk = Chunks::Chunk.find(params[:id])
+      chunk.destroy
+      redirect_to edit_chunks_admin_page_path(chunk.page)
+    end
   end
 end

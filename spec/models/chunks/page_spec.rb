@@ -16,11 +16,11 @@ describe Chunks::Page do
   
   describe "managing chunks" do
     it "splits chunks into containers" do
-      page = Factory(:two_column_page)
+      page = Factory(:two_column_page)    
+      3.times { Factory(:chunk, page: page, container_key: :main) }
+      Factory(:chunk, page: page, container_key: :sidebar)
     
-      3.times { page.chunks << Factory(:chunk, container_key: :main) }
-      page.chunks << Factory(:chunk, container_key: :sidebar)
-    
+      page.reload
       page.container(:main).should have(3).chunks
       page.container(:sidebar).should have(1).chunk
       
