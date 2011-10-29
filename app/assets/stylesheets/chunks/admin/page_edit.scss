@@ -8,9 +8,5 @@
 }
 .section.chunk {
   background: $lighter_background;
-  padding: $spacing*0.5 0 0;
-  margin-bottom: $spacing*0.5;
-  h4 {
-    margin-left: $spacing;
-  }
+  margin-bottom: $spacing/2;
 }

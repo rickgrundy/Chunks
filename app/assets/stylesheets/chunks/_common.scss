@@ -40,3 +40,13 @@ $error: #C33;
     background: $highlight*0.8;
   }
 }
+
+@mixin bulleted_lists {
+  ul {
+    padding-left: 1.5em;
+    li {
+      list-style: square;
+      padding: $spacing/2 0;
+    }
+  }
+}

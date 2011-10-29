@@ -1,4 +1,8 @@
 .section.chunk
-  %h4=chunk.class.title
+  -if chunk.errors.empty?
+    %h4=chunk.class.title
+  -else
+    =validation_errors(chunk, "#{chunk.class.title} is not valid")
+  
   =f.fields_for :chunks, chunk do |chunks_fields|
     =render partial: "chunks/admin/chunks/#{chunk.class.partial_name}", locals: {f: chunks_fields}

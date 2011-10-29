@@ -57,7 +57,16 @@ form {
 }
 
 .errors {
+  @include rounded_corners(3px);
+  border: solid 1px $error;
+  padding: $spacing;
+  margin-bottom: $spacing;
   color: $error;
+  background: $error*4.9;
+  h4 {
+    color: $error;
+  }
+  @include bulleted_lists
 }
 
 form { 
@@ -67,8 +76,7 @@ form {
       color: $error;
     }
     input[type=text], select, textarea {
-      border: $error;
-      @include shadow(5px, $error);
+      border-color: $error;
     }
   }
 }
