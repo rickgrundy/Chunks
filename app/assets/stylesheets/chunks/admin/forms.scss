@@ -23,30 +23,26 @@ form {
   }
   .field {
     display: inline-block;
-    width: 100%;
+    width: 49%;
     margin-bottom: $spacing*0.5;
     min-height: 1.3em;
     label {
       display: inline-block;
-      width: 10%;
+      width: 20.5%;
       text-align: right;
       padding-right: $spacing*0.5;
-    }
-    input[type=text], select, textarea {
-      width: 87%;
-    }
-  }
-  .field.half {
-    width: 49%;
-    label {
-      width: 20.5%;
     }
     input[type=text], select, textarea {
       width: 76%;
     }
   }
-  .field.monospaced {
+  .field.editor {
+    width: 100%;
+    label {
+      width: 10%;
+    }
     textarea {
+      width: 87%;
       font-family: courier;
     }
   }

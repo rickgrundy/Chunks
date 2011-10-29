@@ -1,23 +1,22 @@
 #page_edit 
   =form_for @page, url: chunks_admin_resource_path(@page) do |f|
-    =hidden_field_tag :specified_template, @page.template unless @available_templates
     =validation_errors(@page)
   
-    .section.main
+    .section.page
       .field.req
         =f.label :title, "Page title"
         =f.text_field :title
         
-      .field.half
+      .field
         =f.label :template
         -if @available_templates
           =f.select :template, @available_templates.map(&:option_for_select)
         -else
           %span.fixed=@page.template.title
-          %span.subtle (cannot be changed for an existing page)
-          =f.hidden_field :template
+          %span.subtle (cannot be changed for this page)
+          =hidden_field_tag :template, @page.template
       
-      .field.half
+      .field
         =f.label :public
         =f.check_box :public
     

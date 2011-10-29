@@ -27,7 +27,7 @@ describe Chunks::Admin::PagesController do
     end
     
     it "does not allow a specified template to be changed on validation errors" do
-      post :create, chunks_page: {}, :specified_template => Chunks::BuiltIn::Template::SingleColumn
+      post :create, chunks_page: {}, :template => Chunks::BuiltIn::Template::SingleColumn
       response.status.should == 500
       assigns(:available_templates).should be_nil
     end

@@ -15,10 +15,11 @@ module Chunks::Admin
     
     def create
       @page = Chunks::Page.new(params[:chunks_page])
+      @page.template ||= params[:template]
       if @page.save
         redirect_to chunks_admin_pages_path
       else
-        @available_templates = Chunks::AllTemplates unless params[:specified_template]
+        @available_templates = Chunks::AllTemplates unless params[:template]
         render status: :error, action: "edit"
       end
     end
