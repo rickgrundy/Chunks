@@ -9,8 +9,8 @@ describe Chunks::BuiltIn::Text do
       chunk.should be_valid
     end
     
-    it "requires a title if used as an accordion" do
-      chunk = Chunks::BuiltIn::Text.new(content: "Some text", accordion: true)
+    it "requires a title if content is expandable" do
+      chunk = Chunks::BuiltIn::Text.new(content: "Some text", expandable: "1")
       chunk.should_not be_valid
       chunk.title = "Click me to expand"
       chunk.should be_valid

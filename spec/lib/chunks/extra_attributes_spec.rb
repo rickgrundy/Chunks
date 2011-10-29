@@ -3,6 +3,7 @@ require_relative "../../spec_helper.rb"
 describe Chunks::ExtraAttributes do
   class Animal < Chunks::Chunk
     extra_attributes :breed, :colour
+    extra_boolean_attributes :is_a_fish
   end
   
   class Cat < Animal
@@ -12,6 +13,7 @@ describe Chunks::ExtraAttributes do
   
   class LolCat < Chunks::Chunk
     extra_attributes :photo, :caption, :funny
+    extra_attributes(:shout) { |val| val.upcase + "!!!" }
   end
   
   
@@ -32,6 +34,23 @@ describe Chunks::ExtraAttributes do
       
       cat.breed.should == "Moggy"
       cat.fluffiness.should == "Very"
+    end
+  end
+  
+  it "allows a translator block to be provided" do
+    lolcat = LolCat.new(shout: "ohai")
+    lolcat.shout.should == "OHAI!!!"
+  end
+  
+  describe "extra boolean attributes" do
+    it "treats '1' as true" do
+      shark = Animal.new(is_a_fish: "1")
+      shark.is_a_fish.should be_true
+    end
+    
+    it "treats '0' as false" do
+      dolphin = Animal.new(is_a_fish: "0")
+      dolphin.is_a_fish.should_not be_true
     end
   end
   
