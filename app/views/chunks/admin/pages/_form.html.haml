@@ -12,8 +12,8 @@
         -if @available_templates
           =f.select :template, @available_templates.map(&:option_for_select)
         -else
-          %span.fixed=@page.template.title
-          %span.subtle (cannot be changed for this page)
+          .fixed=@page.template.title
+          .subtle (cannot be changed for this page)
           =hidden_field_tag :template, @page.template
       
       .field

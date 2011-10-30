@@ -10,10 +10,10 @@ $border: #CCC;
 $shadow: #777;
 $subtle: $shadow;
 $error: #C33;
-$section: rgba(240,240,240,.3);
-$lighter_section: rgba(255,255,255,.4);
+$section: rgba(240,240,240,.5);
+$lighter_section: rgba(255,255,255,.5);
 $error_background: rgba(255,90,90,.03);
-$floater: rgba(220,220,220,.7);
+$floater: rgba(235,235,235,.7);
 
 @mixin rounded_corners($radius) {
   -moz-border-radius: $radius;

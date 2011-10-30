@@ -22,6 +22,7 @@ form {
     @include buttonify;
   }
   .fixed {
+    display: inline;
     color: $shadow;
     padding: 3px;
   }
