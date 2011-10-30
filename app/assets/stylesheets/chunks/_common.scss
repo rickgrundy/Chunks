@@ -67,7 +67,8 @@ $floater: rgba(220,220,220,.7);
   border: solid 1px $border;
   cursor: pointer;
   font-family: courier;
-  a { 
+  a {
+    display: block;
     padding: $spacing/2;
     text-decoration: none;
   }
@@ -91,7 +92,7 @@ $floater: rgba(220,220,220,.7);
   bottom: 0;
   right: 0;
   z-index: 111;
-  padding: $spacing;
+  padding: $spacing $spacing $spacing/2;
   @include gradient($floater);
   @include rounded_corners(4px);
   border: solid 1px $border;

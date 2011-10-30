@@ -1,9 +1,9 @@
 
--if @page.containers.length > 1
+-if !@page.new_record? && @page.containers.length > 1
   .container_links
     Jump to
     -@page.containers.each do |container|
-      =link_to container.title, "##{container.key}"
+      =link_to container.title, "#container_#{container.key}"
   
 .buttons
   =cancel_link(chunks_admin_pages_path)

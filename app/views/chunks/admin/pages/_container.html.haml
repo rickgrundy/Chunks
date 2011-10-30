@@ -1,10 +1,10 @@
-%a{name: container.key}
-.section.container
+.section.container{id: "container_#{container.key}"}
   %h3=container.title
   -container.chunks.each do |chunk|
     =render partial: "chunk", locals: {f: f, chunk: chunk}
   
-  Add a chunk: 
-  -container.available_chunks.each do |chunk_class|
-    =link_to chunk_class.title, chunks_admin_chunks_path(:page_id => @page.id, container_key: container.key, type: chunk_class), method: "post1"
-    |
+  .add_chunk
+    Add a chunk:
+    %ul
+      -container.available_chunks.each do |chunk_class|
+        %li=link_to chunk_class.title, chunks_admin_chunks_path(:page_id => @page.id, container_key: container.key, type: chunk_class), method: "post"

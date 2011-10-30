@@ -7,6 +7,15 @@
 .section.container {
   margin-top: $spacing*3;
   @include gradient($section);
+  .add_chunk {
+    ul {
+      display: inline-block;
+    }
+    li {
+      display: inline-block;
+      @include linkify;
+    } 
+  }
 }
 
 .section.chunk {

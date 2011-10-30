@@ -14,7 +14,12 @@ describe Chunks::Page do
     end
   end
   
-  describe "managing chunks" do
+  describe "managing containers" do
+    it "returns an empty list of containers before a template has been set" do
+      page = Factory.build(:page, template: nil)
+      page.should have(0).containers
+    end
+    
     it "splits chunks into containers" do
       page = Factory(:two_column_page)    
       3.times { Factory(:chunk, page: page, container_key: :main) }

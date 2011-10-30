@@ -11,7 +11,7 @@ module Chunks
     end
     
     def containers
-      @containers ||= template.build_containers(self)
+      @containers ||= template ? template.build_containers(self) : []
     end
     
     def container(key)

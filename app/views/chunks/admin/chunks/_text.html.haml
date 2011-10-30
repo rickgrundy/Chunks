@@ -1,7 +1,11 @@
 .field
   =f.label :title
   =f.text_field :title
-
+  
+.field.editor.req
+  =f.label :content
+  =f.text_area :content, rows: 12
+  
 .field
   =f.label :css_class
   =f.text_field :css_class
@@ -9,7 +13,3 @@
 .field
   =f.label :expandable
   =f.check_box :expandable
-  
-.field.editor.req
-  =f.label :content
-  =f.text_area :content, rows: 12
