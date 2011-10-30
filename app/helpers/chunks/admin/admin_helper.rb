@@ -20,4 +20,8 @@ module Chunks::Admin::AdminHelper
       error_messages: error_messages
     }
   end
+  
+  def cancel_link(path)
+    link_to "Cancel", path, confirm: "Are you sure you want to cancel?", class: "cancel"
+  end
 end

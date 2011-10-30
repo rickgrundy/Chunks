@@ -1,7 +1,7 @@
 $spacing: 8px;
 
 $background: #EEE;
-$text: #333;
+$text: #000;
 $title: #555;
 $link: #618;
 $highlight: #92B;
@@ -13,6 +13,7 @@ $error: #C33;
 $section: rgba(240,240,240,.3);
 $lighter_section: rgba(255,255,255,.4);
 $error_background: rgba(255,90,90,.08);
+$floater: rgba(220,220,220,.7);
 
 @mixin rounded_corners($radius) {
   -moz-border-radius: $radius;
@@ -24,6 +25,12 @@ $error_background: rgba(255,90,90,.08);
   -moz-box-shadow: 0 0 $size 0 $colour;
   -webkit-box-shadow: 0 0 $size 0 $colour;
   box-shadow: 0 0 $size 0 $colour;
+}
+
+@mixin gradient($colour) {
+  background: $colour;
+  background: -webkit-gradient(linear, left top, left bottom, from($colour), to(darken($colour, 17%)));
+  background: -moz-linear-gradient(top, $colour,  darken($colour, 17%));
 }
 
 @mixin bulleted_lists {
@@ -56,16 +63,19 @@ $error_background: rgba(255,90,90,.08);
 
 @mixin linkify {
   @include rounded_corners(3px);  
+  @include gradient(rgba(255,255,255,.5));
   border: solid 1px $border;
-  background-color: rgba(255,255,255,.5);
-  padding: $spacing/2;
   cursor: pointer;
-  text-decoration: none;
+  font-family: courier;
+  a { 
+    padding: $spacing/2;
+    text-decoration: none;
+  }
   &:hover {
-    background-color: rgba(102,17,136,.2);;
+    background-color: rgba(102,17,136,.1);
   }
   &:active {
-    background-color: rgba(102,17,136,.2);;
+    background-color: rgba(102,17,136,.2);
   }
 }
 
@@ -74,4 +84,15 @@ $error_background: rgba(255,90,90,.08);
   background-image: url("/assets/chunks/" + $icon + ".png");
   background-repeat: no-repeat;
   background-position: $spacing/2 center;
+}
+
+@mixin floater {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 111;
+  padding: $spacing;
+  @include gradient($floater);
+  @include rounded_corners(4px);
+  border: solid 1px $border;
 }

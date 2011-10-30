@@ -1,11 +1,14 @@
 @import "chunks/common";
 
 .section.page {
-  background-color: $lighter_section;
+  @include gradient($lighter_section);
 }
+
 .section.container {
   margin-top: $spacing*3;
+  @include gradient($section);
 }
+
 .section.chunk {
   background-color: $lighter_section;
   margin-bottom: $spacing/2;
@@ -15,13 +18,33 @@
   .controls {
     float: right;
     width: 10%;
-    a {
+    li {
       @include linkify;
       display: block;
       margin-bottom: $spacing/2;
     }
+    a {
+      display: block;
+    }
     a.delete {
       @include iconify(delete);
+    }
+  }
+}
+
+.form_controls {
+  div {
+    display: inline-block;
+  }
+  .buttons {
+    margin-left: $spacing*6; 
+    a {
+      margin-right: $spacing/2;
+    }
+  }
+  .container_links {
+    a {
+      margin-left: $spacing/2;
     }
   }
 }

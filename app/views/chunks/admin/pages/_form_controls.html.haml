@@ -1,0 +1,10 @@
+
+-if @page.containers.length > 1
+  .container_links
+    Jump to
+    -@page.containers.each do |container|
+      =link_to container.title, "##{container.key}"
+  
+.buttons
+  =cancel_link(chunks_admin_pages_path)
+  =f.submit disable_with: "Saving…"
