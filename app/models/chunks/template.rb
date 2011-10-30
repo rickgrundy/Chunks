@@ -5,6 +5,11 @@ module Chunks
       @title || self.name.demodulize.titleize
     end
     
+    def self.view_name(view_name=nil)
+      @view_name = view_name unless view_name.nil?
+      @view_name || self.name.underscore
+    end
+    
     def self.container(key, title, *available_chunks)
       available_chunks = *available_chunks.first if available_chunks.first.is_a?(Array)
       @container_builders ||= []

@@ -6,6 +6,7 @@ describe Chunks::Template do
   end
   
   class Chunks::Template::WithoutTitle < Chunks::Template
+    view_name "a_custom/view_file"
   end
   
   class Chunks::Template::TwoContainers < Chunks::Template
@@ -16,6 +17,11 @@ describe Chunks::Template do
   it "allows a custom title to be provided" do        
     Chunks::Template::WithTitle.title.should == "An Exciting Title!"
     Chunks::Template::WithoutTitle.title.should == "Without Title"
+  end
+  
+  it "allows a custom layout name to be provided" do
+    Chunks::Template::WithTitle.view_name.should == "chunks/template/with_title"
+    Chunks::Template::WithoutTitle.view_name.should == "a_custom/view_file"
   end
   
   it "renders itself as an option for a select field" do

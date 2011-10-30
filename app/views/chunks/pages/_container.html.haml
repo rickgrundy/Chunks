@@ -1,0 +1,3 @@
+.container{class: container.key, id: "container_#{container.key}"}
+  -container.chunks.each do |chunk|
+    =render_chunk(chunk)

@@ -1,6 +1,5 @@
 module Chunks::Admin
   class AdminController < ApplicationController
-    layout "chunks/admin"
-    helper "chunks/chunks"
+    layout "chunks/admin/admin"
   end
 end

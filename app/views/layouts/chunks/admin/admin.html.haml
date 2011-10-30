@@ -7,11 +7,11 @@
   
   %body
     #header
-      =render :partial => "layouts/chunks/header"
+      =render :partial => "layouts/chunks/admin/header"
       
     #content
       %h2=content_for :page_title
       =yield
       
     #footer
-      =render :partial => "layouts/chunks/footer"
+      =render :partial => "layouts/chunks/admin/footer"

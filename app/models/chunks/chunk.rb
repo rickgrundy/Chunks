@@ -12,7 +12,7 @@ module Chunks
     end
     
     def self.partial_name
-      name.demodulize.underscore
+      self.name.demodulize.underscore
     end
   end
 end
