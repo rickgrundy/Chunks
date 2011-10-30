@@ -17,7 +17,7 @@ describe Chunks::Chunk do
     Chunks::Chunk::WithTitle.partial_name.should == "with_title"
   end
   
-  it "should act as list within its page and container" do
+  it "acts as list within its page and container" do
     our_page = Factory(:page)
     someone_elses_page = Factory(:page)    
     3.times do 
