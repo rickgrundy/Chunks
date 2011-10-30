@@ -12,7 +12,7 @@ $subtle: $shadow;
 $error: #C33;
 $section: rgba(240,240,240,.3);
 $lighter_section: rgba(255,255,255,.4);
-$error_background: rgba(255,90,90,.08);
+$error_background: rgba(255,90,90,.03);
 $floater: rgba(220,220,220,.7);
 
 @mixin rounded_corners($radius) {
@@ -44,29 +44,26 @@ $floater: rgba(220,220,220,.7);
 }
 
 @mixin buttonify {
-  @include rounded_corners(3px);  
+  @include linkify;
+  @include gradient($link);
   color: #FFF;
-  background: $button;
-  border: outset 5px $button*0.9;  
-  padding: $spacing/2 $spacing;
-  font-family: courier;
-  font-size: 1em;
+  border: solid 1px $link;
+  padding: $spacing;
   cursor: pointer;
   &:hover {
-    background: $highlight;
+    background: $link;
   }
   &:active {
-    background: $highlight*0.8;
+    background: $highlight;
   }
 }
 
 
 @mixin linkify {
   @include rounded_corners(3px);  
-  @include gradient(rgba(255,255,255,.5));
+  @include gradient(rgba(255,255,255,.8));
   border: solid 1px $border;
   cursor: pointer;
-  font-family: courier;
   a {
     display: block;
     padding: $spacing/2;
@@ -90,9 +87,9 @@ $floater: rgba(220,220,220,.7);
 @mixin floater {
   position: fixed;
   bottom: 0;
-  right: 0;
+  right: 1%;
   z-index: 111;
-  padding: $spacing $spacing $spacing/2;
+  padding: $spacing/2 $spacing/2 $spacing/2 $spacing;
   @include gradient($floater);
   @include rounded_corners(4px);
   border: solid 1px $border;

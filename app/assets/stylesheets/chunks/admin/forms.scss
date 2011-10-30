@@ -45,7 +45,7 @@ form {
       padding-right: $spacing/2;
     }
     input[type=text], select, textarea {
-      width: 75%;
+      width: 74.9%;
       @include rounded_corners(3px);
     }
   }

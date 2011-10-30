@@ -5,6 +5,7 @@ body {
   color: $text;
   font-family: Courier New, Courier;
   font-size: 0.8em;
+  min-width: 1200px;
 }
 
 #header, #content, #footer {
