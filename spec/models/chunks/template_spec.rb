@@ -20,7 +20,7 @@ describe Chunks::Template do
   end
   
   it "allows a custom layout name to be provided" do
-    Chunks::Template::WithTitle.view_name.should == "chunks/template/with_title"
+    Chunks::Template::WithTitle.view_name.should == "templates/chunks/template/with_title"
     Chunks::Template::WithoutTitle.view_name.should == "a_custom/view_file"
   end
   

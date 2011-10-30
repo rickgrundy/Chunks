@@ -7,7 +7,7 @@ module Chunks
     
     def self.view_name(view_name=nil)
       @view_name = view_name unless view_name.nil?
-      @view_name || self.name.underscore
+      @view_name || "templates/#{self.name.underscore}"
     end
     
     def self.container(key, title, *available_chunks)
