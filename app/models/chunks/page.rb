@@ -1,6 +1,6 @@
 module Chunks
   class Page < ActiveRecord::Base
-    has_many :chunks
+    has_many :chunks, order: :position
     accepts_nested_attributes_for :chunks
     validates_associated :chunks, message: "are invalid (see below)"
     validates_presence_of :title, :template

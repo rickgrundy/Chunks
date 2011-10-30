@@ -1,4 +1,9 @@
 %h4 This chunk…
 %ul
-  %li
-    =link_to "Delete", chunks_admin_chunk_path(chunk), class: "delete", method: "delete", confirm: "Delete this #{chunk.class.title.downcase} chunk?"
+  %li.halved
+    .half
+      =link_to "Up", move_higher_chunks_admin_chunk_path(chunk), class: "move_up", method: "put"
+    .half
+      =link_to "Down", move_lower_chunks_admin_chunk_path(chunk), class: "move_down", method: "put"
+      
+  %li=link_to "Delete", chunks_admin_chunk_path(chunk), class: "delete", method: "delete", confirm: "Delete this #{chunk.class.title.downcase} chunk?"    

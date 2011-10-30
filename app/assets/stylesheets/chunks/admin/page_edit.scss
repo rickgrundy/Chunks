@@ -29,13 +29,35 @@
     width: 10%;
     li {
       @include linkify;
-      display: block;
+      display: inline-block;
+      width: 100%;
       margin-bottom: $spacing/2;
     }
     a {
       display: block;
     }
-    a.delete {
+    li.halved {
+      border: none;
+      background: none;
+      .half {
+        @include linkify;
+        display: inline-block;
+        width: 48%;
+        &:nth-child(1) {
+          float: left;
+        }
+        &:nth-child(2) {
+          float: right;
+        }
+        .move_up {
+          @include iconify(up);
+        }
+        .move_down {
+          @include iconify(down);
+        }
+      }
+    }
+    .delete {
       @include iconify(delete);
     }
   }
