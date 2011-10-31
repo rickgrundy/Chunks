@@ -6,4 +6,5 @@
  *= require chunks/reset
  *= require chunks/logo 
  *= depend_on chunks/_common
+ *= depend_on chunks/_theme
 */

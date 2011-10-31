@@ -1,6 +1,6 @@
 class String
   def to_class
-    self.split("::").inject(Object) { |m, c| p m.const_get(c); m.const_get(c) }
+    self.split("::").inject(Object) { |m, c| m.const_get(c) }
   end
 end
 

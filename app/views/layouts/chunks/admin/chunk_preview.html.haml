@@ -1,0 +1,7 @@
+!!!
+%html
+  %head
+    =stylesheet_link_tag "chunks/admin/chunk_preview"
+    =javascript_include_tag "application"
+  %body
+    =render partial: "chunks/chunks/chunk", locals: {chunk: @chunk}
