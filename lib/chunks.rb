@@ -1,5 +1,6 @@
 require 'haml'
 require 'will_paginate'
+require 'redcarpet'
 
 require 'chunks/engine'
 require 'chunks/configurator'

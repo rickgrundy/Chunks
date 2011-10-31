@@ -1,5 +1,14 @@
 module Chunks::Admin
-  class ChunksController < AdminController      
+  class ChunksController < AdminController
+    def preview
+      chunk_params = params[:chunks_page][:chunks_attributes].first.last
+      p "PARAM: #{chunk_params[:type]}"
+      p "CLASS: #{chunk_params[:type].to_class}"
+      @chunk = chunk_params[:type].to_class.new(chunk_params.except(:type, :id))
+      p "CON: #{@chunk.class}"
+      render partial: "chunks/chunks/chunk", locals: {chunk: @chunk}
+    end
+    
     def create
       page = Chunks::Page.find(params[:page_id])
       @chunk = params[:type].to_class.new(page: page, container_key: params[:container_key])

@@ -1,11 +1,9 @@
-require 'bluecloth'
-
 module Chunks::BuiltIn
-  class Markdown < Text
+  class MarkdownWiki < Text
     title "Markdown (wiki syntax)"
     
     def render_markdown
-      BlueCloth.new(content).to_html
+      Redcarpet.new(content).to_html
     end
   end
 end

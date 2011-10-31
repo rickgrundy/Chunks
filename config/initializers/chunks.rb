@@ -1,2 +1,2 @@
-Chunks::AllBuiltIns = [Chunks::BuiltIn::Text, Chunks::BuiltIn::Html, Chunks::BuiltIn::Markdown]
+Chunks::AllBuiltIns = [Chunks::BuiltIn::Text, Chunks::BuiltIn::Html, Chunks::BuiltIn::MarkdownWiki]
 Chunks::AllTemplates = [Chunks::BuiltIn::Template::SingleColumn, Chunks::BuiltIn::Template::TwoColumn]

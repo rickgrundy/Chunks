@@ -8,6 +8,6 @@ module Chunks::ChunksHelper
   end
   
   def render_chunk(chunk)
-    render partial: "chunks/pages/chunk", locals: {chunk: chunk}
+    render partial: "chunks/chunks/chunk", locals: {chunk: chunk}
   end
 end

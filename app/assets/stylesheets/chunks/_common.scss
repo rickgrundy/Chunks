@@ -24,8 +24,8 @@ $floater: lighten($background, 10%);
 
 @mixin recessed($colour) {
   background: $colour;
-  background: -webkit-gradient(linear, left bottom, left top, from($colour), to(darken($colour, 3%)));
-  background: -moz-linear-gradient(bottom, $colour,  darken($colour, 3%));  
+  background: -webkit-gradient(linear, left bottom, left top, from($colour), to(darken($colour, 4%)));
+  background: -moz-linear-gradient(bottom, $colour,  darken($colour, 4%));  
 }
 
 @mixin gradient($colour) {
@@ -107,5 +107,5 @@ $floater: lighten($background, 10%);
 @mixin foreground {
   @include rounded_corners($spacing/2);
   border: solid 1px $border;
-  opacity: 0.9;
+  opacity: 0.85;
 }

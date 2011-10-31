@@ -9,12 +9,13 @@ module ActionDispatch::Routing
     end
     
     def register_chunks_resources
-      resources :pages
-
       namespace :admin do
         root :to => "home#index", :as => "home"
         resources :pages
         resources :chunks do
+          collection do
+            post :preview
+          end
           member do
             put :move_higher
             put :move_lower

@@ -1,7 +1,7 @@
 .section.container{id: "container_#{container.key}"}
   %h3=container.title
   -container.chunks.each do |chunk|
-    =render partial: "chunk", locals: {f: f, chunk: chunk}
+    =render partial: "chunks/admin/chunks/chunk", locals: {f: f, chunk: chunk}
   
   .add_chunk
     Add a chunk:

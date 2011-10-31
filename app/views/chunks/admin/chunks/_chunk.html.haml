@@ -1,6 +1,6 @@
-.section.chunk  
+.section.chunk{"data-title" => chunk.class.title } 
   .controls
-    =render partial:"chunk_controls", locals: {chunk: chunk}
+    =render partial: "chunks/admin/chunks/controls", locals: {chunk: chunk}
 
   -if chunk.errors.empty?
     %h4=chunk.class.title
@@ -9,4 +9,5 @@
 
   .form  
     =f.fields_for :chunks, chunk do |chunks_fields|
+      =chunks_fields.hidden_field :type
       =render partial: "chunks/admin/chunks/#{chunk.class.partial_name}", locals: {f: chunks_fields}

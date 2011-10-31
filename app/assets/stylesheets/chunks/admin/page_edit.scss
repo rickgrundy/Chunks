@@ -71,6 +71,9 @@
   .delete {
     @include iconify(delete);
   }
+  .show_preview {
+    @include iconify(preview);
+  }
 }
 
 .form_controls {
