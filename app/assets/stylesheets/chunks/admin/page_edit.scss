@@ -1,7 +1,7 @@
 @import "chunks/common";
 
 .section.page {
-  @include gradient($lighter_section);
+  @include gradient($inner_section);
 }
 
 .section.container {
@@ -19,7 +19,7 @@
 }
 
 .section.chunk {
-  background-color: $lighter_section;
+  @include gradient($inner_section);
   margin-bottom: $spacing/2;
   .form, .errors {
     width: 87%;

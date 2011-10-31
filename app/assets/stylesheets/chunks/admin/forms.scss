@@ -1,8 +1,9 @@
 @import "chunks/common";
+@import "chunks/theme";
 
 .errors {
   @include rounded_corners(3px);
-  @include gradient($error_background);
+  @include recessed($error_background);
   border: solid 1px $error;
   padding: $spacing;
   margin-bottom: $spacing;
@@ -17,13 +18,14 @@ form {
   input[type=text], textarea {
     padding: $spacing/2;
     border: solid 1px $border;
+    @include recessed(#FFF);
   }
   input[type=submit] {
     @include buttonify;
   }
   .fixed {
     display: inline;
-    color: $shadow;
+    color: $subtle;
     padding: 3px;
   }
   label:after {
@@ -57,6 +59,8 @@ form {
     }
     textarea {
       width: 87%;
+      font-family: "Courier New", Courier;
+      font-size: 10pt;
     }
   }
   .field_with_errors {

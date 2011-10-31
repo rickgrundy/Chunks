@@ -5,6 +5,7 @@
  *= require chunks
  *= require_self
  *= require_tree .
+ *= depend_on chunks/_theme 
  *= depend_on chunks/_common
 */
 

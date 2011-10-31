@@ -1,10 +1,13 @@
 @import "chunks/common";
+@import "chunks/theme";
 
 body {
-  background: $background url("/assets/chunks/background_texture.jpg") repeat;
+  background: $background;
+  background-image: $background-image;
+  background-repeat: repeat;
   color: $text;
-  font-family: Courier New, Courier;
-  font-size: 0.8em;
+  font-family: $font-family;
+  font-size: $font-size;
   min-width: 1200px;
 }
 

@@ -1,0 +1,13 @@
+/* 
+  Default metallic silver theme. 
+  Override by creating app/stylesheets/chunks/_theme.scss in your own app. 
+*/
+$background: #EEE;
+$background-image: url("/assets/chunks/background_texture.jpg");
+$text: #000;
+$title: #555;
+$link: #618;
+$button: #618;
+$error: #C33;
+$font-family: Courier New, Courier;
+$font-size: 0.8em;
