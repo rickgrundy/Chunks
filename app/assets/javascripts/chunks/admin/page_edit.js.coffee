@@ -14,12 +14,12 @@ initShowHelp = (chunk, button) ->
       
 initShowPreview = (chunk, button) ->
   button.click ->
-    renderFormInIframeDialog("#{chunk.data("title")} Preview", button.attr("href"), -> chunk.clone())
+    renderFormInIframeDialog("#{chunk.data("title")} Preview", button.attr("href"), chunk)
     false
     
     
     
-renderFormInIframeDialog = (dialogTitle, href, formFields) ->
+renderFormInIframeDialog = (dialogTitle, href, fields) ->
   iframe_guid = guid()
   preview = $("<div style='position: relative;'/>")
   iframe = $("<iframe id='#{iframe_guid}' name='#{iframe_guid}'/>").appendTo(preview)
@@ -40,4 +40,6 @@ renderFormInIframeDialog = (dialogTitle, href, formFields) ->
     open: resizeIframe
   form = $("<form action='" + href + "' method='post' target='#{iframe_guid}'/>")
   form.append("<input type='hidden' name='iframe_id' value='#{iframe_guid}'/>")
-  form.append(formFields).submit()
+  cloned = fields.clone()
+  cloned.find("textarea[name='#{$(textarea).attr('name')}']").val($(textarea).val()) for textarea in fields.find("textarea")  
+  form.append(cloned).submit()
