@@ -5,10 +5,9 @@ $spacing: 8px;
 $shadow: #777;
 $highlight: lighten($link, 15%);
 $border: rgba(120,120,120,.3);
-$subtle: lighten($text, 30%);
+$error_background: rgba(255,200,200,.05);
 $section: rgba(220,220,220,.2);
 $inner_section: rgba(255,255,255,.2);
-$error_background: rgba(255,90,90,.05);
 $floater: lighten($background, 10%);
 
 @mixin rounded_corners($radius) {
@@ -31,7 +30,7 @@ $floater: lighten($background, 10%);
 
 @mixin gradient($colour) {
   background: $colour;
-  background: -webkit-gradient(linear, left 50%, left bottom, from($colour), to(darken($colour, 17%)));
+  background: -webkit-gradient(linear, left top, left bottom, from($colour), to(darken($colour, 17%)));
   background: -moz-linear-gradient(top, $colour,  darken($colour, 17%));
 }
 
@@ -85,14 +84,28 @@ $floater: lighten($background, 10%);
   background-position: $spacing/2 center;
 }
 
+@mixin replace_with_icon($icon) {
+  @include iconify($icon);
+  background-position: left center;
+  display: inline-block;
+  overflow: hidden;
+  width: 0;
+  padding-left: 16px;
+  height: 16px;
+}
+
 @mixin floater {
   position: fixed;
   bottom: 0;
   right: 1%;
-  z-index: 9999;
-  padding: $spacing/2 $spacing/2 $spacing/2 $spacing;
+  z-index: 101;
+  @include foreground;
   @include gradient($floater);
-  @include rounded_corners(4px);
+  padding: $spacing/2 $spacing/2 $spacing/2 $spacing;
+}
+
+@mixin foreground {
+  @include rounded_corners($spacing/2);
   border: solid 1px $border;
-  opacity: 0.85;
+  opacity: 0.9;
 }

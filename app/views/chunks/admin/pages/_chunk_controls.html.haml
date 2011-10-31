@@ -1,5 +1,7 @@
-%h4 This chunk…
+%h5 This chunk…
 %ul
+  %li=link_to "Show help", "#help", class: "show_help"
+  
   %li.halved
     .half
       =link_to "Up", move_higher_chunks_admin_chunk_path(chunk), class: "move_up", method: "put"

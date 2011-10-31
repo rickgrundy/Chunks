@@ -3,7 +3,6 @@
 
 .errors {
   @include rounded_corners(3px);
-  @include recessed($error_background);
   border: solid 1px $error;
   padding: $spacing;
   margin-bottom: $spacing;
@@ -11,7 +10,8 @@
   h4 {
     color: $error;
   }
-  @include bulleted_lists
+  @include bulleted_lists;
+  @include recessed($error_background);
 }
 
 form {

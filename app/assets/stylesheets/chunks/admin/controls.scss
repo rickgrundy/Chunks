@@ -1,0 +1,34 @@
+@import "chunks/common";
+@import "chunks/theme";
+
+.ui-dialog {
+  @include recessed($floater);
+  border: solid 1px $border;
+  @include rounded_corners($spacing/2);
+  opacity: 0.95;
+  
+  .ui-dialog-titlebar {
+    padding: $spacing;
+    cursor: move;
+    .ui-dialog-title {
+      color: $title;
+      font-weight: bold;
+    }
+    .ui-dialog-titlebar-close {
+      float: right;
+      @include replace_with_icon(close);
+    }
+  }
+  .ui-dialog-content {
+    padding: $spacing;
+    overflow: scroll;
+  }
+  .ui-resizable-se {
+    height: 16px;
+    width: 16px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    cursor: se-resize;
+  }
+}

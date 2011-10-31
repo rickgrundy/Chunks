@@ -1,1 +1,44 @@
-=render :partial => "chunks/admin/chunks/text", locals: {f: f}
+.field
+  =f.label :title
+  =f.text_field :title
+  
+.field.editor.req
+  =f.label :content
+  =f.text_area :content, rows: 12
+  
+.field
+  =f.label :css_class
+  =f.text_field :css_class
+
+.field
+  =f.label :expandable
+  =f.check_box :expandable
+  .subtle (Content will be hidden until the title is clicked)
+
+.help
+  %pre
+    :preserve
+      ## A Heading (h2) ##
+
+      ### A Sub Heading (h3) ###
+
+      ---
+
+      Add manual linebreaks
+
+      by leaving a blank line
+
+      between paragraphs.
+
+      ---
+
+      Link to [Markdown website](http://daringfireball.net/projects/markdown).
+
+      Include an image:
+      ![A Shark](/assets/images/shark.jpg)
+
+      ---
+
+      * This makes
+      * an unordered
+      * bulleted list

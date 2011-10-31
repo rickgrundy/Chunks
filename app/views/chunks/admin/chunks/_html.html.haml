@@ -1,1 +1,19 @@
-=render :partial => "chunks/admin/chunks/text", locals: {f: f}
+.field
+  =f.label :title
+  =f.text_field :title
+  
+.field.editor.req
+  =f.label :content
+  =f.text_area :content, rows: 12
+  
+.field
+  =f.label :css_class
+  =f.text_field :css_class
+
+.field
+  =f.label :expandable
+  =f.check_box :expandable
+  .subtle (Content will be hidden until the title is clicked)
+  
+.help
+  Renders any HTML markup. Use with care.
