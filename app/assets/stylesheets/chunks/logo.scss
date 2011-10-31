@@ -1,5 +1,4 @@
-$background: #81A;
-$text: #444;
+@import "chunks/theme";
 
 .logo {
   float: left;
@@ -10,15 +9,16 @@ $text: #444;
   }
   h2 {
     font-weight: normal;
-    font-family: courier;
-    color: $text;
+    font-family: "Courier New", Courier;
+    font-size: 12pt;
+    color: $subtle;
   }
   .r {
     clear: both;
   }
   .p {
-    border: outset $background*0.9;  
-    background: $background;
+    border: outset $button*1.2;  
+    background: $button*1.4;
     float: left;
     margin: 0 1px 1px 0;
   }
@@ -34,11 +34,11 @@ $text: #444;
 
 a:hover .logo {
   .p {
-    background: $background*1.2;
-    border-color: $background*1.1;  
+    border-color: $button*1.4;  
+    background: $button*1.6;
   }
   h2 {
-    text-decoration: underline;
+    color: $subtle*1.2;
   }
 }
 
