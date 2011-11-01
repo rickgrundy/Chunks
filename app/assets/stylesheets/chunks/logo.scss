@@ -1,30 +1,24 @@
+@import "chunks/common";
 @import "chunks/theme";
 
 .logo {
+  opacity: 0.8;
   float: left;
   h1 {
     width: 0px;
     height: 0px;
     overflow: hidden;
   }
-  h2 {
-    font-weight: normal;
-    font-family: "Courier New", Courier;
-    font-size: 12pt;
-    color: $subtle;
-  }
   .r {
     clear: both;
   }
   .p {
-    border: outset $button*1.2;  
-    background: $button*1.4;
+    @include gradient($link*1.2);
     float: left;
-    margin: 0 1px 1px 0;
+    border: solid 1px $link;
   }
   .x {
     float: left;
-    margin: 0 1px 1px 0;
   }
   .s {
     border: none;
@@ -34,11 +28,7 @@
 
 a:hover .logo {
   .p {
-    border-color: $button*1.4;  
-    background: $button*1.6;
-  }
-  h2 {
-    color: $subtle*1.2;
+    @include gradient($link*1.5);
   }
 }
 
@@ -46,16 +36,19 @@ a:hover .logo {
 .logo.small {
   width: 225px;
   h2 {
-    font-size: 13.5px;
+    font-size: 8pt;
   }
   .p {
-    border-width: 4px;
-    width: 2px;
-    height: 2px;
+    @include rounded_corners(1px);
+    width: 8px;
+    height: 8px;
   }
   .x {
     width: 10px;
     height: 10px;
+  }
+  .p, .x {
+    margin: 0 1px 1px 0;
   }
   .s {
     width: 5px;
@@ -66,12 +59,13 @@ a:hover .logo {
 .logo.medium {
   width: 450px;
   h2 {
-    font-size: 27px;
+    font-size: 19pt;
   }
   .p {
-    border-width: 5px;
-    width: 10px;
-    height: 10px;
+    @include rounded_corners(3px);
+    border-width: 2px;
+    width: 16px;
+    height: 16px;
   }
   .x {
     width: 20px;
@@ -89,12 +83,13 @@ a:hover .logo {
 .logo.large {
   width: 800px;
   h2 {
-    font-size: 48px;
+    font-size: 34pt;
   }
   .p {
-    border-width: 10px;
-    width: 15px;
-    height: 15px;
+    @include rounded_corners(5px);
+    border-width: 3px;
+    width: 29px;
+    height: 29px;
   }
   .x {
     width: 35px;
