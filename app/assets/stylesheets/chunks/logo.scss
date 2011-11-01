@@ -13,9 +13,9 @@
     clear: both;
   }
   .p {
-    @include gradient($link*1.2);
+    @include gradient($logo);
     float: left;
-    border: solid 1px $link;
+    border: solid 1px $logo*0.9;
   }
   .x {
     float: left;
@@ -28,7 +28,7 @@
 
 a:hover .logo {
   .p {
-    @include gradient($link*1.5);
+    @include gradient($logo*1.3);
   }
 }
 

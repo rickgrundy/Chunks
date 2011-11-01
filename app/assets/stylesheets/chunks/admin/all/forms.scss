@@ -15,6 +15,9 @@
 }
 
 form {
+  select {
+    border: solid 1px darken($border, 15%);    
+  }
   input[type=text], textarea {
     padding: $spacing/2;
     border: solid 1px $border;
