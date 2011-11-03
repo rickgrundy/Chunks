@@ -1,9 +1,7 @@
-/* 
-  Default metallic silver theme. 
-  Override by creating app/stylesheets/chunks/_theme.scss in your own app. 
-*/
-$background: #EEE;
+/* DEFAULT METALLIC SILVER THEME */
+$background: #E9E9E9;
 $background-image: url("/assets/chunks/background_texture.jpg");
+$logo: #729;
 $text: #000;
 $title: #555;
 $link: #618;
@@ -11,4 +9,32 @@ $subtle: #777;
 $button: #618;
 $error: #C33;
 $font-family: Courier New, Courier;
-$font-size: .8em;
+
+/*
+  Create your own theme by overriding app/stylesheets/chunks/_theme.scss in your host app. 
+  There are a couple of examples below to get you started.
+*/
+
+/* TEXTMATE TWILIGHT THEME
+  $background: #222;
+  $logo: lighten(#A44489, 15%);
+  $text: #FAF0A8;
+  $title: #9BC;
+  $link: #B63;
+  $subtle: #A0AC7D;
+  $button: #A14A8C;
+  $error: #DA7F5E;
+  $font-family: Monaco, "Courier New", "Courier"
+*/
+
+/* GOOGLE APPS 2011 THEME
+  $background: #FFF;
+  $logo: #EEE;
+  $text: #222;
+  $title: #DD4B39;
+  $link: #777;
+  $subtle: #888;
+  $button: #3079ED;
+  $error: #DD4B39;
+  $font-family: Arial;
+*/

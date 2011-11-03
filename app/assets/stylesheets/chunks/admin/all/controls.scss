@@ -5,8 +5,8 @@
   @include recessed($floater);
   border: solid 1px $border;
   @include rounded_corners($spacing/2);
-  opacity: 0.95;
-  @include shadow(20px, $shadow);
+  opacity: 0.9;
+  @include shadow(10px, $shadow);
   .ui-dialog-titlebar {
     padding: $spacing;
     cursor: move;

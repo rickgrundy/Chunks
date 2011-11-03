@@ -2,6 +2,7 @@ $background-image: none;
 @import "chunks/theme";
 
 $spacing: 8px;
+$font-size: .8em;
 $shadow: darken($background, 20%);
 $highlight: lighten($link, 15%);
 $border: rgba(120,120,120,.3);
@@ -99,12 +100,8 @@ $floater: lighten($background, 10%);
   bottom: 0;
   right: 1%;
   z-index: 101;
-  @include foreground;
   @include gradient($floater);
   padding: $spacing/2 $spacing/2 $spacing/2 $spacing;
-}
-
-@mixin foreground {
   @include rounded_corners($spacing/2);
   border: solid 1px $border;
   opacity: 0.8;
