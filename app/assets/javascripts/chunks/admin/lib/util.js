@@ -37,7 +37,6 @@ $.extend($.fn, {
     });
 
     form = $("<form action='" + opts.url + "' method='post' target='" + iframeGuid + "'/>");
-    form.append("<input type='hidden' name='iframe_id' value='" + iframeGuid + "'/>");
     form.append(this.cloneFormFields()).submit();
   }
 })

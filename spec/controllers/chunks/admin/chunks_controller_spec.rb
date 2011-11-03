@@ -12,37 +12,58 @@ describe Chunks::Admin::ChunksController do
       @page.reload
       @page.should have(1).chunk
     end
-    
-    it "destroys an existing chunk" do
-      chunk = Factory(:chunk, page: @page)
-      delete :destroy, id: chunk.id
-      response.should redirect_to edit_chunks_admin_page_path(@page)
-      @page.should have(0).chunks
+  end
+  
+  describe "rendering a single chunk" do
+    it "builds a chunk from chunks_chunk params" do
+      chunk_params = {type: Chunks::BuiltIn::Text, content: "Something to preview"}
+      post :preview, chunks_chunk: chunk_params
+      response.should render_template "chunks/admin/chunk_preview"
+      assigns(:chunk).should be_a Chunks::BuiltIn::Text
+      assigns(:chunk).should be_a_new_record
+      assigns(:chunk).content.should == "Something to preview"
     end
     
-    describe "reordering a list of chunks" do
-      before(:each) do
-        @a = Factory(:chunk, page: @page, title: "A")
-        @b = Factory(:chunk, page: @page, title: "B")
-        @c = Factory(:chunk, page: @page, title: "C")
-      end
-      
-      def verify_order(expected_order)
-        @page.reload
-        @page.container(:main).chunks.map(&:title).should == expected_order
-      end      
-      
-      it "moves a chunk higher in the list" do
-        put :move_higher, id: @c.id
-        response.should redirect_to edit_chunks_admin_page_path(@page)
-        verify_order(%w{A C B})
-      end  
-          
-      it "moves a chunk lower in the list" do
-        put :move_lower, id: @a.id
-        response.should redirect_to edit_chunks_admin_page_path(@page)
-        verify_order(%w{B A C})
-      end
+    it "builds a chunk from chunks_page nested params to allow a subset of a form to be previewed" do
+      chunk_params = {type: Chunks::BuiltIn::Text, content: "Something to preview"}
+      post :preview, chunks_page: {chunks_attributes: {"4" => chunk_params}}
+      response.should render_template "chunks/admin/chunk_preview"
+      assigns(:chunk).should be_a Chunks::BuiltIn::Text
+      assigns(:chunk).should be_a_new_record
+      assigns(:chunk).content.should == "Something to preview"
+    end
+  end
+    
+  it "destroys an existing chunk" do
+    chunk = Factory(:chunk, page: @page)
+    delete :destroy, id: chunk.id
+    response.should redirect_to edit_chunks_admin_page_path(@page)
+    @page.should have(0).chunks
+  end
+    
+  describe "reordering a list of chunks" do
+    before(:each) do
+      @a = Factory(:chunk, page: @page, title: "A")
+      @b = Factory(:chunk, page: @page, title: "B")
+      @c = Factory(:chunk, page: @page, title: "C")
+      verify_order(%w{A B C})
+    end
+    
+    def verify_order(expected_order)
+      @page = Chunks::Page.find(@page.id)
+      @page.container(:main).chunks.map(&:title).should == expected_order
+    end      
+    
+    it "moves a chunk higher in the list" do
+      put :move_higher, id: @c.id
+      response.should redirect_to edit_chunks_admin_page_path(@page)
+      verify_order(%w{A C B})
+    end  
+        
+    it "moves a chunk lower in the list" do
+      put :move_lower, id: @a.id
+      response.should redirect_to edit_chunks_admin_page_path(@page)
+      verify_order(%w{B A C})
     end
   end
 end

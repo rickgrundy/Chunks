@@ -1,9 +1,8 @@
 module Chunks::Admin
   class ChunksController < AdminController
     def preview
-      chunk_params = params[:chunks_page][:chunks_attributes].first.last
+      chunk_params = params[:chunks_chunk] || params[:chunks_page][:chunks_attributes].first.last
       @chunk = chunk_params[:type].to_class.new(chunk_params.except(:type, :id))
-      @iframe_id = params[:iframe_id]
       render layout: "chunks/admin/chunk_preview", nothing: true
     end
     
