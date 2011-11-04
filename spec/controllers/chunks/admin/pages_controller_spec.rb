@@ -5,7 +5,7 @@ describe Chunks::Admin::PagesController do
     it "lists all available templates" do
       get :new
       assigns(:page).template.should be_nil
-      assigns(:available_templates).should == Chunks::AllTemplates
+      assigns(:available_templates).should == Chunks.config.templates
     end
     
     it "allows a template to be specified" do
@@ -23,7 +23,7 @@ describe Chunks::Admin::PagesController do
       post :create, chunks_page: {}
       response.status.should == 500
       response.should render_template "chunks/admin/pages/edit"
-      assigns(:available_templates).should == Chunks::AllTemplates
+      assigns(:available_templates).should == Chunks.config.templates
     end
     
     it "does not allow a specified template to be changed on validation errors" do

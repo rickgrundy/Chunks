@@ -11,3 +11,5 @@
     =f.fields_for :chunks, chunk do |chunks_fields|
       =chunks_fields.hidden_field :type
       =render partial: "chunks/admin/chunks/#{chunk.class.partial_name}", locals: {f: chunks_fields}
+      
+  .clear
