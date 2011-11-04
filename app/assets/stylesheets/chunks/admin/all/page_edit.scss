@@ -2,7 +2,7 @@
 @import "chunks/theme";
 
 .section.page {
-  @include gradient($inner_section);
+  @include gradient($inner_section, 50%);
 }
 
 .section.container {

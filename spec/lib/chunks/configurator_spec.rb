@@ -28,7 +28,6 @@ describe Chunks::Configurator do
     end
   end
   
-  
   describe "registering chunks" do
     it "registers chunks in the default :all group" do
       Chunks.configure do
@@ -86,6 +85,22 @@ describe Chunks::Configurator do
       Chunks.config.test_storage_type.should == "S3"
       Chunks.config.test_s3_secret.should == "SECRET"
       Chunks.config.test_s3_bucket.should == "BUCKET"
+    end
+    
+    it "allows options to be overridden" do
+      Chunks.configure do
+        option :badger
+        set :badger, "Mushroom"
+        set :badger, "Snake"
+      end
+      Chunks.config.badger.should == "Snake"
+    end
+    
+    it "allows a default to be specified and overridden" do
+      Chunks.configure { option :car, default: "Lotus" }
+      Chunks.config.car.should == "Lotus"
+      Chunks.configure { set :car, "Austin Healey" }
+      Chunks.config.car.should == "Austin Healey"
     end
     
     it "does not allow undefined options to be set" do

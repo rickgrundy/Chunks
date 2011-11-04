@@ -34,8 +34,10 @@ module Chunks
     
     def self.option(*options)
       options = *options.first if options.first.is_a?(Array)
+      opts = options.last.is_a?(Hash) ? options.pop : {}
       options.each do |option|
         Chunks.config.class.send(:attr_reader, option)
+        set(option, opts[:default]) if opts[:default]
       end
     end
     
