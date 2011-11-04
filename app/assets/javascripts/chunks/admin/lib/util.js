@@ -5,19 +5,10 @@ function guid() {
   return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
 }
 
-$.extend($.fn, { 
-  cloneFormFields: function() {
-    var clone = $("<div/>").append(this.find(":input").clone());
-    this.find("textarea").each(function() {
-      var orig = $(this);
-      clone.find("textarea[name='" + orig.attr("name") + "']").val(orig.val());
-    });
-    return clone;
-  },
-  
+$.extend($.fn, {   
   postToIframeDialog: function(opts) {
     var iframeGuid = guid();
-    var container = $("<div style='position: relative;'/>");
+    var container = $("<div style='position: rela1tive;'/>");
     var iframe = $("<iframe id='" + iframeGuid + "' name='" + iframeGuid + "'/>").appendTo(container);
     var eventShield = $("<div style='position: absolute; top: 0; left: 0;'/>");
 
@@ -36,7 +27,9 @@ $.extend($.fn, {
        open: resizeIframeToMatchContainer
     });
 
+    this.wrap($("<div id='originalLocationWrapper' style='display: inline;'/>"));
     form = $("<form action='" + opts.url + "' method='post' target='" + iframeGuid + "'/>");
-    form.append(this.cloneFormFields()).submit();
+    form.append(this).submit();
+    this.appendTo($('#originalLocationWrapper')).unwrap();
   }
 })

@@ -1,5 +1,5 @@
 #page_edit 
-  =form_for @page, url: chunks_admin_resource_path(@page) do |f|
+  =form_for @page, url: chunks_admin_resource_path(@page), html: {multipart: true} do |f|
     =validation_errors(@page)
     
     .section.page        
