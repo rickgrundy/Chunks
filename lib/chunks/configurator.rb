@@ -48,5 +48,9 @@ module Chunks
         raise Chunks::Error.new("Could not set #{option} as it has not been defined as an option.")
       end
     end
+    
+    def self.extension(name)
+      Chunks.config.extensions << name
+    end
   end
 end

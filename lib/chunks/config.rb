@@ -1,10 +1,11 @@
 module Chunks
   class Config
-    attr_reader :templates
+    attr_reader :templates, :extensions
     
     def initialize
       @templates = []
       @chunks = {}
+      @extensions = []
     end
     
     def chunks(group=:all)

@@ -1,4 +1,8 @@
 module Chunks::Admin::AdminHelper
+  def chunks_extensions_javascript_include_tags
+    javascript_include_tag *Chunks.config.extensions.map { |name| "chunks/admin/#{name}" }
+  end
+  
   def page_title(text)
     content_for(:page_title, text)
     content_for(:browser_title, "#{text} - #{Rails.application.class.parent_name} Chunks Admin")

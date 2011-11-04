@@ -1,21 +1,22 @@
 $ ->
-  initChunk $(chunk) for chunk in $(".chunk")
-    
-initChunk = (chunk) -> 
-  initShowHelp chunk, chunk.find(".show_help")
-  initShowPreview chunk, chunk.find(".show_preview")
+  pageedit.initChunk $(chunk) for chunk in $(".chunk")
   
-initShowHelp = (chunk, button) ->
-  help = chunk.find(".help")
-  button.click -> 
-    help.dialog
-      title: chunk.data("title")
-      width: 600
-      
-initShowPreview = (chunk, button) ->
-  button.click ->    
-    chunk.postToIframeDialog
-      url: button.attr("href")
-      title: "#{chunk.data("title")} Preview"
-      width: 600
-    false
+pageedit =  
+  initChunk: (chunk) -> 
+    pageedit.showHelp chunk, chunk.find(".show_help")
+    pageedit.showPreview chunk, chunk.find(".show_preview")
+
+  showHelp: (chunk, button) ->
+    help = chunk.find(".help")
+    button.click -> 
+      help.dialog
+        title: chunk.data("title")
+        width: 600
+  
+  showPreview: (chunk, button) ->
+    button.click ->    
+      chunk.postToIframeDialog
+        url: button.attr("href")
+        title: "#{chunk.data("title")} Preview"
+        width: 600
+      false

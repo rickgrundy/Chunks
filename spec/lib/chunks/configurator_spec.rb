@@ -107,4 +107,14 @@ describe Chunks::Configurator do
       -> { Chunks.configure { set :not_defined, true } }.should raise_error Chunks::Error
     end
   end
+  
+  describe "registering extensions" do
+    it "allows extensions such as chunks-mediapack to register their presence" do
+      Chunks.configure do
+        extension "mediapack"
+        extension "socialpack"
+      end
+      Chunks.config.extensions.should include "mediapack", "socialpack"
+    end
+  end
 end
