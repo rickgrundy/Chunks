@@ -28,7 +28,7 @@ $.extend($.fn, {
     });
 
     this.wrap($("<div id='originalLocationWrapper' style='display: inline;'/>"));
-    form = $("<form action='" + opts.url + "' method='post' target='" + iframeGuid + "'/>");
+    form = $("<form action='" + opts.url + "' method='post' target='" + iframeGuid + "' enctype='multipart/form-data'/>");
     form.append(this).submit();
     this.appendTo($('#originalLocationWrapper')).unwrap();
   }

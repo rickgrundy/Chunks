@@ -9,6 +9,8 @@ module ActionDispatch::Routing
     end
     
     def register_chunks_resources
+      resources :pages
+            
       namespace :admin do
         root :to => "home#index", :as => "home"
         resources :pages
