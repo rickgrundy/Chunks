@@ -11,12 +11,12 @@ pageedit =
     button.click -> 
       help.dialog
         title: chunk.data("title")
-        width: 600
+        width: 620
   
   showPreview: (chunk, button) ->
     button.click ->    
       chunk.postToIframeDialog
         url: button.attr("href")
         title: "#{chunk.data("title")} Preview"
-        width: 600
+        width: 630
       false

@@ -14,5 +14,9 @@ module Chunks
     def self.partial_name
       self.name.demodulize.underscore
     end
+    
+    def previewable?
+      true
+    end
   end
 end

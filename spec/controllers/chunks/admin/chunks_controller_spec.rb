@@ -14,7 +14,7 @@ describe Chunks::Admin::ChunksController do
     end
   end
   
-  describe "rendering a single chunk" do
+  describe "previewing a single chunk" do
     it "builds a chunk from chunks_chunk params" do
       chunk_params = {type: Chunks::BuiltIn::Text, content: "Something to preview"}
       post :preview, chunks_chunk: chunk_params
@@ -31,6 +31,16 @@ describe Chunks::Admin::ChunksController do
       assigns(:chunk).should be_a Chunks::BuiltIn::Text
       assigns(:chunk).should be_a_new_record
       assigns(:chunk).content.should == "Something to preview"
+    end
+    
+    it "loads and updates an existing chunk without saving" do
+      existing_chunk = Factory(:chunk, content: "Original content")
+      chunk_params = {id: existing_chunk.id, type: Chunks::BuiltIn::Text, content: "Updated content"}
+      post :preview, chunks_chunk: chunk_params
+      response.should render_template "chunks/admin/chunk_preview"
+      assigns(:chunk).should == existing_chunk
+      assigns(:chunk).content.should == "Updated content"
+      existing_chunk.reload.content.should == "Original content"
     end
   end
     

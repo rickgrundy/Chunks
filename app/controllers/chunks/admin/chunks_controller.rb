@@ -2,7 +2,12 @@ module Chunks::Admin
   class ChunksController < AdminController
     def preview
       chunk_params = params[:chunks_chunk] || params[:chunks_page][:chunks_attributes].first.last
-      @chunk = chunk_params[:type].to_class.new(chunk_params.except(:type, :id))
+      if chunk_params[:id]
+        @chunk = Chunks::Chunk.find(chunk_params[:id])
+        @chunk.attributes = chunk_params.except(:type, :id)
+      else
+        @chunk = chunk_params[:type].to_class.new(chunk_params.except(:type, :id))
+      end
       render layout: "chunks/admin/chunk_preview", nothing: true
     end
     

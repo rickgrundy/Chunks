@@ -41,12 +41,9 @@ module Chunks
       end
     end
     
-    def self.set(option, value)
-      if Chunks.config.methods.include?(option)
-        Chunks.config.instance_variable_set("@#{option}", value)
-      else
-        raise Chunks::Error.new("Could not set #{option} as it has not been defined as an option.")
-      end
+    def self.set(option, value)      
+      self.option(option) unless Chunks.config.methods.include?(option)
+      Chunks.config.instance_variable_set("@#{option}", value)
     end
     
     def self.extension(name)

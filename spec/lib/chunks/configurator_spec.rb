@@ -87,6 +87,13 @@ describe Chunks::Configurator do
       Chunks.config.test_s3_bucket.should == "BUCKET"
     end
     
+    it "defines undefined options for lazy setting" do
+      Chunks.configure do
+        set :not_defined, "defined now!"
+      end
+      Chunks.config.not_defined.should == "defined now!"
+    end
+    
     it "allows options to be overridden" do
       Chunks.configure do
         option :badger
@@ -101,10 +108,6 @@ describe Chunks::Configurator do
       Chunks.config.car.should == "Lotus"
       Chunks.configure { set :car, "Austin Healey" }
       Chunks.config.car.should == "Austin Healey"
-    end
-    
-    it "does not allow undefined options to be set" do
-      -> { Chunks.configure { set :not_defined, true } }.should raise_error Chunks::Error
     end
   end
   
