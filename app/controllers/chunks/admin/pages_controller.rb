@@ -2,6 +2,8 @@ module Chunks::Admin
   class PagesController < AdminController
     def index
       @pages = Chunks::Page.paginate(page: params[:page])
+      @pages = @pages.where(template: params[:template]) if params[:template]
+      @pages = @pages.where("LOWER(title) like ?", "%#{params[:q].downcase}%") if params[:q]
     end
     
     def new

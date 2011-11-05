@@ -18,5 +18,5 @@ pageedit =
       chunk.postToIframeDialog
         url: button.attr("href")
         title: "#{chunk.data("title")} Preview"
-        width: 600
+        width: 632
       false

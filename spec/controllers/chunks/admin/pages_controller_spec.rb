@@ -57,4 +57,26 @@ describe Chunks::Admin::PagesController do
       assigns(:available_templates).should be_nil
     end
   end
+  
+  describe "listing pages" do
+    before(:each) do
+      Chunks::Page.destroy_all
+    end
+    
+    it "filters by template" do
+      Factory(:page, template: Chunks::BuiltIn::Template::TwoColumn.to_s)
+      Factory(:page, template: Chunks::BuiltIn::Template::SingleColumn.to_s)
+      Factory(:page, template: Chunks::BuiltIn::Template::TwoColumn.to_s)
+      get :index, template: Chunks::BuiltIn::Template::TwoColumn
+      assigns(:pages).should have(2).things
+    end
+    
+    it "searches by name" do
+      Factory(:page, title: "Test page 1")
+      Factory(:page, title: "Test PAGE 2")
+      Factory(:page, title: "Test ???? 3")
+      get :index, q: "page"
+      assigns(:pages).should have(2).things
+    end
+  end
 end
