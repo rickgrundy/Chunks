@@ -22,17 +22,17 @@ describe Chunks::Page do
     
     it "splits chunks into containers" do
       page = Factory(:two_column_page)    
-      3.times { Factory(:chunk, page: page, container_key: :main) }
+      3.times { Factory(:chunk, page: page, container_key: :main_content) }
       Factory(:chunk, page: page, container_key: :sidebar)
     
       page.reload
-      page.container(:main).should have(3).chunks
+      page.container(:main_content).should have(3).chunks
       page.container(:sidebar).should have(1).chunk
       
       page.save!
       page = Chunks::Page.find(page.id)
       
-      page.container(:main).should have(3).chunks
+      page.container(:main_content).should have(3).chunks
       page.container(:sidebar).should have(1).chunk
     end
   end

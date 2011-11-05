@@ -1,4 +1,4 @@
-.section.chunk{"data-title" => chunk.class.title } 
+.section.chunk{class: chunk.class.partial_name, "data-title" => chunk.class.title} 
   .controls
     =render partial: "chunks/admin/chunks/controls", locals: {chunk: chunk}
 

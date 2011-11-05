@@ -1,6 +1,10 @@
 module Chunks::Admin::AdminHelper
-  def chunks_extensions_javascript_include_tags
+  def chunks_extensions_javascript_include_tag
     javascript_include_tag *Chunks.config.extensions.map { |name| "chunks/admin/#{name}" }
+  end
+  
+  def chunks_extensions_stylesheet_link_tag
+    stylesheet_link_tag *Chunks.config.extensions.map { |name| "chunks/admin/#{name}" }
   end
   
   def page_title(text)

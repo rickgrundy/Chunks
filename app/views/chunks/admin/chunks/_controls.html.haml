@@ -10,4 +10,5 @@
       
   %li=link_to "Delete", chunks_admin_chunk_path(chunk), class: "delete", method: "delete", confirm: "Delete this #{chunk.class.title.downcase} chunk?"    
   
-  %li=link_to "Preview", preview_chunks_admin_chunks_path, class: "show_preview"
+  -if chunk.previewable?
+    %li=link_to "Preview", preview_chunks_admin_chunks_path, class: "show_preview"

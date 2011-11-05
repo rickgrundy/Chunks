@@ -21,20 +21,21 @@
   }
   .ui-dialog-content {
     padding: $spacing;
-    overflow: scroll;
+    overflow: hidden;
     color: $subtle;
   }
   .ui-resizable-se {
-    height: 16px;
-    width: 16px;
+    @include replace_with_icon(resize);
     position: absolute;
     right: 0;
     bottom: 0;
     cursor: se-resize;
+    opacity: 0.5;
   }
   
   iframe {
     width: 100%;
     height: 300px;
+    overflow: hidden;
   }
 }

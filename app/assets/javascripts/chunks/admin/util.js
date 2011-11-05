@@ -18,7 +18,7 @@ $.extend($.fn, {
   postToIframeDialog: function(opts) {
     var iframeGuid = guid();
     var container = $("<div style='position: relative;'/>");
-    var iframe = $("<iframe id='" + iframeGuid + "' name='" + iframeGuid + "'/>").appendTo(container);
+    var iframe = $("<iframe scrolling='no' id='" + iframeGuid + "' name='" + iframeGuid + "'/>").appendTo(container);
     var eventShield = $("<div style='position: absolute; top: 0; left: 0;'/>");
 
     function resizeIframeToMatchContainer() {
@@ -36,7 +36,7 @@ $.extend($.fn, {
        open: resizeIframeToMatchContainer
     });
 
-    form = $("<form action='" + opts.url + "' method='post' target='" + iframeGuid + "'/>");
-    form.append(this.cloneFormFields()).submit();
+    form = $("<form action='" + opts.url + "' method='post' target='" + iframeGuid + "'/>").hide();
+    form.append(this.cloneFormFields()).appendTo("body").submit().remove();
   }
 })

@@ -61,7 +61,7 @@ describe Chunks::Admin::ChunksController do
     
     def verify_order(expected_order)
       @page = Chunks::Page.find(@page.id)
-      @page.container(:main).chunks.map(&:title).should == expected_order
+      @page.container(:content).chunks.map(&:title).should == expected_order
     end      
     
     it "moves a chunk higher in the list" do

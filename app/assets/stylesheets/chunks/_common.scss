@@ -3,7 +3,7 @@ $background-image: none;
 
 $spacing: 8px;
 $font-size: .8em;
-$shadow: darken($background, 20%);
+$shadow: darken($background, 30%);
 $highlight: lighten($link, 15%);
 $border: rgba(120,120,120,.3);
 $error_background: rgba(255,200,200,.05);
@@ -17,7 +17,7 @@ $floater: lighten($background, 10%);
   border-radius: $radius;
 }
 
-@mixin shadow($size, $colour) {
+@mixin shadow($size, $colour: $shadow) {
   -moz-box-shadow: 0 0 $size 0 $colour;
   -webkit-box-shadow: 0 0 $size 0 $colour;
   box-shadow: 0 0 $size 0 $colour;

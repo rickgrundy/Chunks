@@ -15,7 +15,7 @@ module Chunks
     end
     
     def container(key)
-      containers.find { |c| c.key == key }
+      containers.find { |c| c.key == key } || raise(Chunks::Error.new("#{template.title} pages do not have a container called '#{key}'"))
     end
   end
 end

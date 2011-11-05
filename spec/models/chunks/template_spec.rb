@@ -10,8 +10,8 @@ describe Chunks::Template do
   end
   
   class Chunks::Template::TwoContainers < Chunks::Template
-    container :first, "Container 1", Chunks::BuiltIn::Html, Chunks::BuiltIn::Text
-    container :second, "Container 2", [Chunks::BuiltIn::Text, Chunks::BuiltIn::Html]
+    container :first, Chunks::BuiltIn::Html, Chunks::BuiltIn::Text
+    container :second, [Chunks::BuiltIn::Text, Chunks::BuiltIn::Html]
   end
   
   it "allows a custom title to be provided" do        
@@ -33,11 +33,9 @@ describe Chunks::Template do
     page.should have(2).containers
     
     page.containers.first.key.should == :first
-    page.containers.first.title.should == "Container 1"
     page.containers.first.available_chunks.should == [Chunks::BuiltIn::Html, Chunks::BuiltIn::Text]
     
     page.containers.second.key.should == :second
-    page.containers.second.title.should == "Container 2"
     page.containers.second.available_chunks.should == [Chunks::BuiltIn::Text, Chunks::BuiltIn::Html]
   end
 end

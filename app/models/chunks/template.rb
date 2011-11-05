@@ -10,10 +10,10 @@ module Chunks
       @view_name || "templates/#{self.name.underscore}"
     end
     
-    def self.container(key, title, *available_chunks)
+    def self.container(key, *available_chunks)
       available_chunks = *available_chunks.first if available_chunks.first.is_a?(Array)
       @container_builders ||= []
-      @container_builders << lambda { Chunks::Container.new(key, title, available_chunks) }
+      @container_builders << lambda { Chunks::Container.new(key, available_chunks) }
     end
   
     def self.build_containers(page)
