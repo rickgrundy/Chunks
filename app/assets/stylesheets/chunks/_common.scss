@@ -17,7 +17,7 @@ $floater: lighten($background, 10%);
   border-radius: $radius;
 }
 
-@mixin shadow($size, $colour: $shadow) {
+@mixin shadow($size: $spacing, $colour: $shadow) {
   -moz-box-shadow: 0 0 $size 0 $colour;
   -webkit-box-shadow: 0 0 $size 0 $colour;
   box-shadow: 0 0 $size 0 $colour;
@@ -62,6 +62,7 @@ $floater: lighten($background, 10%);
 }
 
 @mixin linkify {
+  display: inline-block;
   @include rounded_corners(3px);  
   @include gradient(rgba(255,255,255,.8));
   border: solid 1px $border;
@@ -80,7 +81,9 @@ $floater: lighten($background, 10%);
 }
 
 @mixin iconify($icon) {
+  height: 16px;
   padding-left: $spacing + 15;
+  line-height: 16px;
   background-image: url("/assets/chunks/" + $icon + ".png");
   background-repeat: no-repeat;
   background-position: $spacing/2 center;

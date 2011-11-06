@@ -29,7 +29,8 @@ form {
   .fixed {
     display: inline;
     color: $subtle;
-    padding: 3px;
+    padding: 0 3px;
+    line-height: 1em;
   }
   label:after {
     content: ":"

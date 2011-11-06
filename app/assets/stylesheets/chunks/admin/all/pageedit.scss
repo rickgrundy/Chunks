@@ -8,14 +8,17 @@
 .section.container {
   margin-top: $spacing*3;
   @include gradient($section);
+}
+
+.section.container .controls {
   .add_chunk {
-    ul {
-      display: inline-block;
+    @include linkify;
+    a {
+      @include iconify(chunk);
     }
-    li {
-      display: inline-block;
-      @include linkify;
-    } 
+  }
+  ul.available_chunks li a {
+    @include iconify(chunk);
   }
 }
 

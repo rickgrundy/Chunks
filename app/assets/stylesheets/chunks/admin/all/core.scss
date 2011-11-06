@@ -102,3 +102,28 @@ h5 {
 .clear {
   clear: both;
 }
+
+.popup_menu {
+  display: inline-block;  
+  position: relative;  
+  ul {
+    border: solid 1px $border;
+    @include rounded_corners($spacing/2);
+    @include recessed($floater);
+    @include shadow;
+    opacity: 0.9;
+    position: absolute;
+    bottom: 0;
+    li {
+      white-space: nowrap;
+      a {
+        display: block;
+        padding: $spacing;
+        text-decoration: none;
+      }
+      &:hover {
+        background: $background;
+      }
+    }
+  }
+}
