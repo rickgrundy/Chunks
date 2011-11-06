@@ -82,8 +82,8 @@ $floater: lighten($background, 10%);
 
 @mixin iconify($icon) {
   height: 16px;
-  padding-left: $spacing + 15;
   line-height: 16px;
+  padding-left: $spacing + 15;
   background-image: url("/assets/chunks/" + $icon + ".png");
   background-repeat: no-repeat;
   background-position: $spacing/2 center;

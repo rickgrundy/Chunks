@@ -22,6 +22,20 @@
   }
 }
 
+.section.container .empty_container {
+  text-align: center;
+  ul.available_chunks {
+    margin: $spacing*2;
+    li {
+      @include linkify;
+      margin-top: $spacing/2;
+      a {
+        @include iconify(chunk);
+      }
+    }
+  }
+}
+
 .section.chunk {
   @include gradient($inner_section);
   margin-bottom: $spacing/2;
