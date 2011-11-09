@@ -1,16 +1,8 @@
-$ ->
-  pageedit.initContainer $(container) for container in $(".container")
+$ -> pageedit.initContainer $(container) for container in $(".container")
   
 pageedit =  
   initContainer: (container) ->
-    # this.iconifyAvailableChunks(container)
     this.initChunk $(chunk) for chunk in container.find(".chunk")
-  
-  iconifyAvailableChunks: (container) ->
-    setBackgroundImage = (li) -> 
-      link = li.find("a")
-      link.css("background-image", "url('/assets/chunks/#{li.data('chunk')}.png')")
-    setBackgroundImage $(li) for li in container.find("ul.available_chunks li")
   
   initChunk: (chunk) -> 
     this.showHelp chunk, chunk.find(".show_help")

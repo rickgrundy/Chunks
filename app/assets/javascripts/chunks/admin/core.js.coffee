@@ -7,7 +7,7 @@ chunks =
     showMenu = ->
       menu.css
         bottom: button.outerHeight()
-        "min-width": button.outerWidth(); 
+        "min-width": button.outerWidth()
       menu.show()
       false
     button.click(showMenu)      
