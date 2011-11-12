@@ -8,8 +8,9 @@
     =validation_errors(chunk, "#{chunk.class.title} is not valid")
 
   .form  
-    =f.fields_for :chunks, chunk do |chunks_fields|
+    =f.fields_for :chunks, chunk, child_index: override_index ||= nil do |chunks_fields|
       =chunks_fields.hidden_field :type
+      =chunks_fields.hidden_field :container_key
       =render partial: "chunks/admin/chunks/#{chunk.class.partial_name}", locals: {f: chunks_fields, chunk: chunk}
       
   .clear

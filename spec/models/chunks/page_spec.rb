@@ -36,4 +36,35 @@ describe Chunks::Page do
       page.container(:sidebar).should have(1).chunk
     end
   end
+  
+  describe "updating chunks via nested attributes" do
+    before(:each) do
+      @page = Factory(:page)
+    end
+    
+    it "updates existing chunks" do
+      chunk = Factory(:chunk, page: @page)
+      attrs = {chunks_attributes: { "0" => {
+        type: "Chunks::BuiltIn::Html",
+        title: "Updated!",
+        id: chunk.id
+      }}}
+      @page.reload.should have(1).chunk
+      @page.update_attributes(attrs)
+      @page.reload.should have(1).chunk
+      chunk.reload.title.should == "Updated!"
+    end
+    
+    it "creates new chunks of specified type" do
+      attrs = {chunks_attributes: { "0" => {
+        type: "Chunks::BuiltIn::Html",
+        content: "Valid content",
+        title: "New!"
+      }}}
+      @page.update_attributes(attrs)
+      @page.reload.should have(1).chunk
+      @page.chunks.first.should be_a Chunks::BuiltIn::Html
+      @page.chunks.first.title.should == "New!"
+    end    
+  end
 end

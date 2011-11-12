@@ -83,7 +83,7 @@ describe Chunks::ExtraAttributes do
         "title" => "Click me",
          "css_class" => "expandable",
          "id" => chunk.id.to_s
-      }}}
+      }}}.with_indifferent_access
       page.reload
       page.update_attributes(params)
       page.chunks.first.title.should == "Click me"

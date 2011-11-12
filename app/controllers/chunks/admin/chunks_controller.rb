@@ -1,5 +1,13 @@
 module Chunks::Admin
-  class ChunksController < AdminController
+  class ChunksController < AdminController  
+    def new
+      @page = Chunks::Page.find(params[:page_id])
+      @chunk = params[:type].to_class.new(page: @page, container_key: params[:container_key])      
+      @page.chunks << @chunk
+      @chunk.errors.clear
+      render layout: false
+    end
+    
     def preview
       chunk_params = params[:chunks_chunk] || params[:chunks_page][:chunks_attributes].first.last
       if chunk_params[:id]
@@ -9,13 +17,6 @@ module Chunks::Admin
         @chunk = chunk_params[:type].to_class.new(chunk_params.except(:type, :id))
       end
       render layout: "chunks/admin/chunk_preview", nothing: true
-    end
-    
-    def create
-      page = Chunks::Page.find(params[:page_id])
-      @chunk = params[:type].to_class.new(page: page, container_key: params[:container_key])
-      @chunk.save!(validate: false)
-      redirect_to edit_chunks_admin_page_path(page)
     end
     
     def destroy

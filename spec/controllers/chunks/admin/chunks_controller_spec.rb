@@ -6,11 +6,15 @@ describe Chunks::Admin::ChunksController do
   end
   
   describe "creating a new chunk" do
-    it "creates a chunk successfully without validating" do
-      post :create, page_id: @page.id, container_key: @page.containers.first.key, type: Chunks::BuiltIn::Text
-      response.should redirect_to edit_chunks_admin_page_path(@page)
-      @page.reload
-      @page.should have(1).chunk
+    it "renders just the form for a new chunk with a specified type and container" do
+      page = Factory(:page)
+      get :new, page_id: page.id, type: "Chunks::BuiltIn::Html", container_key: "content"
+      assigns(:chunk).should be_a Chunks::BuiltIn::Html
+      assigns(:chunk).container_key.should == :content
+      assigns(:chunk).should have(0).errors
+      assigns(:page).should == page
+      assigns(:page).container(:content).should have(1).chunks
+      response.should_not render_template "layouts/chunks/admin/admin"
     end
   end
   

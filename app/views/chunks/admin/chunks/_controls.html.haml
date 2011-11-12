@@ -4,11 +4,11 @@
   
   %li.halved
     .half
-      =link_to "Up", move_higher_chunks_admin_chunk_path(chunk), class: "move_up", method: "put"
+      =link_to "Up", chunk.new_record? ? "#moveHigher" : move_higher_chunks_admin_chunk_path(chunk), class: "move_up", method: "put"
     .half
-      =link_to "Down", move_lower_chunks_admin_chunk_path(chunk), class: "move_down", method: "put"
+      =link_to "Down", chunk.new_record? ? "#moveLower" : move_lower_chunks_admin_chunk_path(chunk), class: "move_down", method: "put"
       
-  %li=link_to "Delete", chunks_admin_chunk_path(chunk), class: "delete", method: "delete", confirm: "Delete this #{chunk.class.title.downcase} chunk?"    
+  %li=link_to "Delete", chunk.new_record? ? "#delete" : chunks_admin_chunk_path(chunk), class: "delete", method: "delete", confirm: "Delete this #{chunk.class.title.downcase} chunk?"    
   
   -if chunk.previewable?
     %li=link_to "Preview", preview_chunks_admin_chunks_path, class: "show_preview"

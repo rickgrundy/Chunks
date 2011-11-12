@@ -13,7 +13,8 @@ module ActionDispatch::Routing
             
       namespace :admin do
         root :to => "home#index", :as => "home"
-        resources :pages
+        resources :users        
+        resources :pages  
         resources :chunks do
           collection do
             post :preview
@@ -23,7 +24,6 @@ module ActionDispatch::Routing
             put :move_lower
           end
         end
-        resources :users
       end
     end
     

@@ -1,16 +1,18 @@
 .section.container{id: "container_#{container.key}"}
   %h3=container.title
   
-  -if container.chunks.present?
-    -container.chunks.each do |chunk|
-      =render partial: "chunks/admin/chunks/chunk", locals: {f: f, chunk: chunk}
-  
-    .controls
-      .popup_menu
-        .add_chunk=link_to "Add a chunk", "#addChunk"
-        =render partial: "available_chunks", locals: {container: container}
-  
   -if container.chunks.empty?
     .empty_container
       %h5 Add a chunk to get started:
+      =render partial: "available_chunks", locals: {container: container}
+    .chunks
+    
+  -if container.chunks.present?
+    .chunks
+      -container.chunks.each do |chunk|
+        =render partial: "chunks/admin/chunks/chunk", locals: {f: f, chunk: chunk}    
+      
+  .controls
+    .popup_menu
+      .add_chunk=link_to "Add a chunk", "#addChunk"
       =render partial: "available_chunks", locals: {container: container}      

@@ -17,5 +17,17 @@ module Chunks
     def container(key)
       containers.find { |c| c.key == key } || raise(Chunks::Error.new("#{template.title} pages do not have a container called '#{key}'"))
     end
+    
+    def chunks_attributes=(chunks_attrs)
+      chunks_attrs.values.each do |attrs|
+        if attrs[:id]
+          chunk = self.chunks.find(attrs[:id])
+        else
+          chunk = attrs[:type].to_class.new(page: self)
+          self.chunks << chunk
+        end
+        chunk.update_attributes(attrs.except(:type, :id))
+      end
+    end
   end
 end
