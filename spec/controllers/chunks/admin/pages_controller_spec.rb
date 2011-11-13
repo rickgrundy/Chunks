@@ -16,7 +16,7 @@ describe Chunks::Admin::PagesController do
     
     it "creates a page successfully" do
       post :create, chunks_page: {title: "Test Page", template: Chunks::BuiltIn::Template::SingleColumn}
-      response.should redirect_to chunks_admin_pages_path
+      response.should redirect_to edit_chunks_admin_page_path(assigns(:page))
     end
     
     it "fails on validation errors" do

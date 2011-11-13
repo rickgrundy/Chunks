@@ -10,9 +10,9 @@
   -if container.chunks.present?
     .chunks
       -container.chunks.each do |chunk|
-        =render partial: "chunks/admin/chunks/chunk", locals: {f: f, chunk: chunk}    
+        =render partial: "chunks/admin/chunks/chunk", locals: {f: f, chunk: chunk}
       
   .controls
     .popup_menu
       .add_chunk=link_to "Add a chunk", "#addChunk"
-      =render partial: "available_chunks", locals: {container: container}      
+      =render partial: "available_chunks", locals: {container: container}

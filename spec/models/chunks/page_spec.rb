@@ -65,6 +65,32 @@ describe Chunks::Page do
       @page.reload.should have(1).chunk
       @page.chunks.first.should be_a Chunks::BuiltIn::Html
       @page.chunks.first.title.should == "New!"
-    end    
+    end   
+    
+    it "reorders chunks" do
+      chunk1 = Factory(:chunk, page: @page, title: "First")
+      chunk2 = Factory(:chunk, page: @page, title: "Second")
+      attrs = {chunks_attributes: {
+        "0" => {
+          id: chunk1.id,
+          position: 3
+        },
+        "1" => {
+          id: chunk2.id,
+          position: 1
+        },
+        "12345" => {
+          type: "Chunks::BuiltIn::Html",
+          content: "Valid content",
+          title: "New!",
+          position: 2
+        }
+      }} 
+      @page.update_attributes(attrs)
+      reordered = @page.reload.chunks
+      reordered.first.title.should == "Second"
+      reordered.second.title.should == "New!"
+      reordered.third.title.should == "First"
+    end 
   end
 end
