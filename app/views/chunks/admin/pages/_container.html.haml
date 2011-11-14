@@ -4,12 +4,10 @@
   .empty_container{style: container.chunks.empty? ? "" : "display: none;"}
     %h5 Add a chunk to get started:
     =render partial: "available_chunks", locals: {container: container}
+
   .chunks
-    
-  -if container.chunks.present?
-    .chunks
-      -container.chunks.each do |chunk|
-        =render partial: "chunks/admin/chunks/chunk", locals: {f: f, chunk: chunk}
+    -container.chunks.each do |chunk|
+      =render partial: "chunks/admin/chunks/chunk", locals: {f: f, chunk: chunk}
       
   .controls
     .popup_menu

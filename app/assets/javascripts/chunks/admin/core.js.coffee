@@ -1,4 +1,4 @@
-$ -> new chunks.PopupMenu $(container) for container in $(".popup_menu")
+$ -> new chunks.PopupMenu($(container)) for container in $(".popup_menu")
 
 chunks =
   PopupMenu: class

@@ -11,7 +11,7 @@ pageedit =
     addChunk: (link) ->
       @empty.hide()
       $.get link.attr("href"), (form) =>
-        chunk = new pageedit.Chunk(this, $(form).find(".chunk"), true) 
+        chunk = new pageedit.Chunk(this, $(form).find(".chunk"), true)
         @chunks.push(chunk)
         @element.find(".chunks").append(chunk.element)
     
@@ -28,8 +28,7 @@ pageedit =
         chunkA.element.insertAfter(chunkB.element)
         
     remove: (chunk) ->
-      while (i = @chunks.indexOf(chunk)) < @chunks.length-1
-        this.swap(chunk, @chunks[i+1])
+      this.swap(chunk, @chunks[i+1]) while (i = @chunks.indexOf(chunk)) < @chunks.length - 1
       @chunks.pop()
       @empty.show() if @chunks.length == 0
       
@@ -61,19 +60,14 @@ pageedit =
 
     moveUp: -> 
       higher = @container.chunks[@container.chunks.indexOf(this)-1]
-      return if higher == undefined
-      @container.swap(this, higher)
+      @container.swap(this, higher) if higher?
       
     moveDown: ->
-      lower = @container.chunks[@conatiner.chunks.indexOf(this)+1]
-      return if lower == undefined
-      this.swap(this, lower)
+      lower = @container.chunks[@container.chunks.indexOf(this)+1]
+      @container.swap(this, lower) if lower?
       
     delete: ->
       return unless confirm "Are you sure you want to delete this #{@title.toLowerCase()} chunk?"
       @element.hide()
       @container.remove(this)
-      if @newRecord
-        @element.remove()
-      else
-        @element.find("._destroy").attr("checked", true)
+      if @newRecord then @element.remove() else @element.find("._destroy").attr("checked", true)
