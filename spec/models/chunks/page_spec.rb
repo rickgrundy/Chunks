@@ -86,11 +86,29 @@ describe Chunks::Page do
           position: 2
         }
       }} 
-      @page.update_attributes(attrs)
-      reordered = @page.reload.chunks
-      reordered.first.title.should == "Second"
-      reordered.second.title.should == "New!"
-      reordered.third.title.should == "First"
+      @page.reload.update_attributes(attrs).should be_true
+      @page.chunks.first.title.should == "Second"
+      @page.chunks.second.title.should == "New!"
+      @page.chunks.third.title.should == "First"
     end 
+    
+    it "reorders new chunks with validation errors" do
+      existing = Factory(:chunk, page: @page, title: "Existing")
+      attrs = {chunks_attributes: {
+        "12345" => {
+          type: "Chunks::BuiltIn::Html",
+          content: "",
+          title: "New!",
+          position: 1
+        },
+        "0" => {
+          id: existing.id,
+          position: 2
+        }
+      }} 
+      @page.reload.update_attributes(attrs).should be_false
+      @page.chunks.first.title.should == "New!"
+      @page.chunks.second.title.should == "Existing"
+    end
   end
 end

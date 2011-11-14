@@ -28,6 +28,7 @@ module Chunks
         end
         chunk.update_attributes(attrs.except(:type, :id))
       end
+      chunks.sort_by!(&:position)
     end
   end
 end
