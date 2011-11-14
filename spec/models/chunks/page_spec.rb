@@ -99,16 +99,28 @@ describe Chunks::Page do
           type: "Chunks::BuiltIn::Html",
           content: "",
           title: "New!",
-          position: 1
+          position: 1,
+          _destroy: "0"          
         },
         "0" => {
           id: existing.id,
-          position: 2
+          position: 2,
+          _destroy: "0"
         }
       }} 
       @page.reload.update_attributes(attrs).should be_false
       @page.chunks.first.title.should == "New!"
       @page.chunks.second.title.should == "Existing"
+    end
+    
+    it "deletes existing chunks" do
+      existing = Factory(:chunk, page: @page)
+      @page.reload.update_attributes(
+        chunks_attributes: {"0" => {
+          id: existing.id,
+          _destroy: "1"
+        }})
+      @page.should have(0).chunks  
     end
   end
 end

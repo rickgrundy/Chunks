@@ -1,11 +1,10 @@
 .section.container{id: "container_#{container.key}"}
   %h3=container.title
   
-  -if container.chunks.empty?
-    .empty_container
-      %h5 Add a chunk to get started:
-      =render partial: "available_chunks", locals: {container: container}
-    .chunks
+  .empty_container{style: container.chunks.empty? ? "" : "display: none;"}
+    %h5 Add a chunk to get started:
+    =render partial: "available_chunks", locals: {container: container}
+  .chunks
     
   -if container.chunks.present?
     .chunks

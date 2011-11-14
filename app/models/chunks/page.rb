@@ -1,7 +1,7 @@
 module Chunks
   class Page < ActiveRecord::Base
     has_many :chunks, order: :position
-    accepts_nested_attributes_for :chunks
+    accepts_nested_attributes_for :chunks, allow_destroy: true
     validates_associated :chunks, message: "are invalid (see below)"
     validates_presence_of :title, :template
     
@@ -20,15 +20,23 @@ module Chunks
     
     def chunks_attributes=(chunks_attrs)
       chunks_attrs.values.each do |attrs|
-        if attrs[:id]
-          chunk = self.chunks.find(attrs[:id])
-        else
-          chunk = attrs[:type].to_class.new(page: self)
-          self.chunks << chunk
-        end
-        chunk.update_attributes(attrs.except(:type, :id))
+        chunk = acquire_chunk(attrs)
+        chunk.update_attributes(attrs.except(:type, :id, :_destroy))
+        chunk.destroy if Boolean.parse(attrs[:_destroy])
       end
       chunks.sort_by!(&:position)
+    end
+    
+    private
+    
+    def acquire_chunk(attrs)
+      if attrs[:id]
+        return chunks.find(attrs[:id])
+      else
+        chunk = attrs[:type].to_class.new(page: self)
+        chunks << chunk
+        return chunk
+      end
     end
   end
 end

@@ -4,6 +4,7 @@
 
   -if chunk.errors.empty?
     %h4=chunk.class.title
+    
   -else
     =validation_errors(chunk, "#{chunk.class.title} is not valid")
 
@@ -12,6 +13,7 @@
       =chunks_fields.hidden_field :type
       =chunks_fields.hidden_field :container_key, class: "container_key"
       =chunks_fields.hidden_field :position, class: "position"
+      =chunks_fields.check_box :_destroy, class: "_destroy", value: false
       =render partial: "chunks/admin/chunks/#{chunk.class.partial_name}", locals: {f: chunks_fields, chunk: chunk}
       
   .clear

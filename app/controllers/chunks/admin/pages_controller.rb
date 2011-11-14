@@ -6,6 +6,10 @@ module Chunks::Admin
       @pages = @pages.where("LOWER(title) like ?", "%#{params[:q].downcase}%") if params[:q]
     end
     
+    def show
+      redirect_to edit_chunks_admin_page_path(params[:id])
+    end
+    
     def new
       @page = Chunks::Page.new(template: params[:template])
       @available_templates = Chunks.config.templates unless params[:template]

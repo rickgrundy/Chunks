@@ -47,37 +47,4 @@ describe Chunks::Admin::ChunksController do
       existing_chunk.reload.content.should == "Original content"
     end
   end
-    
-  it "destroys an existing chunk" do
-    chunk = Factory(:chunk, page: @page)
-    delete :destroy, id: chunk.id
-    response.should redirect_to edit_chunks_admin_page_path(@page)
-    @page.should have(0).chunks
-  end
-    
-  describe "reordering a list of chunks" do
-    before(:each) do
-      @a = Factory(:chunk, page: @page, title: "A")
-      @b = Factory(:chunk, page: @page, title: "B")
-      @c = Factory(:chunk, page: @page, title: "C")
-      verify_order(%w{A B C})
-    end
-    
-    def verify_order(expected_order)
-      @page = Chunks::Page.find(@page.id)
-      @page.container(:content).chunks.map(&:title).should == expected_order
-    end      
-    
-    it "moves a chunk higher in the list" do
-      put :move_higher, id: @c.id
-      response.should redirect_to edit_chunks_admin_page_path(@page)
-      verify_order(%w{A C B})
-    end  
-        
-    it "moves a chunk lower in the list" do
-      put :move_lower, id: @a.id
-      response.should redirect_to edit_chunks_admin_page_path(@page)
-      verify_order(%w{B A C})
-    end
-  end
 end

@@ -20,8 +20,6 @@ module ActionDispatch::Routing
             post :preview
           end
           member do
-            put :move_higher
-            put :move_lower
           end
         end
       end
