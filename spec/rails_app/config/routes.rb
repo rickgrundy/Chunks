@@ -1,3 +1,3 @@
 RailsApp::Application.routes.draw do
-  chunks_routes!
+  mount Chunks::Engine => "/chunks"
 end

@@ -7,7 +7,7 @@ module Chunks::Admin
     end
     
     def show
-      redirect_to edit_chunks_admin_page_path(params[:id])
+      redirect_to edit_admin_page_path(params[:id])
     end
     
     def new
@@ -16,10 +16,10 @@ module Chunks::Admin
     end
     
     def create
-      @page = Chunks::Page.new(params[:chunks_page])
+      @page = Chunks::Page.new(params[:page])
       @page.template ||= params[:template]
       if @page.save
-        redirect_to edit_chunks_admin_page_path(@page)
+        redirect_to edit_admin_page_path(@page)
       else
         @available_templates = Chunks.config.templates unless params[:template]
         render status: :error, action: "edit"
@@ -32,9 +32,9 @@ module Chunks::Admin
     
     def update
       @page = Chunks::Page.find(params[:id])
-      @page.update_attributes(params[:chunks_page])
+      @page.update_attributes(params[:page])
       if @page.save
-        redirect_to chunks_admin_pages_path
+        redirect_to admin_pages_path
       else
         render status: :error, action: "edit"
       end
