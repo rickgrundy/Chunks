@@ -89,6 +89,9 @@
   .delete {
     @include iconify(delete);
   }
+  .share {
+    @include iconify(share);
+  }
   .show_preview {
     @include iconify(preview);
   }

@@ -48,4 +48,19 @@ describe Chunks::Chunk do
       -> { chunk.position }.should raise_error Chunks::Error
     end
   end
+  
+  describe "sharing between pages" do
+    it "knows when it is shared" do
+      chunk = Factory(:chunk)
+      chunk.should_not be_shared
+      chunk.share("Shared sidebar advert").should be_instance_of Chunks::SharedChunk
+      chunk.should be_shared
+    end
+    
+    it "cannot be shared more than once" do
+      chunk = Factory(:chunk)
+      shared = chunk.share("First successful share")
+      chunk.share("Second attempted share").should == shared
+    end
+  end
 end

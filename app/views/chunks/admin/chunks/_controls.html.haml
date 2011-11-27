@@ -10,5 +10,8 @@
       
   %li=link_to "Delete", "#delete", class: "delete"
   
+  -if chunk.persisted?
+    %li=link_to "Share", share_admin_chunk_path(chunk), class: "share", method: "post"
+  
   -if chunk.previewable?
     %li=link_to "Preview", preview_admin_chunks_path, class: "show_preview"

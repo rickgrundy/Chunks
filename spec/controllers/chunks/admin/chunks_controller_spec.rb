@@ -50,4 +50,23 @@ describe Chunks::Admin::ChunksController do
       existing_chunk.reload.content.should == "Original content"
     end
   end
+  
+  describe "sharing a chunk between pages" do
+    before(:each) do
+      @chunk = Factory(:chunk)
+    end
+    
+    it "creates a new shared chunk" do
+      post :share, use_route: "chunks", id: @chunk.id, name: "A picture of a bunny"
+      @chunk.should be_shared
+      Chunks::SharedChunk.find_by_chunk_id(@chunk.id).name.should == "A picture of a bunny"
+    end
+    
+    it "returns validation errors as JSON" do
+      post :share, use_route: "chunks", id: @chunk.id, name: ""
+      response.status.should == 500
+      response.body.should == ["Name can't be blank"].to_json
+      @chunk.should_not be_shared
+    end
+  end
 end

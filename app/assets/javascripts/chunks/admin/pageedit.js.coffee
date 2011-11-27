@@ -43,6 +43,7 @@ pageedit =
       @element.find(".move_up").click => this.moveUp(); false
       @element.find(".move_down").click => this.moveDown(); false
       @element.find(".delete").click => this.delete(); false
+      # @element.find(".share").click => this.share(); false
           
     setPosition: (newPosition) -> 
       @element.find(".position").val(newPosition)
@@ -71,3 +72,6 @@ pageedit =
       @element.hide()
       @container.remove(this)
       if @newRecord then @element.remove() else @element.find("._destroy").attr("checked", true)
+      
+    share: ->
+      alert("Sharing. TODO: AJAX.")

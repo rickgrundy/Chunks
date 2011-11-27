@@ -9,6 +9,9 @@ Chunks::Engine.routes.draw do
       collection do
         post :preview
       end
+      member do
+        post :share
+      end
     end
   end
 end

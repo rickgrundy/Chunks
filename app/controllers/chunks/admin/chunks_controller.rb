@@ -15,5 +15,14 @@ module Chunks::Admin
       @chunk.attributes = chunk_params.except(:type, :id, :_destroy)      
       render layout: "chunks/admin/chunk_preview", nothing: true
     end
+    
+    def share
+      chunk = Chunks::Chunk.find(params[:id])
+      if chunk.share(params[:name]).valid?
+        render text: "Chunk has been shared."
+      else
+        render status: :error, json: chunk.shared_chunk.errors.full_messages
+      end
+    end
   end
 end
