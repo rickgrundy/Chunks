@@ -10,7 +10,6 @@ describe Chunks::Admin::ChunksController do
       page = Factory(:page)
       get :new, use_route: "chunks", page_id: page.id, type: "Chunks::BuiltIn::Html", container_key: "content"
       assigns(:chunk).should be_a Chunks::BuiltIn::Html
-      assigns(:chunk).container_key.should == :content
       assigns(:chunk).should have(0).errors
       assigns(:page).should == page
       assigns(:page).container(:content).should have(1).chunks

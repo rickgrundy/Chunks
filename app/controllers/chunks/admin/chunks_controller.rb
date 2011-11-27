@@ -2,8 +2,8 @@ module Chunks::Admin
   class ChunksController < AdminController  
     def new
       @page = Chunks::Page.find(params[:page_id])
-      @chunk = params[:type].to_class.new(page: @page, container_key: params[:container_key])      
-      @page.chunks << @chunk
+      @chunk = params[:type].to_class.new      
+      @page.chunk_usages.build(chunk: @chunk, container_key: params[:container_key])
       @chunk.errors.clear
       render layout: false
     end

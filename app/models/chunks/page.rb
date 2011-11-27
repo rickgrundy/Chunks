@@ -1,7 +1,9 @@
 module Chunks
   class Page < ActiveRecord::Base
-    has_many :chunks, order: :position
+    has_many :chunk_usages, order: :position
+    has_many :chunks, through: :chunk_usages
     accepts_nested_attributes_for :chunks, allow_destroy: true
+    
     validates_associated :chunks, message: "are invalid (see below)"
     validates_presence_of :title, :template
     
@@ -19,23 +21,37 @@ module Chunks
     end
     
     def chunks_attributes=(chunks_attrs)
-      chunks_attrs.values.each do |attrs|
-        chunk = acquire_chunk(attrs)
-        chunk.update_attributes(attrs.except(:type, :id, :_destroy))
-        chunk.destroy if Boolean.parse(attrs[:_destroy])
+      chunks_attrs.with_indifferent_access.values.each do |attrs|
+        usage = acquire_chunk_usage(attrs)
+        
+        usage.chunk.update_attributes(attrs.except(*Chunks::ChunkUsage.attribute_names, :id, :type, :_destroy))
+      
+        if usage.new_record?
+          usage.attributes = attrs.slice(*Chunks::ChunkUsage.attribute_names)
+        else
+          if Boolean.parse(attrs[:_destroy])
+            usage.destroy
+            self.chunk_usages.delete(usage)
+          else
+            usage.update_attributes(attrs.slice(*Chunks::ChunkUsage.attribute_names))
+          end
+        end
       end
-      chunks.sort_by!(&:position)
+      chunk_usages.sort_by!(&:position)
+    end
+    
+    def chunks
+      self.chunk_usages.map(&:chunk) # Don't reload from from DB, ensure modified instances remain.
     end
     
     private
     
-    def acquire_chunk(attrs)
+    def acquire_chunk_usage(attrs)
       if attrs[:id]
-        return chunks.find(attrs[:id])
+        # Doing a .where would load single usage from DB. A different instance would later be returned by .chunks. 
+        usage = self.chunk_usages.to_a.find { |u| u.chunk_id == attrs[:id].to_i }
       else
-        chunk = attrs[:type].to_class.new(page: self)
-        chunks << chunk
-        return chunk
+        self.chunk_usages.build(chunk: attrs[:type].to_class.new)
       end
     end
   end

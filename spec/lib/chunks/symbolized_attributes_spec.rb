@@ -7,7 +7,7 @@ describe Chunks::SymbolizedAttributes do
   end
   
   it "always returns an ActiveRecord attribute as a symbol" do
-    Factory(:chunk, container_key: "container_bar").container_key.should == :container_bar
+    Chunks::ChunkUsage.new(container_key: "footer_ads").container_key.should == :footer_ads
   end
   
   it "always returns an ExtraAttribute attribute as a symbol" do

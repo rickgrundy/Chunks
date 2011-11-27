@@ -22,8 +22,8 @@ describe Chunks::Page do
     
     it "splits chunks into containers" do
       page = Factory(:two_column_page)    
-      3.times { Factory(:chunk, page: page, container_key: :main_content) }
-      Factory(:chunk, page: page, container_key: :sidebar)
+      3.times { Factory(:chunk_usage, page: page, container_key: :main_content) }
+      Factory(:chunk_usage, page: page, container_key: :sidebar)
     
       page.reload
       page.container(:main_content).should have(3).chunks
@@ -43,33 +43,36 @@ describe Chunks::Page do
     end
     
     it "updates existing chunks" do
-      chunk = Factory(:chunk, page: @page)
+      usage = Factory(:chunk_usage, page: @page)
       attrs = {chunks_attributes: { "0" => {
         type: "Chunks::BuiltIn::Html",
         title: "Updated!",
-        id: chunk.id
+        id: usage.chunk.id.to_s
       }}}
-      @page.reload.should have(1).chunk
-      @page.update_attributes(attrs)
-      @page.reload.should have(1).chunk
-      chunk.reload.title.should == "Updated!"
+      @page.reload.update_attributes(attrs)
+      @page.should have(1).chunk
+      @page.chunks.first.title.should == "Updated!"
     end
     
     it "creates new chunks of specified type" do
       attrs = {chunks_attributes: { "0" => {
         type: "Chunks::BuiltIn::Html",
         content: "Valid content",
-        title: "New!"
+        title: "New!",
+        container_key: "test_content",
+        position: "1"
       }}}
-      @page.update_attributes(attrs)
-      @page.reload.should have(1).chunk
+      @page.reload.update_attributes(attrs)
+      @page.should have(1).chunk
       @page.chunks.first.should be_a Chunks::BuiltIn::Html
       @page.chunks.first.title.should == "New!"
     end   
     
     it "reorders chunks" do
-      chunk1 = Factory(:chunk, page: @page, title: "First")
-      chunk2 = Factory(:chunk, page: @page, title: "Second")
+      chunk1 = Factory(:chunk, title: "First")
+      chunk2 = Factory(:chunk, title: "Second")
+      Factory(:chunk_usage, page: @page, chunk: chunk1)
+      Factory(:chunk_usage, page: @page, chunk: chunk2)
       attrs = {chunks_attributes: {
         "0" => {
           id: chunk1.id,
@@ -83,27 +86,31 @@ describe Chunks::Page do
           type: "Chunks::BuiltIn::Html",
           content: "Valid content",
           title: "New!",
-          position: 2
+          position: 2,
+          container_key: "test_content"
         }
       }} 
       @page.reload.update_attributes(attrs).should be_true
+      @page.should have(3).chunks
       @page.chunks.first.title.should == "Second"
       @page.chunks.second.title.should == "New!"
       @page.chunks.third.title.should == "First"
     end 
     
     it "reorders new chunks with validation errors" do
-      existing = Factory(:chunk, page: @page, title: "Existing")
+      existing = Factory(:chunk, title: "Existing")
+      usage = Factory(:chunk_usage, page: @page, chunk: existing)
       attrs = {chunks_attributes: {
         "12345" => {
           type: "Chunks::BuiltIn::Html",
           content: "",
           title: "New!",
+          container_key: "test_content",
           position: 1,
           _destroy: "0"          
         },
         "0" => {
-          id: existing.id,
+          id: existing.id.to_s,
           position: 2,
           _destroy: "0"
         }
@@ -113,14 +120,15 @@ describe Chunks::Page do
       @page.chunks.second.title.should == "Existing"
     end
     
-    it "deletes existing chunks" do
-      existing = Factory(:chunk, page: @page)
+    it "removes usages for existing chunks" do
+      chunk = Factory(:chunk)
+      usage = Factory(:chunk_usage, page: @page, chunk: chunk)
       @page.reload.update_attributes(
         chunks_attributes: {"0" => {
-          id: existing.id,
+          id: chunk.id,
           _destroy: "1"
         }})
-      @page.should have(0).chunks  
+      @page.should have(0).chunk_usages
     end
   end
 end

@@ -78,14 +78,16 @@ describe Chunks::ExtraAttributes do
     
     it "works with accepts_nested_attributes_for" do
       page = Factory(:page)
-      chunk = Factory(:chunk, page: page)
+      chunk = Factory(:chunk)
+      Factory(:chunk_usage, chunk: chunk, page: page)
+      
       params = {"chunks_attributes" => {"0" => {
         "title" => "Click me",
-         "css_class" => "expandable",
-         "id" => chunk.id.to_s
+        "css_class" => "expandable",
+        "id" => chunk.id.to_s
       }}}.with_indifferent_access
-      page.reload
-      page.update_attributes(params)
+      
+      page.reload.update_attributes(params)
       page.chunks.first.title.should == "Click me"
       page.chunks.first.css_class.should == "expandable"
     end

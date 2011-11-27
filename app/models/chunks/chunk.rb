@@ -1,10 +1,10 @@
 module Chunks
   class Chunk < ActiveRecord::Base
-    include Chunks::SymbolizedAttributes
     include Chunks::ExtraAttributes
-    belongs_to :page
-    acts_as_list scope: [:page_id, :container_key]
-    symbolized_attributes :container_key
+    include Chunks::SymbolizedAttributes
+
+    has_many :chunk_usages
+    has_many :chunks, through: :chunk_usages
     
     def self.title(title=nil)
       @title = title unless title.nil?
