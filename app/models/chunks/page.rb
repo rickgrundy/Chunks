@@ -1,6 +1,6 @@
 module Chunks
   class Page < ActiveRecord::Base
-    has_many :chunk_usages, order: :position
+    has_many :chunk_usages, order: :position, autosave: true
     has_many :chunks, through: :chunk_usages
     private :chunk_usages # External users should use #chunks which know about their usage context.
     accepts_nested_attributes_for :chunks, allow_destroy: true
@@ -26,6 +26,7 @@ module Chunks
         chunk = acquire_chunk(attrs)
         chunk.update_attributes(attrs.except(:id, :type, :_destroy))
         remove_chunk(chunk) if Boolean.parse(attrs[:_destroy])
+        # chunk.usage_context.position_will_change!
       end
       chunk_usages.sort_by!(&:position)
     end

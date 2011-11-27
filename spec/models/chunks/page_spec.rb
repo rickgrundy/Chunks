@@ -102,6 +102,13 @@ describe Chunks::Page do
       @page.chunks.first.title.should == "Second"
       @page.chunks.second.title.should == "New!"
       @page.chunks.third.title.should == "First"
+      
+      @page.save!
+      @page.reload.should have(3).chunks
+      @page.chunks.first.title.should == "Second"
+      @page.chunks.second.title.should == "New!"
+      @page.chunks.third.title.should == "First"
+      
     end 
     
     it "reorders new chunks with validation errors" do
