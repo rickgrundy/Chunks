@@ -35,6 +35,13 @@ describe Chunks::Page do
       page.container(:main_content).should have(3).chunks
       page.container(:sidebar).should have(1).chunk
     end
+    
+    it "sets each chunk's usage context" do
+      page = Factory(:page)
+      usage = Factory(:chunk_usage, page: page, position: 9)
+      chunk = page.reload.container(:content).chunks.first
+      chunk.usage_context.should == usage
+    end
   end
   
   describe "updating chunks via nested attributes" do
@@ -120,15 +127,33 @@ describe Chunks::Page do
       @page.chunks.second.title.should == "Existing"
     end
     
-    it "removes usages for existing chunks" do
-      chunk = Factory(:chunk)
-      usage = Factory(:chunk_usage, page: @page, chunk: chunk)
-      @page.reload.update_attributes(
-        chunks_attributes: {"0" => {
-          id: chunk.id,
-          _destroy: "1"
-        }})
-      @page.should have(0).chunk_usages
+    describe "chunks marked for deletion" do
+      it "removes usages for existing chunks" do
+        chunk = Factory(:chunk)
+        usage = Factory(:chunk_usage, page: @page, chunk: chunk)
+        @page.reload.update_attributes(
+          chunks_attributes: {"0" => {
+            id: chunk.id,
+            _destroy: "1"
+          }})
+        @page.should have(0).chunks
+        chunk.reload.should have(0).pages
+      end
+      
+      it "does not persist new chunks" do
+        attrs = {chunks_attributes: {
+          "12345" => {
+            type: "Chunks::BuiltIn::Html",
+            content: "",
+            title: "New!",
+            container_key: "test_content",
+            position: 1,
+            _destroy: "1"
+          }
+        }}
+        @page.reload.update_attributes(attrs)
+        @page.should have(0).chunks
+      end
     end
   end
 end

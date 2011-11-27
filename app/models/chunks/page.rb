@@ -2,6 +2,7 @@ module Chunks
   class Page < ActiveRecord::Base
     has_many :chunk_usages, order: :position
     has_many :chunks, through: :chunk_usages
+    private :chunk_usages # External users should use #chunks which know about their usage context.
     accepts_nested_attributes_for :chunks, allow_destroy: true
     
     validates_associated :chunks, message: "are invalid (see below)"
@@ -22,36 +23,40 @@ module Chunks
     
     def chunks_attributes=(chunks_attrs)
       chunks_attrs.with_indifferent_access.values.each do |attrs|
-        usage = acquire_chunk_usage(attrs)
-        
-        usage.chunk.update_attributes(attrs.except(*Chunks::ChunkUsage.attribute_names, :id, :type, :_destroy))
-      
-        if usage.new_record?
-          usage.attributes = attrs.slice(*Chunks::ChunkUsage.attribute_names)
-        else
-          if Boolean.parse(attrs[:_destroy])
-            usage.destroy
-            self.chunk_usages.delete(usage)
-          else
-            usage.update_attributes(attrs.slice(*Chunks::ChunkUsage.attribute_names))
-          end
-        end
+        chunk = acquire_chunk(attrs)
+        chunk.update_attributes(attrs.except(:id, :type, :_destroy))
+        remove_chunk(chunk) if Boolean.parse(attrs[:_destroy])
       end
       chunk_usages.sort_by!(&:position)
     end
     
     def chunks
-      self.chunk_usages.map(&:chunk) # Don't reload from from DB, ensure modified instances remain.
+      # Don't reload from from DB, ensure modified instances remain.
+      chunk_usages.map do |usage|
+        chunk = usage.chunk
+        chunk.usage_context = usage
+        chunk
+      end
+    end
+    
+    def add_chunk(chunk, container_key)
+      chunk_usages.build(chunk: chunk, container_key: container_key)
+    end
+    
+    def remove_chunk(chunk)
+      chunk.usage_context.destroy
+      chunk_usages.delete(chunk.usage_context)
     end
     
     private
     
-    def acquire_chunk_usage(attrs)
+    def acquire_chunk(attrs)
       if attrs[:id]
-        # Doing a .where would load single usage from DB. A different instance would later be returned by .chunks. 
-        usage = self.chunk_usages.to_a.find { |u| u.chunk_id == attrs[:id].to_i }
+        usage = chunks.find { |u| u.id == attrs[:id].to_i }
       else
-        self.chunk_usages.build(chunk: attrs[:type].to_class.new)
+        chunk = attrs[:type].to_class.new
+        chunk.usage_context = chunk_usages.build(chunk: chunk)
+        chunk
       end
     end
   end

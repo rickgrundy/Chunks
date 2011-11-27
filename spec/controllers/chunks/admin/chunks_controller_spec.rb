@@ -19,21 +19,24 @@ describe Chunks::Admin::ChunksController do
   
   describe "previewing a single chunk" do
     it "builds a chunk from chunk params" do
-      chunk_params = {type: Chunks::BuiltIn::Text, content: "Something to preview"}
+      chunk_params = {type: Chunks::BuiltIn::Text, content: "Something to preview", container_key: "sidebar"}
       post :preview, use_route: "chunks", chunk: chunk_params
       response.should render_template "chunks/admin/chunk_preview"
-      assigns(:chunk).should be_a Chunks::BuiltIn::Text
-      assigns(:chunk).should be_a_new_record
-      assigns(:chunk).content.should == "Something to preview"
+      chunk = assigns(:chunk)
+      chunk.should be_a Chunks::BuiltIn::Text
+      chunk.should be_a_new_record
+      chunk.content.should == "Something to preview"
+      chunk.container_key.should == :sidebar
     end
     
     it "builds a chunk from page nested params to allow a subset of a form to be previewed" do
       chunk_params = {type: Chunks::BuiltIn::Text, content: "Something to preview"}
       post :preview, use_route: "chunks", page: {chunks_attributes: {"4" => chunk_params}}
       response.should render_template "chunks/admin/chunk_preview"
-      assigns(:chunk).should be_a Chunks::BuiltIn::Text
-      assigns(:chunk).should be_a_new_record
-      assigns(:chunk).content.should == "Something to preview"
+      chunk = assigns(:chunk)
+      chunk.should be_a Chunks::BuiltIn::Text
+      chunk.should be_a_new_record
+      chunk.content.should == "Something to preview"
     end
     
     it "loads and updates an existing chunk without saving" do
@@ -41,8 +44,9 @@ describe Chunks::Admin::ChunksController do
       chunk_params = {id: existing_chunk.id, type: Chunks::BuiltIn::Text, content: "Updated content"}
       post :preview, use_route: "chunks", chunk: chunk_params
       response.should render_template "chunks/admin/chunk_preview"
-      assigns(:chunk).should == existing_chunk
-      assigns(:chunk).content.should == "Updated content"
+      chunk = assigns(:chunk)
+      chunk.should == existing_chunk
+      chunk.content.should == "Updated content"
       existing_chunk.reload.content.should == "Original content"
     end
   end

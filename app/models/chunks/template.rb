@@ -19,7 +19,7 @@ module Chunks
     def self.build_containers(page)
       @container_builders.map do |builder|
         container = builder.call
-        container.chunks = page.chunk_usages.select { |u| u.container_key == container.key }.map(&:chunk)
+        container.chunks = page.chunks.select { |c| c.container_key == container.key }
         container
       end
     end

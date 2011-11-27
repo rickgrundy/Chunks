@@ -30,8 +30,22 @@ describe Chunks::Chunk do
       Factory(:chunk_usage, page: someone_elses_page, container_key: :content)
     end
     our_page.reload
-    our_page.chunk_usages.where(container_key: :content).first.position.should == 1
-    our_page.chunk_usages.where(container_key: :content).second.position.should == 2
-    our_page.chunk_usages.where(container_key: :content).third.position.should == 3
+    our_page.container(:content).chunks.first.position.should == 1
+    our_page.container(:content).chunks.second.position.should == 2
+    our_page.container(:content).chunks.third.position.should == 3
+  end
+  
+  describe "wrapping usage context when used within the scope of a page" do
+    it "exposes container_key and position" do
+      chunk = Factory(:chunk)
+      chunk.usage_context = Factory(:chunk_usage, chunk: chunk, position: 10, container_key: "test_container")
+      chunk.position.should == 10
+      chunk.container_key.should == :test_container
+    end
+    
+    it "raises an error when usage has not been set" do
+      chunk = Factory(:chunk)
+      -> { chunk.position }.should raise_error Chunks::Error
+    end
   end
 end
