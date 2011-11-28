@@ -3,7 +3,7 @@
   
   .empty_container{style: container.chunks.empty? ? "" : "display: none;"}
     %h5 Add a chunk to get started:
-    =render partial: "available_chunks", locals: {container: container}
+    =render partial: "available_chunk_types", locals: {container: container}
 
   .chunks
     -container.chunks.each do |chunk|
@@ -12,7 +12,7 @@
   .controls
     .popup_menu
       .add_new_chunk=link_to "Add a new chunk", "#addNewChunk"
-      =render partial: "available_chunks", locals: {container: container}
+      =render partial: "available_chunk_types", locals: {container: container}
       
     .popup_menu
       .include_shared_chunk=link_to "Include a shared chunk", "#includeSharedChunk"

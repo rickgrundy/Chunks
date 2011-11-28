@@ -14,7 +14,6 @@ pageedit =
       $.get link.attr("href"), (form) =>
         chunk = new pageedit.Chunk(this, $(form).find(".chunk"), true)
         @chunks.push(chunk)
-        console.log("SIZE: " + @chunks.length)
         chunk.setPosition(@chunks.length)
         @element.find(".chunks").append(chunk.element)
     

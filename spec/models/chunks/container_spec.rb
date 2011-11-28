@@ -1,17 +1,17 @@
 require_relative "../../spec_helper.rb"
 
 describe Chunks::Container do
-  describe "configuring with available chunks" do
+  describe "configuring with available chunk types" do
     it "accepts available chunks as an array or varargs" do
-      Chunks::Container.new(:test_container, Chunks::BuiltIn::Text, Chunks::BuiltIn::Html).available_chunks.size.should == 2
-      Chunks::Container.new(:test_container, [Chunks::BuiltIn::Text, Chunks::BuiltIn::Html]).available_chunks.size.should == 2
+      Chunks::Container.new(:test_container, Chunks::BuiltIn::Text, Chunks::BuiltIn::Html).available_chunk_types.size.should == 2
+      Chunks::Container.new(:test_container, [Chunks::BuiltIn::Text, Chunks::BuiltIn::Html]).available_chunk_types.size.should == 2
     end
   
     it "raises an error if a key is not provided" do
       -> { Chunks::Container.new(*Chunks.config.chunks(:all)) }.should raise_error Chunks::Error
     end
   
-    it "raises an error if something other than an available chunk is provided" do
+    it "raises an error if something other than an available chunk type is provided" do
       -> { Chunks::Container.new(:test_container, "Not", "Chunks") }.should raise_error Chunks::Error
     end
   end

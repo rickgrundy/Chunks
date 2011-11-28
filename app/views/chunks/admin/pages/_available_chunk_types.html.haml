@@ -1,0 +1,5 @@
+%ul.available_chunks
+  -container.available_chunk_types.each do |chunk_type|
+    %li{class: chunk_type.partial_name}
+      =link_to chunk_type.title, new_admin_chunk_path(page_id: @page.id, container_key: container.key, type: chunk_type), 
+        style: "background-image: url('/assets/chunks/#{chunk_type.partial_name}.png')"
