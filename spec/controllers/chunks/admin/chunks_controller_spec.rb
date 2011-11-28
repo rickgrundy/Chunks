@@ -65,7 +65,7 @@ describe Chunks::Admin::ChunksController do
     it "returns validation errors as JSON" do
       post :share, use_route: "chunks", id: @chunk.id, name: ""
       response.status.should == 500
-      response.body.should == ["Name can't be blank"].to_json
+      response.body.should include "can't be blank"
       @chunk.should_not be_shared
     end
   end

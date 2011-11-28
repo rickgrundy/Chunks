@@ -1,6 +1,7 @@
 $ -> new pageedit.Container($(container)) for container in $(".container")
   
 pageedit =
+  # Manages a list of contained chunks.
   Container: class
     constructor: (@element) ->
       @empty = @element.find(".empty_container")
@@ -13,6 +14,8 @@ pageedit =
       $.get link.attr("href"), (form) =>
         chunk = new pageedit.Chunk(this, $(form).find(".chunk"), true)
         @chunks.push(chunk)
+        console.log("SIZE: " + @chunks.length)
+        chunk.setPosition(@chunks.length)
         @element.find(".chunks").append(chunk.element)
     
     swap: (chunkA, chunkB) ->
@@ -23,7 +26,7 @@ pageedit =
       chunkA.setPosition(b+1)
       chunkB.setPosition(a+1)
       if a > b
-        chunkB.element.insertAfter(chunkA.element)
+        chunkA.element.insertBefore(chunkB.element)
       else
         chunkA.element.insertAfter(chunkB.element)
         
@@ -33,17 +36,19 @@ pageedit =
       @empty.show() if @chunks.length == 0
       
 
-
+  # Wires up all controls for a single chunk.
   Chunk: class
     constructor: (@container, @element, @newRecord=false) ->
       @title = @element.data("title")
-      @previewUrl = @element.find(".show_preview").attr("href")
+      @shareLink = @element.find(".share")
+      @previewLink = @element.find(".show_preview")
+      
       @element.find(".show_help").click => this.showHelp(); false
-      @element.find(".show_preview").click => this.showPreview(); false
       @element.find(".move_up").click => this.moveUp(); false
       @element.find(".move_down").click => this.moveDown(); false
       @element.find(".delete").click => this.delete(); false
-      # @element.find(".share").click => this.share(); false
+      @previewLink.click => this.showPreview(); false
+      @shareLink.click => this.share(); false
           
     setPosition: (newPosition) -> 
       @element.find(".position").val(newPosition)
@@ -55,7 +60,7 @@ pageedit =
   
     showPreview: ->
       @element.postToIframeDialog
-        url: @previewUrl
+        url: @previewLink.attr("href")
         title: "#{@title} Preview"
         width: 632
 
@@ -74,4 +79,11 @@ pageedit =
       if @newRecord then @element.remove() else @element.find("._destroy").attr("checked", true)
       
     share: ->
-      alert("Sharing. TODO: AJAX.")
+      new chunks.FormDialog
+        title: "Share this chunk"
+        url: @shareLink.attr("href")
+        method: "post"
+        fields: [
+          {name: "name", type: "text", value: "", required: true}
+        ]
+        success: => @shareLink.parents("li").hide()

@@ -84,3 +84,16 @@ form {
     @include floater;
   }
 }
+
+.ui-dialog form {
+  .field {
+    width: 100%;
+  }
+  .buttons {
+    text-align: right;
+    margin-top: $spacing;
+    a {
+      margin-right: $spacing;
+    }
+  }
+}

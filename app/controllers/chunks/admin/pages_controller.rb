@@ -27,17 +27,23 @@ module Chunks::Admin
     end
     
     def edit
-      @page = Chunks::Page.find(params[:id])
+      @page = retrieve_page
     end
     
     def update
-      @page = Chunks::Page.find(params[:id])
+      @page = retrieve_page
       @page.update_attributes(params[:page])
       if @page.save
         redirect_to admin_pages_path
       else
         render status: :error, action: "edit"
       end
+    end
+    
+    private
+    
+    def retrieve_page
+      Chunks::Page.includes(chunk_usages: {chunk: :shared_chunk}).where(id: params[:id]).first
     end
   end
 end

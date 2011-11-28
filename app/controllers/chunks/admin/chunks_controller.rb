@@ -21,7 +21,7 @@ module Chunks::Admin
       if chunk.share(params[:name]).valid?
         render text: "Chunk has been shared."
       else
-        render status: :error, json: chunk.shared_chunk.errors.full_messages
+        render status: :error, json: chunk.shared_chunk.errors
       end
     end
   end
