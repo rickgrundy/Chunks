@@ -11,10 +11,16 @@
 }
 
 .section.container .controls {
-  .add_chunk {
+  .add_new_chunk {
     @include linkify;
     a {
       @include iconify(chunk);
+    }
+  }
+  .include_shared_chunk {
+    @include linkify;
+    a {
+      @include iconify(share);
     }
   }
   ul.available_chunks li a {

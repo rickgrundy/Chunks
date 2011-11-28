@@ -8,7 +8,7 @@ window.chunks =
       @button = @container.find("a:first")
       @button.click => this.showMenu(); false
       @container.hoverIntent
-        timeout: 500
+        timeout: 300
         over: => this.showMenu()
         out: => @menu.hide()
       

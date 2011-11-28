@@ -11,5 +11,9 @@
       
   .controls
     .popup_menu
-      .add_chunk=link_to "Add a chunk", "#addChunk"
+      .add_new_chunk=link_to "Add a new chunk", "#addNewChunk"
       =render partial: "available_chunks", locals: {container: container}
+      
+    .popup_menu
+      .include_shared_chunk=link_to "Include a shared chunk", "#includeSharedChunk"
+      =render partial: "shared_chunks", locals: {container: container}      
