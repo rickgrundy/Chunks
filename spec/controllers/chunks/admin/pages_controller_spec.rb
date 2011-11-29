@@ -35,13 +35,22 @@ describe Chunks::Admin::PagesController do
   
   describe "editing an existing page" do
     before(:each) do
-      @page = Factory(:page)
+      @page = Factory(:two_column_page)
     end
     
     it "does not allow the template to be changed" do
       get :edit, use_route: "chunks", id: @page
       assigns(:page).should == @page
       assigns(:available_templates).should be_nil
+    end
+    
+    it "loads a page along with all chunks in correct containers" do
+      chunk = Factory(:chunk)
+      Factory(:chunk_usage, page: @page, chunk: chunk, container_key: "main_content")
+      Factory(:chunk_usage, page: @page, chunk: chunk, container_key: "sidebar")
+      get :edit, use_route: "chunks", id: @page
+      assigns(:page).container(:sidebar).should have(1).chunk
+      assigns(:page).container(:main_content).should have(1).chunk
     end
     
     it "updates a page successfully" do
