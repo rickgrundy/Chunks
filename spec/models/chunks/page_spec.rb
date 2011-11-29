@@ -56,9 +56,10 @@ describe Chunks::Page do
         title: "Updated!",
         id: usage.chunk.id.to_s
       }}}
-      @page.reload.update_attributes(attrs)
+      @page.reload.update_all_chunks(attrs)
       @page.should have(1).chunk
       @page.chunks.first.title.should == "Updated!"
+      @page.reload.chunks.first.title.should == "Updated!"
     end
     
     it "creates new chunks of specified type" do
@@ -69,7 +70,7 @@ describe Chunks::Page do
         container_key: "test_content",
         position: "1"
       }}}
-      @page.reload.update_attributes(attrs)
+      @page.reload.update_all_chunks(attrs)
       @page.should have(1).chunk
       @page.chunks.first.should be_a Chunks::BuiltIn::Html
       @page.chunks.first.title.should == "New!"
@@ -97,7 +98,7 @@ describe Chunks::Page do
           container_key: "test_content"
         }
       }} 
-      @page.reload.update_attributes(attrs).should be_true
+      @page.reload.update_all_chunks(attrs).should be_true
       @page.should have(3).chunks
       @page.chunks.first.title.should == "Second"
       @page.chunks.second.title.should == "New!"
@@ -128,7 +129,7 @@ describe Chunks::Page do
           _destroy: "0"
         }
       }} 
-      @page.reload.update_attributes(attrs).should be_false
+      @page.reload.update_all_chunks(attrs).should be_false
       @page.chunks.first.title.should == "New!"
       @page.chunks.second.title.should == "Existing"
     end
@@ -140,7 +141,7 @@ describe Chunks::Page do
           container_key: "content",
           id: shared.chunk.id.to_s
         }}}
-        @page.reload.update_attributes(attrs)
+        @page.reload.update_all_chunks(attrs)
         @page.container(:content).should have(1).chunk
         @page.container(:content).chunks.first.title.should == "Updated!"
     end
@@ -149,7 +150,7 @@ describe Chunks::Page do
       it "removes usages for existing chunks" do
         chunk = Factory(:chunk)
         usage = Factory(:chunk_usage, page: @page, chunk: chunk)
-        @page.reload.update_attributes(
+        @page.reload.update_all_chunks(
           chunks_attributes: {"0" => {
             id: chunk.id,
             _destroy: "1"
@@ -169,7 +170,7 @@ describe Chunks::Page do
             _destroy: "1"
           }
         }}
-        @page.reload.update_attributes(attrs)
+        @page.reload.update_all_chunks(attrs)
         @page.should have(0).chunks
       end
     end

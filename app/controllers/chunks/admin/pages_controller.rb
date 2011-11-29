@@ -32,8 +32,7 @@ module Chunks::Admin
     
     def update
       @page = retrieve_page
-      @page.update_attributes(params[:page])
-      if @page.save
+      if @page.update_all_chunks(params[:page])
         redirect_to admin_pages_path
       else
         render status: :error, action: "edit"

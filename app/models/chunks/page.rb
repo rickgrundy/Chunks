@@ -21,10 +21,17 @@ module Chunks
       containers.find { |c| c.key == key } || raise(Chunks::Error.new("#{template.title} pages do not have a container called '#{key}'"))
     end
     
+    def update_all_chunks(attrs)
+      self.attributes = attrs
+      return false unless self.valid?
+      self.transaction { self.save! && self.chunks.map(&:save!) }
+      true
+    end
+    
     def chunks_attributes=(chunks_attrs)
       chunks_attrs.with_indifferent_access.values.each do |attrs|
         chunk = acquire_chunk(attrs)
-        chunk.update_attributes(attrs.except(:id, :type, :_destroy))
+        chunk.attributes = attrs.except(:id, :type, :_destroy)
         remove_chunk(chunk) if Boolean.parse(attrs[:_destroy])
       end
       chunk_usages.sort_by!(&:position)
