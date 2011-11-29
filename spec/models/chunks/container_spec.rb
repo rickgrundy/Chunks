@@ -1,6 +1,10 @@
 require_relative "../../spec_helper.rb"
 
-describe Chunks::Container do
+describe Chunks::Container do  
+  it "provides a readable title" do
+    Chunks::Container.new(:test_container, *Chunks.config.chunks(:all)).title.should == "Test Container"
+  end
+    
   describe "configuring with available chunk types" do
     it "accepts available chunks as an array or varargs" do
       Chunks::Container.new(:test_container, Chunks::BuiltIn::Text, Chunks::BuiltIn::Html).available_chunk_types.size.should == 2
@@ -16,8 +20,17 @@ describe Chunks::Container do
     end
   end
   
-  it "provides a readable title" do
-    Chunks::Container.new(:test_container, *Chunks.config.chunks(:all)).title.should == "Test Container"
+  it "finds all shared chunks which match the available chunk types" do
+    html = Factory(:html_chunk)
+    text = Factory(:text_chunk)
+    Factory(:shared_chunk, chunk: text)
+    Factory(:shared_chunk, chunk: html)
+    Factory(:shared_chunk, chunk: Factory(:markdown_chunk))
+    container = Chunks::Container.new(:test_container, Chunks::BuiltIn::Text, Chunks::BuiltIn::Html)
+    container.should have(2).available_shared_chunks
+    chunks = container.available_shared_chunks.map(&:chunk)
+    chunks.should include text
+    chunks.should include html
   end
   
   it "provides a list of valid chunks for rendering" do

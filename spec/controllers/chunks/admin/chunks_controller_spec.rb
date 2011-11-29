@@ -68,5 +68,16 @@ describe Chunks::Admin::ChunksController do
       response.body.should include "can't be blank"
       @chunk.should_not be_shared
     end
+    
+    it "renders the shared new chunk for inclusion on another page" do
+      shared = Factory(:shared_chunk)
+      page = Factory(:page)
+      get :include_shared, use_route: "chunks", id: shared.chunk, page_id: page.id, container_key: "content"
+      assigns(:chunk).should be_a Chunks::BuiltIn::Text
+      assigns(:chunk).should have(0).errors
+      assigns(:page).should == page
+      assigns(:page).container(:content).should have(1).chunks
+      response.should_not render_template "layouts/chunks/admin/admin"
+    end
   end
 end

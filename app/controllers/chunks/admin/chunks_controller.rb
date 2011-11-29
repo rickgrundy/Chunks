@@ -1,11 +1,11 @@
 module Chunks::Admin
   class ChunksController < AdminController  
     def new
-      @page = Chunks::Page.find(params[:page_id])
-      @chunk = params[:type].to_class.new      
-      @page.add_chunk(@chunk, params[:container_key])
-      @chunk.errors.clear
-      render layout: false
+      render_for_page(params[:type].to_class.new)
+    end
+    
+    def include_shared
+      render_for_page(Chunks::Chunk.find(params[:id]))
     end
     
     def preview
@@ -23,6 +23,16 @@ module Chunks::Admin
       else
         render status: :error, json: chunk.shared_chunk.errors
       end
+    end
+    
+    private
+    
+    def render_for_page(chunk)
+      @chunk = chunk
+      @page = Chunks::Page.find(params[:page_id])
+      @page.add_chunk(@chunk, params[:container_key])
+      @chunk.errors.clear
+      render action: "show", layout: false
     end
   end
 end

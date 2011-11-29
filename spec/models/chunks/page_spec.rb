@@ -108,7 +108,6 @@ describe Chunks::Page do
       @page.chunks.first.title.should == "Second"
       @page.chunks.second.title.should == "New!"
       @page.chunks.third.title.should == "First"
-      
     end 
     
     it "reorders new chunks with validation errors" do
@@ -132,6 +131,18 @@ describe Chunks::Page do
       @page.reload.update_attributes(attrs).should be_false
       @page.chunks.first.title.should == "New!"
       @page.chunks.second.title.should == "Existing"
+    end
+    
+    it "adds a usage and updates included shared chunks" do
+        shared = Factory(:shared_chunk)
+        attrs = {chunks_attributes: { "0" => {
+          title: "Updated!",
+          container_key: "content",
+          id: shared.chunk.id.to_s
+        }}}
+        @page.reload.update_attributes(attrs)
+        @page.container(:content).should have(1).chunk
+        @page.container(:content).chunks.first.title.should == "Updated!"
     end
     
     describe "chunks marked for deletion" do

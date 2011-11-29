@@ -19,6 +19,10 @@ module Chunks
       @chunks = []
     end
     
+    def available_shared_chunks
+      Chunks::SharedChunk.includes(:chunk).where("chunks_chunks.type in (?)", available_chunk_types.map(&:name))
+    end
+    
     def valid_chunks
       @chunks.select(&:valid?)
     end

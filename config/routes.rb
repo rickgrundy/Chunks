@@ -12,6 +12,7 @@ Chunks::Engine.routes.draw do
       end
       member do
         post :share
+        get :include_shared
       end
     end
   end

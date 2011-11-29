@@ -39,7 +39,8 @@ module Chunks
     end
     
     def add_chunk(chunk, container_key)
-      chunk_usages.build(chunk: chunk, container_key: container_key)
+      usage = chunk_usages.build(chunk: chunk, container_key: container_key)
+      chunk.usage_context = usage
     end
     
     def remove_chunk(chunk)
@@ -51,12 +52,16 @@ module Chunks
     
     def acquire_chunk(attrs)
       if attrs[:id]
-        usage = chunks.find { |u| u.id == attrs[:id].to_i }
+        chunk = chunks.find { |u| u.id == attrs[:id].to_i }
+        if chunk.nil? # Newly included shared chunk
+          chunk = Chunks::Chunk.find(attrs[:id])
+          add_chunk(chunk, attrs[:container_key])
+        end
       else
         chunk = attrs[:type].to_class.new
         chunk.usage_context = chunk_usages.build(chunk: chunk)
-        chunk
       end
+      chunk
     end
   end
 end
