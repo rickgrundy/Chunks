@@ -29,8 +29,9 @@ module Chunks
     end
     
     def chunks_attributes=(chunks_attrs)
+      existing_chunks = chunks
       chunks_attrs.with_indifferent_access.values.each do |attrs|
-        chunk = acquire_chunk(attrs)
+        chunk = acquire_chunk(existing_chunks, attrs)
         chunk.attributes = attrs.except(:id, :type, :_destroy)
         remove_chunk(chunk) if Boolean.parse(attrs[:_destroy])
       end
@@ -45,8 +46,8 @@ module Chunks
       end
     end
     
-    def add_chunk(chunk, container_key)
-      usage = chunk_usages.build(chunk: chunk, container_key: container_key)
+    def add_chunk(chunk, container_key, position=-1)
+      usage = chunk_usages.build(chunk: chunk, container_key: container_key, position: position)
       chunk.usage_context = usage
     end
     
@@ -57,12 +58,13 @@ module Chunks
     
     private
     
-    def acquire_chunk(attrs)
+    def acquire_chunk(existing_chunks, attrs)
       if attrs[:id]
-        chunk = chunks.find { |u| u.id == attrs[:id].to_i }
-        if chunk.nil? # Newly included shared chunk
+        chunk = existing_chunks.find { |u| u.id == attrs[:id].to_i }
+        existing_chunks.delete_first_occurance(chunk)
+        if chunk.nil?
           chunk = Chunks::Chunk.find(attrs[:id])
-          add_chunk(chunk, attrs[:container_key])
+          add_chunk(chunk, attrs[:container_key], attrs[:position])
         end
       else
         chunk = attrs[:type].to_class.new

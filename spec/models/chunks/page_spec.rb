@@ -134,16 +134,42 @@ describe Chunks::Page do
       @page.chunks.second.title.should == "Existing"
     end
     
-    it "adds a usage and updates included shared chunks" do
-        shared = Factory(:shared_chunk)
+   
+    describe "including shared chunks" do    
+      before(:each) do
+        @shared = Factory(:shared_chunk)  
+      end
+   
+      it "adds a usage and updates included shared chunks" do
         attrs = {chunks_attributes: { "0" => {
           title: "Updated!",
           container_key: "content",
-          id: shared.chunk.id.to_s
+          id: @shared.chunk.id.to_s
         }}}
         @page.reload.update_all_chunks(attrs)
         @page.container(:content).should have(1).chunk
         @page.container(:content).chunks.first.title.should == "Updated!"
+      end
+     
+      it "is possible to include the same chunk multiple times" do
+        2.times { Factory(:chunk_usage, page: @page, chunk: @shared.chunk) }
+        attrs = {chunks_attributes: { "0" => {
+          container_key: "content",
+          id: @shared.chunk.id.to_s,
+          position: "1"
+        }, "1" => {
+          container_key: "content",
+          id: @shared.chunk.id.to_s,
+          position: "2"
+        }, "2" => {
+          container_key: "content",
+          id: @shared.chunk.id.to_s,
+          position: "3"          
+        }}}
+        @page.reload.update_all_chunks(attrs)
+        @page.container(:content).should have(3).chunks
+        @page.container(:content).chunks.first.should === @page.container(:content).chunks.second
+      end
     end
     
     describe "chunks marked for deletion" do

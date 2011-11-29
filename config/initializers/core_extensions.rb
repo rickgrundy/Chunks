@@ -9,3 +9,9 @@ class Boolean
     ["TRUE", "T", "YES", "Y", "1"].include?(val.to_s.strip.upcase)
   end
 end
+
+class Array
+  def delete_first_occurance(item)
+    self.delete_at(self.index(item) || self.length)
+  end
+end
