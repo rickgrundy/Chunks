@@ -1,7 +1,6 @@
 $ -> new pageedit.Container($(container)) for container in $(".container")
   
 pageedit =
-  # Manages a list of contained chunks.
   Container: class
     constructor: (@element) ->
       @empty = @element.find(".empty_container")
@@ -35,19 +34,21 @@ pageedit =
       @empty.show() if @chunks.length == 0
       
 
-  # Wires up all controls for a single chunk.
   Chunk: class
     constructor: (@container, @element, @newRecord=false) ->
       @title = @element.data("title")
+      @isShared = @element.data("is-shared")
       @shareLink = @element.find(".share")
       @previewLink = @element.find(".show_preview")
-      
+             
       @element.find(".show_help").click => this.showHelp(); false
       @element.find(".move_up").click => this.moveUp(); false
       @element.find(".move_down").click => this.moveDown(); false
       @element.find(".delete").click => this.delete(); false
       @previewLink.click => this.showPreview(); false
       @shareLink.click => this.share(); false
+      
+      this.disableWhenShared() if @isShared
           
     setPosition: (newPosition) -> 
       @element.find(".position").val(newPosition)
@@ -86,3 +87,8 @@ pageedit =
           {name: "name", type: "text", value: "", required: true}
         ]
         success: => @shareLink.parents("li").hide()
+        
+    disableWhenShared: -> 
+      @element.addClass("disabled");
+      @element.find(":input:visible").attr("disabled", true)
+      $("<span class='subtle'>(Shared between pages; may not be edited here)</span>").insertAfter(@element.find("h4"))

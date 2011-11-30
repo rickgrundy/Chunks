@@ -46,7 +46,7 @@ describe Chunks::Page do
   
   describe "updating chunks via nested attributes" do
     before(:each) do
-      @page = Factory(:page)
+      @page = Factory(:two_column_page)
     end
     
     it "updates existing chunks" do
@@ -67,7 +67,7 @@ describe Chunks::Page do
         type: "Chunks::BuiltIn::Html",
         content: "Valid content",
         title: "New!",
-        container_key: "test_content",
+        container_key: "main_content",
         position: "1"
       }}}
       @page.reload.update_all_chunks(attrs)
@@ -95,7 +95,7 @@ describe Chunks::Page do
           content: "Valid content",
           title: "New!",
           position: 2,
-          container_key: "test_content"
+          container_key: "main_content"
         }
       }} 
       @page.reload.update_all_chunks(attrs).should be_true
@@ -119,7 +119,7 @@ describe Chunks::Page do
           type: "Chunks::BuiltIn::Html",
           content: "",
           title: "New!",
-          container_key: "test_content",
+          container_key: "main_content",
           position: 1,
           _destroy: "0"          
         },
@@ -141,47 +141,56 @@ describe Chunks::Page do
       end
    
       it "adds a usage to the correct container" do
-        page = Factory(:two_column_page)
         attrs = {chunks_attributes: { 
           "0" => {
-            title: "Updated!",
             container_key: "main_content",
             id: @shared.chunk.id.to_s
           },
           "1" => {
-            title: "Updated!",
             container_key: "sidebar",
             id: @shared.chunk.id.to_s
           },
         }}
-        page.reload.update_all_chunks(attrs)
-        page.reload
-        page.container(:main_content).should have(1).chunk
-        page.container(:main_content).chunks.first.title.should == "Updated!"
-        page.container(:sidebar).should have(1).chunk
-        page.container(:sidebar).chunks.first.title.should == "Updated!"        
+        @page.reload.update_all_chunks(attrs)
+        @page.reload
+        @page.container(:main_content).should have(1).chunk
+        @page.container(:sidebar).should have(1).chunk
       end
      
       it "is possible to include the same chunk multiple times" do
         2.times { Factory(:chunk_usage, page: @page, chunk: @shared.chunk) }
         attrs = {chunks_attributes: { "0" => {
-          container_key: "content",
+          container_key: "main_content",
           id: @shared.chunk.id.to_s,
           position: "1"
         }, "1" => {
-          container_key: "content",
+          container_key: "main_content",
           id: @shared.chunk.id.to_s,
           position: "2"
         }, "2" => {
-          container_key: "content",
+          container_key: "main_content",
           id: @shared.chunk.id.to_s,
           position: "3"          
         }}}
         @page.reload.update_all_chunks(attrs)
-        @page.container(:content).should have(3).chunks
-        @page.container(:content).chunks.first.should === @page.container(:content).chunks.second
+        @page.container(:main_content).should have(3).chunks
+        @page.container(:main_content).chunks.first.should === @page.container(:main_content).chunks.second
       end
       
+      it "does not allow shared chunks to be updated" do
+        attrs = {chunks_attributes: { "0" => {
+          container_key: "content",
+          id: @shared.chunk.id.to_s,
+          position: "3",
+          container_key: "sidebar",
+          title: "ATTEMPTED UPDATE!"
+        }}}
+        @page.reload.update_all_chunks(attrs)
+        chunk = @page.chunks.first
+        chunk.container_key.should == :sidebar
+        chunk.position.should == 3
+        chunk.title.should_not == "ATTEMPTED UPDATE!"
+      end
     end
     
     describe "chunks marked for deletion" do

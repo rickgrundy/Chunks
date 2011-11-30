@@ -1,10 +1,9 @@
-.section.chunk{class: chunk.class.partial_name, "data-title" => chunk.class.title} 
+.section.chunk{class: chunk.class.partial_name, "data-title" => chunk.class.title, "data-is-shared" => chunk.shared?.to_s} 
   .controls
     =render partial: "chunks/admin/chunks/controls", locals: {chunk: chunk}
 
   -if chunk.errors.empty?
     %h4=chunk.class.title
-    
   -else
     =validation_errors(chunk, "#{chunk.class.title} is not valid")
 

@@ -32,7 +32,12 @@ module Chunks
       existing_chunks = chunks
       chunks_attrs.with_indifferent_access.values.each do |attrs|
         chunk = acquire_chunk(existing_chunks, attrs)
-        chunk.attributes = attrs.except(:id, :type, :_destroy)
+        if chunk.shared? 
+          chunk.position = attrs[:position]
+          chunk.container_key = attrs[:container_key]
+        else
+          chunk.attributes = attrs.except(:id, :type, :_destroy)
+        end
         remove_chunk(chunk) if Boolean.parse(attrs[:_destroy])
       end
       chunk_usages.sort_by!(&:position)
