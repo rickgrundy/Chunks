@@ -44,15 +44,6 @@ describe Chunks::Admin::PagesController do
       assigns(:available_templates).should be_nil
     end
     
-    it "loads a page along with all chunks in correct containers" do
-      chunk = Factory(:chunk)
-      Factory(:chunk_usage, page: @page, chunk: chunk, container_key: "main_content")
-      Factory(:chunk_usage, page: @page, chunk: chunk, container_key: "sidebar")
-      get :edit, use_route: "chunks", id: @page
-      assigns(:page).container(:sidebar).should have(1).chunk
-      assigns(:page).container(:main_content).should have(1).chunk
-    end
-    
     it "updates a page successfully" do
       put :update, use_route: "chunks", id: @page, page: {title: "A New Title"}
       response.should redirect_to admin_pages_path

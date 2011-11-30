@@ -75,21 +75,5 @@ describe Chunks::ExtraAttributes do
       Cat.new.should_not be_valid
       Cat.new(fluffiness: "Slightly").should be_valid
     end
-    
-    it "works with accepts_nested_attributes_for" do
-      page = Factory(:page)
-      chunk = Factory(:chunk)
-      Factory(:chunk_usage, chunk: chunk, page: page)
-      
-      params = {"chunks_attributes" => {"0" => {
-        "title" => "Click me",
-        "css_class" => "expandable",
-        "id" => chunk.id.to_s
-      }}}.with_indifferent_access
-      
-      page.reload.update_attributes(params)
-      page.chunks.first.title.should == "Click me"
-      page.chunks.first.css_class.should == "expandable"
-    end
   end
 end

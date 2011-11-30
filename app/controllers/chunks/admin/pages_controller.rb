@@ -27,16 +27,22 @@ module Chunks::Admin
     end
     
     def edit
-      @page = Chunks::Page.find(params[:id])
+      @page = repository.find(params[:id])
     end
     
     def update
-      @page = Chunks::Page.find(params[:id])
-      if @page.update_all_chunks(params[:page])
+      @page = repository.find(params[:id])
+      if repository.update(@page, params[:page])
         redirect_to admin_pages_path
       else
         render status: :error, action: "edit"
       end
+    end
+    
+    private
+
+    def repository
+      @repository ||= Chunks::PageRepository.new
     end
   end
 end
