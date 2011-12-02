@@ -5,15 +5,16 @@ Chunks::Engine.routes.draw do
   namespace :admin do
     root to: "home#index", as: "home"
     resources :users        
-    resources :pages  
+    resources :pages 
     resources :chunks do
       collection do
         post :preview
       end
       member do
         post :share
-        get :include_shared
+        get :include
       end
     end
+    resources :shared_chunks
   end
 end

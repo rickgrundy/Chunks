@@ -1,0 +1,12 @@
+@import "chunks/common";
+@import "chunks/theme";
+
+
+#shared_chunks {
+  li {
+    margin-top: $spacing;
+    a {
+      @include iconify(chunk);
+    }
+  }  
+}

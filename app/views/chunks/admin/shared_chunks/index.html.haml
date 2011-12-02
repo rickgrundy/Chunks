@@ -1,0 +1,7 @@
+#shared_chunks
+  %ul
+    -@shared_chunks.each do |shared|
+      %li{class: shared.chunk.class.partial_name}
+        =link_to shared.name, edit_admin_shared_chunk_path(shared),
+          style: "background-image: url('/assets/chunks/#{shared.chunk.class.partial_name}.png')"
+        .subtle="(Appears on #{pluralize(shared.chunk.pages.size, 'page')})"

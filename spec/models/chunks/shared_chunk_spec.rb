@@ -11,4 +11,15 @@ describe Chunks::SharedChunk do
       Factory.build(:shared_chunk, name: "Name!").should_not be_valid
     end
   end
+  
+  describe "unsharing" do
+    before(:each) do
+      @shared_chunk = Factory(:shared_chunk)
+    end
+    
+    it "destroys itself" do
+      @shared_chunk.unshare
+      @shared_chunk.should be_destroyed
+    end
+  end
 end

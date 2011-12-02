@@ -18,9 +18,9 @@ describe Chunks::Admin::ChunksController do
   end
   
   describe "previewing a single chunk" do
-    it "builds a chunk from chunk params" do
-      chunk_params = {type: Chunks::BuiltIn::Text, content: "Something to preview", container_key: "sidebar"}
-      post :preview, use_route: "chunks", chunk: chunk_params
+    it "builds a chunk from shared chunk params" do
+      shared_chunk_params = {chunk_attributes: {type: Chunks::BuiltIn::Text, content: "Something to preview", container_key: "sidebar"}}
+      post :preview, use_route: "chunks", shared_chunk: shared_chunk_params
       response.should render_template "chunks/admin/chunk_preview"
       chunk = assigns(:chunk)
       chunk.should be_a Chunks::BuiltIn::Text
@@ -72,7 +72,7 @@ describe Chunks::Admin::ChunksController do
     it "renders the shared new chunk for inclusion on another page" do
       shared = Factory(:shared_chunk)
       page = Factory(:page)
-      get :include_shared, use_route: "chunks", id: shared.chunk, page_id: page.id, container_key: "content"
+      get :include, use_route: "chunks", id: shared.chunk, page_id: page.id, container_key: "content"
       assigns(:chunk).should be_a Chunks::BuiltIn::Text
       assigns(:chunk).should have(0).errors
       assigns(:page).should == page

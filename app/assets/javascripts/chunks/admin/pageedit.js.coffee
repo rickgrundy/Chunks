@@ -1,4 +1,5 @@
-$ -> new pageedit.Container($(container)) for container in $(".container")
+$ -> new pageedit.Container($(container)) for container in $("#page_edit .container")
+$ -> new pageedit.Chunk(undefined, $(chunk)) for chunk in $("#chunk_edit .chunk")
   
 pageedit =
   Container: class

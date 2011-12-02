@@ -1,5 +1,6 @@
 Factory.define :chunk, class: Chunks::BuiltIn::Text do |chunk|
-  chunk.content       { "This is a Text Chunk" }
+  chunk.title   { "Title From Factory" }    
+  chunk.content { "This is a Text Chunk" }
 end
 
 Factory.define(:text_chunk, parent: :chunk, class: Chunks::BuiltIn::Text) {}

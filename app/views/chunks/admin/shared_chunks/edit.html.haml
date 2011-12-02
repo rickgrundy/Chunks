@@ -1,0 +1,31 @@
+-page_title "Edit #{@shared_chunk.name || 'Unnamed Chunk'}"
+
+#chunk_edit 
+  =form_for [:admin, @shared_chunk], html: {multipart: true} do |f|
+    =validation_errors(@shared_chunk)
+    
+    .section
+      .field.req
+        =f.label :name, "Shared Name"
+        =f.text_field :name
+        
+    .section.chunk{class: @shared_chunk.chunk.class.partial_name, "data-title" => @shared_chunk.chunk.class.title, "data-is-shared" => true}         
+      .controls
+        %h5 This chunk…
+        %ul
+          %li=link_to "Show help", "#help", class: "show_help"
+          -if @shared_chunk.chunk.previewable?
+            %li=link_to "Preview", preview_admin_chunks_path, class: "show_preview"
+      
+      =validation_errors(@shared_chunk.chunk)
+          
+      .form
+        =f.fields_for :chunk, @shared_chunk.chunk do |chunk_fields|
+          =render partial: "chunks/admin/chunks/#{@shared_chunk.chunk.class.partial_name}", locals: {f: chunk_fields, chunk: @shared_chunk.chunk}
+            
+    .form_controls
+      .subtle="Appears on #{pluralize(@shared_chunk.chunk.pages.size, 'page')}"
+      =link_to "Unshare", admin_shared_chunk_path(@shared_chunk), method: "delete", confirm: "Are you sure you want to unshare \"#{@shared_chunk.name}\"? It will remain on any pages where it is currently used but will no longer be centrally editable."
+      .buttons
+        =cancel_link(admin_shared_chunks_path)
+        =f.submit "Update Shared Chunk", disable_with: "Saving…"
