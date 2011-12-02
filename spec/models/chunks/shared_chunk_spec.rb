@@ -21,5 +21,15 @@ describe Chunks::SharedChunk do
       @shared_chunk.unshare
       @shared_chunk.should be_destroyed
     end
+    
+    it "replaces any additional usages on pages with clones" do
+      usage_1 = Factory(:chunk_usage, chunk: @shared_chunk.chunk)
+      usage_2 = Factory(:chunk_usage, chunk: @shared_chunk.chunk)
+      @shared_chunk.unshare
+      usage_1.reload.chunk.should === @shared_chunk.chunk
+      usage_2.reload.chunk.should_not === @shared_chunk.chunk
+      usage_2.chunk.title.should == @shared_chunk.chunk.title
+      usage_2.chunk.content.should == @shared_chunk.chunk.content
+    end
   end
 end
