@@ -3,6 +3,7 @@ module Chunks
     has_many :chunk_usages, order: :position, autosave: true
     has_many :chunks, through: :chunk_usages
     private :chunk_usages # External users should always use #chunks.
+    accepts_nested_attributes_for :chunks
     
     validates_associated :chunks, message: "are invalid (see below)"
     validates_presence_of :title, :template

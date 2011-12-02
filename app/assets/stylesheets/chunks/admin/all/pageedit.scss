@@ -99,6 +99,9 @@
   .share {
     @include iconify(share);
   }
+  .unshare {
+    @include iconify(unshare);
+  }  
   .show_preview {
     @include iconify(preview);
   }

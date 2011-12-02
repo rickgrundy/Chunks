@@ -12,7 +12,8 @@
       =chunks_fields.hidden_field :type
       =chunks_fields.hidden_field :container_key, class: "container_key"
       =chunks_fields.hidden_field :position, class: "position"
-      =chunks_fields.check_box :_destroy, class: "_destroy", value: false
+      =chunks_fields.check_box :_destroy, class: "meta_field _destroy", value: false
+      =chunks_fields.check_box :_unshare, class: "meta_field _unshare", value: false      
       =render partial: "chunks/admin/chunks/#{chunk.class.partial_name}", locals: {f: chunks_fields, chunk: chunk}
       
   .clear

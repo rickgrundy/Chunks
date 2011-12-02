@@ -8,9 +8,7 @@ module Chunks
     validates_uniqueness_of :name
     
     def unshare
-      self.chunk.chunk_usages.to_a.from(1).each do |usage|
-        usage.chunk = self.chunk.class.new(self.chunk.clone.attributes)
-      end
+      self.chunk.chunk_usages.to_a.from(1).each(&:unshare)
       self.transaction { self.chunk.chunk_usages.each(&:save) && self.destroy }
     end
   end

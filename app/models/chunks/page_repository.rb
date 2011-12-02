@@ -21,6 +21,9 @@ module Chunks
         if Boolean.parse(attrs.delete(:_destroy))
           page.remove_chunk(chunk)
         else
+          if Boolean.parse(attrs.delete(:_unshare))
+            chunk = chunk.usage_context.unshare
+          end
           update_chunk(chunk, attrs)
         end
       end

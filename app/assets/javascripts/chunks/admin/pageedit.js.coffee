@@ -46,10 +46,11 @@ pageedit =
       @element.find(".move_up").click => this.moveUp(); false
       @element.find(".move_down").click => this.moveDown(); false
       @element.find(".delete").click => this.delete(); false
+      @element.find(".unshare").click => this.unshare(); false
       @previewLink.click => this.showPreview(); false
       @shareLink.click => this.share(); false
       
-      this.disableWhenShared() if @isShared
+      this.disable() if @isShared
           
     setPosition: (newPosition) -> 
       @element.find(".position").val(newPosition)
@@ -79,6 +80,13 @@ pageedit =
       @container.remove(this)
       if @newRecord then @element.remove() else @element.find("._destroy").attr("checked", true)
       
+    unshare: ->
+      return unless confirm "Are you sure you want to unshare \"#{@title}\"? It will be customizable for this page but will no longer be centrally editable."
+      @isShared = false
+      @element.find(".unshare").parents("li").remove()
+      @element.find("._unshare").attr("checked", true)
+      this.enable()
+      
     share: ->
       new chunks.FormDialog
         title: "Share this chunk"
@@ -87,9 +95,12 @@ pageedit =
         fields: [
           {name: "name", type: "text", value: "", required: true}
         ]
-        success: => @shareLink.parents("li").hide()
+        success: => @shareLink.parents("li").remove()
         
-    disableWhenShared: -> 
-      @element.addClass("disabled");
-      @element.find(":input:visible").attr("disabled", true)
-      $("<span class='subtle'>(Shared between pages; may not be edited here)</span>").insertAfter(@element.find("h4"))
+    disable: -> 
+      @element.addClass("disabled").find(":input:visible").attr("disabled", true)
+      $("<span class='sharedMessage subtle'>(Shared between pages; may not be edited here)</span>").insertAfter(@element.find("h4"))
+        
+    enable: ->
+      @element.find(".sharedMessage").remove()
+      @element.removeClass("disabled").find(":input:visible").removeAttr("disabled")

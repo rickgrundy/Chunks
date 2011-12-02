@@ -41,5 +41,9 @@ module Chunks
     def shared?
       shared_chunk.present?
     end
+    
+    def _unshare
+      false
+    end
   end
 end

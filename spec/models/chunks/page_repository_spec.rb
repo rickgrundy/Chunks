@@ -193,5 +193,21 @@ describe Chunks::Page do
         @page.should have(0).chunks
       end
     end
+    
+    describe "chunks marked for unsharing" do
+      it "replaces the shared chunk with a clone" do
+        shared = Factory(:shared_chunk)
+        usage = Factory(:chunk_usage, page: @page, chunk: shared.chunk)
+        attrs = {chunks_attributes: {"0" => {
+          id: shared.chunk.id,
+          _unshare: "1",
+          container_key: "main_content"
+        }}}
+        @repository.update(@page.reload, attrs).should be_true
+        @page.should have(1).chunks
+        @page.chunks.first.should_not === shared.chunk
+        @page.reload.chunks.first.should_not === shared.chunk
+      end
+    end
   end
 end
