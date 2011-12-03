@@ -10,10 +10,12 @@
       =render partial: "chunks/admin/chunks/chunk", locals: {f: f, chunk: chunk}
       
   .controls
-    .popup_menu
-      .add_new_chunk=link_to "Add a new chunk", "#addNewChunk"
-      =render partial: "available_chunk_types", locals: {container: container}
+    -if container.available_chunk_types.present?
+      .popup_menu
+        .add_new_chunk=link_to "Add a new chunk", "#addNewChunk"
+        =render partial: "available_chunk_types", locals: {container: container}
       
-    .popup_menu
-      .include_shared_chunk=link_to "Include a shared chunk", "#includeSharedChunk"
-      =render partial: "shared_chunks", locals: {container: container}      
+    -if container.available_shared_chunks.present?
+      .popup_menu
+        .include_shared_chunk=link_to "Include a shared chunk", "#includeSharedChunk"
+        =render partial: "shared_chunks", locals: {container: container}      
