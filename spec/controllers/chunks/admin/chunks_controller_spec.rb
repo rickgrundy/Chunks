@@ -2,12 +2,12 @@ require_relative "../../../spec_helper.rb"
 
 describe Chunks::Admin::ChunksController do
   before(:each) do
-    @page = Factory(:page)  
+    @page = FactoryGirl.create(:page)  
   end
   
   describe "creating a new chunk" do
     it "renders just the form for a new chunk with a specified type and container" do
-      page = Factory(:page)
+      page = FactoryGirl.create(:page)
       get :new, use_route: "chunks", page_id: page.id, type: "Chunks::BuiltIn::Html", container_key: "content"
       assigns(:chunk).should be_a Chunks::BuiltIn::Html
       assigns(:chunk).should have(0).errors
@@ -40,7 +40,7 @@ describe Chunks::Admin::ChunksController do
     end
     
     it "loads and updates an existing chunk without saving" do
-      existing_chunk = Factory(:chunk, content: "Original content")
+      existing_chunk = FactoryGirl.create(:chunk, content: "Original content")
       chunk_params = {id: existing_chunk.id, type: Chunks::BuiltIn::Text, content: "Updated content"}
       post :preview, use_route: "chunks", chunk: chunk_params
       response.should render_template "chunks/admin/chunk_preview"
@@ -53,7 +53,7 @@ describe Chunks::Admin::ChunksController do
   
   describe "sharing a chunk between pages" do
     before(:each) do
-      @chunk = Factory(:chunk)
+      @chunk = FactoryGirl.create(:chunk)
     end
     
     it "creates a new shared chunk" do
@@ -70,8 +70,8 @@ describe Chunks::Admin::ChunksController do
     end
     
     it "renders the shared new chunk for inclusion on another page" do
-      shared = Factory(:shared_chunk)
-      page = Factory(:page)
+      shared = FactoryGirl.create(:shared_chunk)
+      page = FactoryGirl.create(:page)
       get :include, use_route: "chunks", id: shared.chunk, page_id: page.id, container_key: "content"
       assigns(:chunk).should be_a Chunks::BuiltIn::Text
       assigns(:chunk).should have(0).errors

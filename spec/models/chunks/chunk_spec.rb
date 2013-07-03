@@ -18,16 +18,16 @@ describe Chunks::Chunk do
   end
   
   it "raises an error if a container which does not exist is requested" do
-    -> { Factory(:page).container(:not_real) }.should raise_error Chunks::Error
+    -> { FactoryGirl.create(:page).container(:not_real) }.should raise_error Chunks::Error
   end
   
   it "acts as list within its page and container" do
-    our_page = Factory(:page)
-    someone_elses_page = Factory(:page)    
+    our_page = FactoryGirl.create(:page)
+    someone_elses_page = FactoryGirl.create(:page)    
     3.times do 
-      Factory(:chunk_usage, page: our_page, container_key: :content)
-      Factory(:chunk_usage, page: our_page, container_key: :other)
-      Factory(:chunk_usage, page: someone_elses_page, container_key: :content)
+      FactoryGirl.create(:chunk_usage, page: our_page, container_key: :content)
+      FactoryGirl.create(:chunk_usage, page: our_page, container_key: :other)
+      FactoryGirl.create(:chunk_usage, page: someone_elses_page, container_key: :content)
     end
     our_page.reload
     our_page.container(:content).chunks.first.position.should == 1
@@ -37,28 +37,28 @@ describe Chunks::Chunk do
   
   describe "wrapping usage context when used within the scope of a page" do
     it "exposes container_key and position" do
-      chunk = Factory(:chunk)
-      chunk.usage_context = Factory(:chunk_usage, chunk: chunk, position: 10, container_key: "test_container")
+      chunk = FactoryGirl.create(:chunk)
+      chunk.usage_context = FactoryGirl.create(:chunk_usage, chunk: chunk, position: 10, container_key: "test_container")
       chunk.position.should == 10
       chunk.container_key.should == :test_container
     end
     
     it "raises an error when usage has not been set" do
-      chunk = Factory(:chunk)
+      chunk = FactoryGirl.create(:chunk)
       -> { chunk.position }.should raise_error Chunks::Error
     end
   end
   
   describe "sharing between pages" do
     it "knows when it is shared" do
-      chunk = Factory(:chunk)
+      chunk = FactoryGirl.create(:chunk)
       chunk.should_not be_shared
       chunk.share("Shared sidebar advert").should be_instance_of Chunks::SharedChunk
       chunk.should be_shared
     end
     
     it "cannot be shared more than once" do
-      chunk = Factory(:chunk)
+      chunk = FactoryGirl.create(:chunk)
       shared = chunk.share("First successful share")
       chunk.share("Second attempted share").should == shared
     end

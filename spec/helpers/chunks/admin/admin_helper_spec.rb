@@ -3,12 +3,12 @@ require_relative "../../../spec_helper.rb"
 describe Chunks::Admin::AdminHelper do
   describe "rendering validation errors" do
     before(:each) do
-      @untitled_page = Factory.build(:page)
+      @untitled_page = FactoryGirl.build(:page)
       @untitled_page.title = nil
     end
     
     it "does not render anything if model is valid" do
-      helper.validation_errors(Factory(:page)).should be_nil
+      helper.validation_errors(FactoryGirl.create(:page)).should be_nil
     end
     
     it "does not render anything if model has not been validated" do

@@ -3,13 +3,13 @@ require_relative "../../spec_helper.rb"
 describe Chunks::Page do
   before(:each) do
     @repository = Chunks::PageRepository.new
-    @page = Factory(:two_column_page)
+    @page = FactoryGirl.create(:two_column_page)
   end
   
   it "loads a page with all chunks in correct containers" do
-    chunk = Factory(:chunk)
-    Factory(:chunk_usage, page: @page, chunk: chunk, container_key: "main_content")
-    Factory(:chunk_usage, page: @page, chunk: chunk, container_key: "sidebar")
+    chunk = FactoryGirl.create(:chunk)
+    FactoryGirl.create(:chunk_usage, page: @page, chunk: chunk, container_key: "main_content")
+    FactoryGirl.create(:chunk_usage, page: @page, chunk: chunk, container_key: "sidebar")
     loaded_page = @repository.find(@page.id)
     loaded_page.container(:sidebar).should have(1).chunk
     loaded_page.container(:main_content).should have(1).chunk
@@ -22,7 +22,7 @@ describe Chunks::Page do
     
   describe "updating chunks" do    
     it "updates existing chunks" do
-      usage = Factory(:chunk_usage, page: @page)
+      usage = FactoryGirl.create(:chunk_usage, page: @page)
       attrs = {chunks_attributes: { "0" => {
         type: "Chunks::BuiltIn::Html",
         title: "Updated!",
@@ -49,10 +49,10 @@ describe Chunks::Page do
     end   
     
     it "reorders chunks" do
-      chunk1 = Factory(:chunk, title: "First")
-      chunk2 = Factory(:chunk, title: "Second")
-      Factory(:chunk_usage, page: @page, chunk: chunk1)
-      Factory(:chunk_usage, page: @page, chunk: chunk2)
+      chunk1 = FactoryGirl.create(:chunk, title: "First")
+      chunk2 = FactoryGirl.create(:chunk, title: "Second")
+      FactoryGirl.create(:chunk_usage, page: @page, chunk: chunk1)
+      FactoryGirl.create(:chunk_usage, page: @page, chunk: chunk2)
       attrs = {chunks_attributes: {
         "0" => {
           id: chunk1.id,
@@ -84,8 +84,8 @@ describe Chunks::Page do
     end 
     
     it "reorders new chunks with validation errors" do
-      existing = Factory(:chunk, title: "Existing")
-      usage = Factory(:chunk_usage, page: @page, chunk: existing)
+      existing = FactoryGirl.create(:chunk, title: "Existing")
+      usage = FactoryGirl.create(:chunk_usage, page: @page, chunk: existing)
       attrs = {chunks_attributes: {
         "12345" => {
           type: "Chunks::BuiltIn::Html",
@@ -109,7 +109,7 @@ describe Chunks::Page do
    
     describe "including shared chunks" do    
       before(:each) do
-        @shared = Factory(:shared_chunk)  
+        @shared = FactoryGirl.create(:shared_chunk)  
       end
    
       it "adds a usage to the correct container" do
@@ -130,7 +130,7 @@ describe Chunks::Page do
       end
      
       it "is possible to include the same chunk multiple times" do
-        2.times { Factory(:chunk_usage, page: @page, chunk: @shared.chunk) }
+        2.times { FactoryGirl.create(:chunk_usage, page: @page, chunk: @shared.chunk) }
         attrs = {chunks_attributes: { "0" => {
           container_key: "main_content",
           id: @shared.chunk.id.to_s,
@@ -167,8 +167,8 @@ describe Chunks::Page do
     
     describe "chunks marked for deletion" do
       it "removes usages for existing chunks" do
-        chunk = Factory(:chunk)
-        usage = Factory(:chunk_usage, page: @page, chunk: chunk)
+        chunk = FactoryGirl.create(:chunk)
+        usage = FactoryGirl.create(:chunk_usage, page: @page, chunk: chunk)
         attrs = {chunks_attributes: {"0" => {
           id: chunk.id,
           _destroy: "1"
@@ -196,8 +196,8 @@ describe Chunks::Page do
     
     describe "chunks marked for unsharing" do
       it "replaces the shared chunk with a clone" do
-        shared = Factory(:shared_chunk)
-        usage = Factory(:chunk_usage, page: @page, chunk: shared.chunk)
+        shared = FactoryGirl.create(:shared_chunk)
+        usage = FactoryGirl.create(:chunk_usage, page: @page, chunk: shared.chunk)
         attrs = {chunks_attributes: {"0" => {
           id: shared.chunk.id,
           _unshare: "1",

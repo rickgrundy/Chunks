@@ -29,7 +29,7 @@ describe Chunks::Template do
   end
   
   it "provides containers to pages which use the template" do
-    page = Factory(:page, template: "Chunks::Template::TwoContainers")
+    page = FactoryGirl.create(:page, template: "Chunks::Template::TwoContainers")
     page.should have(2).containers
     
     page.containers.first.key.should == :first

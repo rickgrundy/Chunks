@@ -17,10 +17,13 @@ module Chunks
     def update_chunks(page, chunks_attrs)
       existing_chunks = page.chunks
       chunks_attrs.values.each do |attrs|
-        chunk = acquire_chunk(page, existing_chunks, attrs)
         if Boolean.parse(attrs.delete(:_destroy))
-          page.remove_chunk(chunk)
+          if attrs[:id]
+              chunk = acquire_chunk(page, existing_chunks, attrs)
+              page.remove_chunk(chunk) 
+          end
         else
+          chunk = acquire_chunk(page, existing_chunks, attrs)
           if Boolean.parse(attrs.delete(:_unshare))
             chunk = chunk.usage_context.unshare
           end

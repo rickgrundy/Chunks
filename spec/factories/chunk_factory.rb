@@ -1,20 +1,22 @@
-Factory.define :chunk, class: Chunks::BuiltIn::Text do |chunk|
-  chunk.title   { "Title From Factory" }    
+FactoryGirl.define do
+  factory :chunk, class: Chunks::BuiltIn::Text do |chunk|
+  chunk.title   { "Title From FactoryGirl" }    
   chunk.content { "This is a Text Chunk" }
-end
+  end
 
-Factory.define(:text_chunk, parent: :chunk, class: Chunks::BuiltIn::Text) {}
-Factory.define(:html_chunk, parent: :chunk, class: Chunks::BuiltIn::Html) {}
-Factory.define(:markdown_chunk, parent: :chunk, class: Chunks::BuiltIn::MarkdownWiki) {}
+  factory(:text_chunk, parent: :chunk, class: Chunks::BuiltIn::Text) {}
+  factory(:html_chunk, parent: :chunk, class: Chunks::BuiltIn::Html) {}
+  factory(:markdown_chunk, parent: :chunk, class: Chunks::BuiltIn::MarkdownWiki) {}
 
-Factory.define :chunk_usage, class: Chunks::ChunkUsage do |usage|
-  usage.chunk         { Factory(:chunk) }
-  usage.page          { Factory(:page) }
-  usage.container_key { :content }
-end
+  factory :chunk_usage, class: Chunks::ChunkUsage do |usage|
+    usage.chunk         { FactoryGirl.create(:chunk) }
+    usage.page          { FactoryGirl.create(:page) }
+    usage.container_key { :content }
+  end
 
-Factory.sequence(:shared_count)
-Factory.define :shared_chunk, class: Chunks::SharedChunk do |shared|
-  shared.chunk  { Factory(:chunk) }
-  shared.name   { "Factory shared ##{Factory.next(:shared_count)}" }
+  sequence(:shared_count)
+  factory :shared_chunk, class: Chunks::SharedChunk do |shared|
+    shared.chunk  { FactoryGirl.create(:chunk) }
+    shared.name   { "FactoryGirl shared ##{generate(:shared_count)}" }
+  end
 end

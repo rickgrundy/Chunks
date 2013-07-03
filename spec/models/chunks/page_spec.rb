@@ -13,21 +13,21 @@ describe Chunks::Page do
   
   describe "validation" do
     it "requires a title and template" do
-      Factory.build(:page, title: nil).should_not be_valid
-      Factory.build(:page, template: nil).should_not be_valid
+      FactoryGirl.build(:page, title: nil).should_not be_valid
+      FactoryGirl.build(:page, template: nil).should_not be_valid
     end
   end
   
   describe "managing containers" do
     it "returns an empty list of containers before a template has been set" do
-      page = Factory.build(:page, template: nil)
+      page = FactoryGirl.build(:page, template: nil)
       page.should have(0).containers
     end
     
     it "splits chunks into containers" do
-      page = Factory(:two_column_page)    
-      3.times { Factory(:chunk_usage, page: page, container_key: :main_content) }
-      Factory(:chunk_usage, page: page, container_key: :sidebar)
+      page = FactoryGirl.create(:two_column_page)    
+      3.times { FactoryGirl.create(:chunk_usage, page: page, container_key: :main_content) }
+      FactoryGirl.create(:chunk_usage, page: page, container_key: :sidebar)
     
       page.reload
       page.container(:main_content).should have(3).chunks
@@ -41,8 +41,8 @@ describe Chunks::Page do
     end
     
     it "sets each chunk's usage context" do
-      page = Factory(:page)
-      usage = Factory(:chunk_usage, page: page, position: 9)
+      page = FactoryGirl.create(:page)
+      usage = FactoryGirl.create(:chunk_usage, page: page, position: 9)
       chunk = page.reload.container(:content).chunks.first
       chunk.usage_context.should == usage
     end

@@ -21,11 +21,11 @@ describe Chunks::Container do
   end
   
   it "finds all shared chunks which match the available chunk types" do
-    html = Factory(:html_chunk)
-    text = Factory(:text_chunk)
-    Factory(:shared_chunk, chunk: text)
-    Factory(:shared_chunk, chunk: html)
-    Factory(:shared_chunk, chunk: Factory(:markdown_chunk))
+    html = FactoryGirl.create(:html_chunk)
+    text = FactoryGirl.create(:text_chunk)
+    FactoryGirl.create(:shared_chunk, chunk: text)
+    FactoryGirl.create(:shared_chunk, chunk: html)
+    FactoryGirl.create(:shared_chunk, chunk: FactoryGirl.create(:markdown_chunk))
     container = Chunks::Container.new(:test_container, Chunks::BuiltIn::Text, Chunks::BuiltIn::Html)
     container.should have(2).available_shared_chunks
     chunks = container.available_shared_chunks.map(&:chunk)
@@ -35,8 +35,8 @@ describe Chunks::Container do
   
   it "provides a list of valid chunks for rendering" do
     container = Chunks::Container.new(:test_container, Chunks.config.chunks(:all))
-    container.chunks << valid_chunk = Factory.build(:chunk)
-    container.chunks << invalid_chunk = Factory.build(:chunk, content: nil)
+    container.chunks << valid_chunk = FactoryGirl.build(:chunk)
+    container.chunks << invalid_chunk = FactoryGirl.build(:chunk, content: nil)
     container.valid_chunks.should include valid_chunk
     container.valid_chunks.should_not include invalid_chunk
   end

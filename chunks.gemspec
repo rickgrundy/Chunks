@@ -29,9 +29,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'acts_as_list'
   s.add_dependency 'redcarpet'
   
-  s.add_development_dependency "rails"
+  s.add_development_dependency "rails", "~>3.2"
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails"
-  s.add_development_dependency "factory_girl"
+  s.add_development_dependency "factory_girl", "~>3"
   s.add_development_dependency "cucumber-rails"
 end

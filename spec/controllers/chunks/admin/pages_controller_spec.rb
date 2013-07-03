@@ -35,7 +35,7 @@ describe Chunks::Admin::PagesController do
   
   describe "editing an existing page" do
     before(:each) do
-      @page = Factory(:two_column_page)
+      @page = FactoryGirl.create(:two_column_page)
     end
     
     it "does not allow the template to be changed" do
@@ -64,17 +64,17 @@ describe Chunks::Admin::PagesController do
     end
     
     it "filters by template" do
-      Factory(:page, template: Chunks::BuiltIn::Template::TwoColumn.to_s)
-      Factory(:page, template: Chunks::BuiltIn::Template::SingleColumn.to_s)
-      Factory(:page, template: Chunks::BuiltIn::Template::TwoColumn.to_s)
+      FactoryGirl.create(:page, template: Chunks::BuiltIn::Template::TwoColumn.to_s)
+      FactoryGirl.create(:page, template: Chunks::BuiltIn::Template::SingleColumn.to_s)
+      FactoryGirl.create(:page, template: Chunks::BuiltIn::Template::TwoColumn.to_s)
       get :index, use_route: "chunks", template: Chunks::BuiltIn::Template::TwoColumn
       assigns(:pages).should have(2).things
     end
     
     it "searches by name" do
-      Factory(:page, title: "Test page 1")
-      Factory(:page, title: "Test PAGE 2")
-      Factory(:page, title: "Test ???? 3")
+      FactoryGirl.create(:page, title: "Test page 1")
+      FactoryGirl.create(:page, title: "Test PAGE 2")
+      FactoryGirl.create(:page, title: "Test ???? 3")
       get :index, use_route: "chunks", q: "page"
       assigns(:pages).should have(2).things
     end
